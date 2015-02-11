@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Pedro Gracia <lasarux@neuroomante.com>, 2011-2013
+# Pedro Gracia <pedro.gracia@impulzia.com>, 2010-2011
+msgid ""
+msgstr ""
+"Project-Id-Version: Modoboa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-11 14:23+0100\n"
+"PO-Revision-Date: 2013-10-01 09:56+0000\n"
+"Last-Translator: Pedro Gracia <lasarux@neuroomante.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/modoboa/language/"
+"es/)\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: app_settings.py:15
+msgid "General"
+msgstr "General"
+#: app_settings.py:18
+msgid "Automatic reply timeout"
+msgstr "Tiempo de caducidad de respuestas automáticas"
+#: app_settings.py:21
+msgid "Timeout in seconds between two auto-replies to the same recipient"
+msgstr "Tiempo en segundos entre dos autorespuestas para el mismo emisor"
+#: app_settings.py:27
+#, fuzzy
+msgid "Default subject"
+msgstr "Editor por defecto"
+#: app_settings.py:28
+msgid "I'm off"
+msgstr ""
+#: app_settings.py:30
+msgid ""
+"Default subject used when an auto-reply message is created automatically"
+msgstr ""
+#: app_settings.py:37
+#, fuzzy
+msgid "Default content"
+msgstr "Editor por defecto"
+#: app_settings.py:39
+#, python-format
+msgid ""
+"I'm currently off. I'll answer as soon as I come back.\n"
+"\n"
+"Best regards,\n"
+"%(name)s\n"
+msgstr ""
+#: app_settings.py:45
+#, python-format
+msgid ""
+"Default content used when an auto-reply message is created automatically. "
+"The '%(name)s' macro will be replaced by the user's full name."
+msgstr ""
+#: app_settings.py:62
+msgid "Invalid syntax"
+msgstr "Sintaxis inválida"
+#: forms.py:17
+msgid "From"
+msgstr "Desde"
+#: forms.py:19
+#, fuzzy
+msgid "Activate your auto reply from this date"
+msgstr "Activar su autorespuesta hasta esta fecha"
+#: forms.py:25
+msgid "Until"
+msgstr "Hasta"
+#: forms.py:27
+msgid "Activate your auto reply until this date"
+msgstr "Activar su autorespuesta hasta esta fecha"
+#: forms.py:70 forms.py:76
+msgid "This date is over"
+msgstr "Esta fecha ha pasado"
+#: forms.py:80
+#, fuzzy
+msgid "Must be greater than start date"
+msgstr "es mayor que"
+#: general_callbacks.py:36
+#: templates/modoboa_postfix_autoreply/autoreply.html:2
+msgid "Auto-reply message"
+msgstr "Mensaje de autorespuesta"
+#: general_callbacks.py:120
+msgid "Enable auto-reply"
+msgstr ""
+#: general_callbacks.py:123
+msgid "Enable or disable Postfix auto-reply"
+msgstr ""
+#: models.py:30
+msgid "subject"
+msgstr "asunto"
+#: models.py:31
+msgid "The subject that will appear in sent emails"
+msgstr "El asunto que aparecerán en los correos enviados"
+#: models.py:34
+msgid "content"
+msgstr "contenido"
+#: models.py:35
+msgid "The content that will appear in sent emails"
+msgstr "El contenido que aparecerá en los emails enviados"
+#: models.py:38
+msgid "enabled"
+msgstr "activado"
+#: models.py:39
+msgid "Activate/Deactivate your auto reply"
+msgstr "Activar/desactivar su autorespuesta"
+#: modo_extension.py:31
+msgid "Auto-reply (vacation) functionality using Postfix"
+msgstr "Funcionalidad de autorespuesta (vacaciones) usando Postfix"
+#: modo_extension.py:36
+msgid "Automatic replies"
+msgstr "Contestaciones automáticas"
+#: templates/modoboa_postfix_autoreply/autoreply.html:2
+msgid "Define a message to automatically send when you are off"
+msgstr ""
+"Defina el mensaje que automáticamente se enviará cuando esté desconectado"
+#: templates/modoboa_postfix_autoreply/autoreply.html:9
+msgid "Update"
+msgstr "Actualizar"
+#: views.py:37
+msgid "Auto reply message updated successfully."
+msgstr "El mensaje de autorespuesta se ha actualizado correctamente."
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy
+#, fuzzy

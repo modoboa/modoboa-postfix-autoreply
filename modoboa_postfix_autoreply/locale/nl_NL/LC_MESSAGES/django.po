@@ -1,0 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andrew <buddha@cryptolab.net>, 2014
+# TuxBrother <vrijwilligerswerk@wij.rs>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Modoboa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-11 14:23+0100\n"
+"PO-Revision-Date: 2014-12-31 11:37+0000\n"
+"Last-Translator: TuxBrother <vrijwilligerswerk@wij.rs>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/"
+"modoboa/language/nl_NL/)\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: app_settings.py:15
+msgid "General"
+msgstr "Algemeen"
+#: app_settings.py:18
+msgid "Automatic reply timeout"
+msgstr "Automatisch antwoorden timeout"
+#: app_settings.py:21
+msgid "Timeout in seconds between two auto-replies to the same recipient"
+msgstr "Timeout in seconden tussen twee auto-antwoorden naar dezelfde afzender"
+#: app_settings.py:27
+msgid "Default subject"
+msgstr "Standaard onderwerp"
+#: app_settings.py:28
+msgid "I'm off"
+msgstr "Ik ben niet aanwezig"
+#: app_settings.py:30
+msgid ""
+"Default subject used when an auto-reply message is created automatically"
+msgstr ""
+"Standaard onderwerp gebruikt wanneer een automatisch antwoord automatisch is "
+"aangemaakt"
+#: app_settings.py:37
+msgid "Default content"
+msgstr "Standaard inhoud"
+#: app_settings.py:39
+#, python-format
+msgid ""
+"I'm currently off. I'll answer as soon as I come back.\n"
+"\n"
+"Best regards,\n"
+"%(name)s\n"
+msgstr ""
+"Momenteel ben ik niet aanwezig. Ik zal antwoorden zodra ik terug kom.\n"
+"\n"
+"Met vriendelijke groet,\n"
+"%(name)s\n"
+#: app_settings.py:45
+#, python-format
+msgid ""
+"Default content used when an auto-reply message is created automatically. "
+"The '%(name)s' macro will be replaced by the user's full name."
+msgstr ""
+"Standaard inhoud gebruikt wanneer een automatisch antwoord bericht "
+"automatisch is aangemaakt. De '%(name)s' macro zal vervangen worden door de "
+"naam van de gebruiker."
+#: app_settings.py:62
+msgid "Invalid syntax"
+msgstr "Ongeldige zinsbouw"
+#: forms.py:17
+msgid "From"
+msgstr "Van"
+#: forms.py:19
+msgid "Activate your auto reply from this date"
+msgstr "Activeer uw auto-antwoord vanaf deze datum"
+#: forms.py:25
+msgid "Until"
+msgstr "Tot"
+#: forms.py:27
+msgid "Activate your auto reply until this date"
+msgstr "Activeer uw auto-antwoord tot deze datum"
+#: forms.py:70 forms.py:76
+msgid "This date is over"
+msgstr "Deze datum is over"
+#: forms.py:80
+msgid "Must be greater than start date"
+msgstr "De datum moet in de toekomst vanaf de startdatum liggen"
+#: general_callbacks.py:36
+#: templates/modoboa_postfix_autoreply/autoreply.html:2
+msgid "Auto-reply message"
+msgstr "Auto-antwoord bericht"
+#: general_callbacks.py:120
+msgid "Enable auto-reply"
+msgstr "Activeer auto-antwoord"
+#: general_callbacks.py:123
+msgid "Enable or disable Postfix auto-reply"
+msgstr "Activeer of Deactiveer Postfix auto-antwoord"
+#: models.py:30
+msgid "subject"
+msgstr "onderwerp"
+#: models.py:31
+msgid "The subject that will appear in sent emails"
+msgstr "Het onderwerp dat zal verschijnen in verstuurde mails"
+#: models.py:34
+msgid "content"
+msgstr "inhoud"
+#: models.py:35
+msgid "The content that will appear in sent emails"
+msgstr "De inhoud die zal verschijnen in versuurde mails"
+#: models.py:38
+msgid "enabled"
+msgstr "actief"
+#: models.py:39
+msgid "Activate/Deactivate your auto reply"
+msgstr "Activeer/Deactiveer uw auto-antwoord"
+#: modo_extension.py:31
+msgid "Auto-reply (vacation) functionality using Postfix"
+msgstr "Auto-antwoord (vakantiebericht) functionaliteit dmv. Postfix"
+#: modo_extension.py:36
+msgid "Automatic replies"
+msgstr "Automatisch antwoorden"
+#: templates/modoboa_postfix_autoreply/autoreply.html:2
+msgid "Define a message to automatically send when you are off"
+msgstr ""
+"Maak een bericht dat automatisch verstuurd word wanneer u niet aanwezig bent"
+#: templates/modoboa_postfix_autoreply/autoreply.html:9
+msgid "Update"
+msgstr "Toepassen"
+#: views.py:37
+msgid "Auto reply message updated successfully."
+msgstr "Auto antwoord bericht successvol aangepast."

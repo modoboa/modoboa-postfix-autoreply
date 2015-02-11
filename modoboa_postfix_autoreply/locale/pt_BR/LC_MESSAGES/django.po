@@ -1,0 +1,134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# csmk, 2014
+# Paulino Michelazzo <paulino@michelazzo.com.br>, 2014
+# Rafael Barretto Alves <ch3yd@hotmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Modoboa\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-02-11 14:23+0100\n"
+"PO-Revision-Date: 2014-12-13 09:10+0000\n"
+"Last-Translator: Paulino Michelazzo <paulino@michelazzo.com.br>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
+"modoboa/language/pt_BR/)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: app_settings.py:15
+msgid "General"
+msgstr "Geral"
+#: app_settings.py:18
+msgid "Automatic reply timeout"
+msgstr "Tempo de resposta automática"
+#: app_settings.py:21
+msgid "Timeout in seconds between two auto-replies to the same recipient"
+msgstr ""
+"Timeout em segundos entre duas respostas automáticas para o mesmo "
+"destinatário"
+#: app_settings.py:27
+msgid "Default subject"
+msgstr "Assunto padrão"
+#: app_settings.py:28
+msgid "I'm off"
+msgstr "Estou fora"
+#: app_settings.py:30
+msgid ""
+"Default subject used when an auto-reply message is created automatically"
+msgstr ""
+"Assunto padrão usado quando uma mensagem de auto-resposta é criada "
+"automaticamente"
+#: app_settings.py:37
+msgid "Default content"
+msgstr "Conteúdo padrão"
+#: app_settings.py:39
+#, python-format
+msgid ""
+"I'm currently off. I'll answer as soon as I come back.\n"
+"\n"
+"Best regards,\n"
+"%(name)s\n"
+msgstr ""
+"Eu estou atualmente fora e responderei assim que retornar.\n"
+"\n"
+"Saudações,\n"
+"%(name)s\n"
+#: app_settings.py:45
+#, python-format
+msgid ""
+"Default content used when an auto-reply message is created automatically. "
+"The '%(name)s' macro will be replaced by the user's full name."
+msgstr ""
+"Conteúdo padrão usado quando uma mensagem de auto-resposta é criada "
+"automaticamente. A macro '%(name)s' será trocada pelo nome completo do "
+"usuário."
+#: app_settings.py:62
+msgid "Invalid syntax"
+msgstr "Sintaxe inválida"
+#: forms.py:17
+msgid "From"
+msgstr "De"
+#: forms.py:19
+msgid "Activate your auto reply from this date"
+msgstr "Ativar sua resposta automática desta data"
+#: forms.py:25
+msgid "Until"
+msgstr "Até"
+#: forms.py:27
+msgid "Activate your auto reply until this date"
+msgstr "Ativar auto resposta até essa data"
+#: forms.py:70 forms.py:76
+msgid "This date is over"
+msgstr "Esta data já passou"
+#: forms.py:80
+msgid "Must be greater than start date"
+msgstr "Deve ser maior que a data de início"
+#: general_callbacks.py:36
+#: templates/modoboa_postfix_autoreply/autoreply.html:2
+msgid "Auto-reply message"
+msgstr "Mensagem de auto resposta"
+#: general_callbacks.py:120
+msgid "Enable auto-reply"
+msgstr "Habilitar resposta automática"
+#: general_callbacks.py:123
+msgid "Enable or disable Postfix auto-reply"
+msgstr "Habilitar ou desabilitar resposta automática do Postfix"
+#: models.py:30
+msgid "subject"
+msgstr "assunto"
+#: models.py:31
+msgid "The subject that will appear in sent emails"
+msgstr "O assunto que aparecerá nos e-mails enviados"
+#: models.py:34
+msgid "content"
+msgstr "conteúdo"
+#: models.py:35
+msgid "The content that will appear in sent emails"
+msgstr "O conteúdo que parecerá nos e-mails enviados"
+#: models.py:38
+msgid "enabled"
+msgstr "ativado"
+#: models.py:39
+msgid "Activate/Deactivate your auto reply"
+msgstr "Ativar/Desativar sua resposta automática"
+#: modo_extension.py:31
+msgid "Auto-reply (vacation) functionality using Postfix"
+msgstr "Funcionalidade de auto resposta (modo férias) utilizando Postfix"
+#: modo_extension.py:36
+msgid "Automatic replies"
+msgstr "Respostas automáticas"
+#: templates/modoboa_postfix_autoreply/autoreply.html:2
+msgid "Define a message to automatically send when you are off"
+msgstr ""
+"Defina uma mensagem para enviar automaticamente quando você estiver ausente"
+#: templates/modoboa_postfix_autoreply/autoreply.html:9
+msgid "Update"
+msgstr "Atualizar"
+#: views.py:37
+msgid "Auto reply message updated successfully."
+msgstr "Resposta automática atualizada com sucesso."
