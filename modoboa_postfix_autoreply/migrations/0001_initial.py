@@ -20,6 +20,7 @@ class Migration(migrations.Migration):
                 ('autoreply_address', models.CharField(max_length=255)),
             ],
             options={
+                'db_table': 'postfix_autoreply_alias',
             },
             bases=(models.Model,),
         ),
@@ -31,6 +32,7 @@ class Migration(migrations.Migration):
                 ('sender', models.CharField(max_length=254)),
             ],
             options={
+                'db_table': 'postfix_autoreply_arhistoric',
             },
             bases=(models.Model,),
         ),
@@ -46,6 +48,7 @@ class Migration(migrations.Migration):
                 ('mbox', models.ForeignKey(to='modoboa_admin.Mailbox')),
             ],
             options={
+                'db_table': 'postfix_autoreply_armessage',
             },
             bases=(models.Model,),
         ),
@@ -57,6 +60,7 @@ class Migration(migrations.Migration):
                 ('method', models.CharField(max_length=255)),
             ],
             options={
+                'db_table': 'postfix_autoreply_transport',
             },
             bases=(models.Model,),
         ),
