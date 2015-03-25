@@ -13,6 +13,7 @@ from modoboa.lib.email_utils import split_mailbox, sendmail_simple
 from modoboa_admin.models import Mailbox
 
 from ...models import ARmessage, ARhistoric
+from ...modo_extension import PostfixAutoreply
 
 
 def send_autoreply(sender, mailbox, armessage):
@@ -54,6 +55,7 @@ class Command(BaseCommand, CloseConnectionMixin):
             raise CommandError(
                 "usage: ./manage.py autoreply <sender> <recipient ...>")
 
+        PostfixAutoreply.load()
         sender = args[0]
         for fulladdress in args[1:]:
             address, domain = split_mailbox(fulladdress)
