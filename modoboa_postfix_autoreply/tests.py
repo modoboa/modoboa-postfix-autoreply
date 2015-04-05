@@ -1,10 +1,11 @@
 """modoboa-postfix-autoreply unit tests."""
 
 from django.core.urlresolvers import reverse
+from django.test import TestCase
 
 from modoboa.core.models import User
 from modoboa.lib.tests import ModoTestCase
-from modoboa.lib.test_utils import MapFilesTestCase as BaseTestCase
+from modoboa.lib.test_utils import MapFilesTestCaseMixin
 
 from modoboa_admin import factories
 from modoboa_admin.models import (
@@ -127,7 +128,7 @@ class FormTestCase(ModoTestCase):
     #     self.assertTrue(arm.fromdate)
 
 
-class MapFilesTestCase(BaseTestCase):
+class MapFilesTestCase(MapFilesTestCaseMixin, TestCase):
 
     """Test case for modoboa_postfix_autoreply."""
 
