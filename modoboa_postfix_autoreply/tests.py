@@ -1,7 +1,10 @@
+"""modoboa-postfix-autoreply unit tests."""
+
 from django.core.urlresolvers import reverse
 
 from modoboa.core.models import User
 from modoboa.lib.tests import ModoTestCase
+from modoboa.lib.test_utils import MapFilesTestCase as BaseTestCase
 
 from modoboa_admin import factories
 from modoboa_admin.models import (
@@ -122,3 +125,15 @@ class FormTestCase(ModoTestCase):
     #     self.assertTrue(arm.enabled)
     #     self.assertFalse(arm.untildate)
     #     self.assertTrue(arm.fromdate)
+
+
+class MapFilesTestCase(BaseTestCase):
+
+    """Test case for modoboa_postfix_autoreply."""
+
+    extension = "modoboa_postfix_autoreply"
+
+    MAP_FILES = [
+        "sql-autoreplies-transport.cf",
+        "sql-autoreplies.cf"
+    ]
