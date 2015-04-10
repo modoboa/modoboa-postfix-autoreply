@@ -10,3 +10,6 @@ class TestRunner(TestRunnerMixin, unittest.TestCase):
     """The tests runner."""
 
     extension = "modoboa_postfix_autoreply"
+    dependencies = [
+        "modoboa_admin"
+    ]
