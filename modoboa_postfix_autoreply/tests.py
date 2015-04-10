@@ -27,7 +27,7 @@ class EventsTestCase(ModoTestCase):
             "stepid": 'step2'
         }
         self.ajax_post(
-            reverse("admin:domain_add"), values
+            reverse("modoboa_admin:domain_add"), values
         )
         trans = Transport.objects.get(domain='autoreply.domain.tld')
 
@@ -35,7 +35,7 @@ class EventsTestCase(ModoTestCase):
         dom = Domain.objects.get(name="test.com")
         trans = Transport.objects.get(domain='autoreply.test.com')
         self.ajax_post(
-            reverse("admin:domain_delete", args=[dom.id]),
+            reverse("modoboa_admin:domain_delete", args=[dom.id]),
             {}
         )
         with self.assertRaises(Transport.DoesNotExist):
@@ -47,7 +47,7 @@ class EventsTestCase(ModoTestCase):
         }
         dom = Domain.objects.get(name="test.com")
         self.ajax_post(
-            reverse("admin:domain_change", args=[dom.id]),
+            reverse("modoboa_admin:domain_change", args=[dom.id]),
             values
         )
         trans = Transport.objects.get(domain='autoreply.test.fr')
@@ -66,7 +66,7 @@ class EventsTestCase(ModoTestCase):
             'stepid': 'step2', 'autoreply': 'no'
         }
         self.ajax_post(
-            reverse("admin:account_add"), values
+            reverse("modoboa_admin:account_add"), values
         )
         al = Alias.objects.get(full_address='tester@test.com')
         self.assertEqual(
@@ -76,7 +76,7 @@ class EventsTestCase(ModoTestCase):
     def test_mailbox_deleted_event(self):
         account = User.objects.get(username="user@test.com")
         self.ajax_post(
-            reverse("admin:account_delete", args=[account.id]),
+            reverse("modoboa_admin:account_delete", args=[account.id]),
             {}
         )
         with self.assertRaises(Alias.DoesNotExist):
@@ -95,7 +95,7 @@ class EventsTestCase(ModoTestCase):
         }
         account = User.objects.get(username="user@test.com")
         self.ajax_post(
-            reverse("admin:account_change", args=[account.id]),
+            reverse("modoboa_admin:account_change", args=[account.id]),
             values
         )
         with self.assertRaises(Alias.DoesNotExist):
