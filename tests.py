@@ -12,5 +12,4 @@ class TestRunner(TestRunnerMixin, unittest.TestCase):
     extension = "modoboa_postfix_autoreply"
     dependencies = [
         "modoboa_admin",
-        "modoboa_admin_limits",
     ]
