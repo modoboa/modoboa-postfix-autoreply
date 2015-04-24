@@ -39,10 +39,10 @@ def menu(target, user):
 
 @events.observe("DomainCreated")
 def onDomainCreated(user, domain):
-    transport = Transport()
-    transport.domain = "autoreply.%s" % domain.name
-    transport.method = "autoreply:"
-    transport.save()
+    """Create a Transport record for the created domain."""
+    Transport.objects.get_or_create(
+        domain="autoreply.{}".format(domain.name), method="autoreply:"
+    )
 
 
 @events.observe("DomainModified")
