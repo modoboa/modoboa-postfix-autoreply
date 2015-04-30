@@ -1,2 +1,1 @@
 modoboa-admin
-rfc6266

@@ -57,7 +57,7 @@ def read(fname):
 
 setup(
     name="modoboa-postfix-autoreply",
-    version='1.0.2',
+    version='1.0.1',
     url='http://modoboa.org/',
     license='MIT',
     description="Away message editor for Modoboa (postfix compatible)",
