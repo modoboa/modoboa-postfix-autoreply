@@ -13,12 +13,14 @@ from .models import ARmessage
 
 class ARmessageForm(forms.ModelForm):
 
+    """Form to define an auto-reply message."""
+
     fromdate = forms.DateTimeField(
         label=ugettext_lazy('From'),
         required=False,
         help_text=ugettext_lazy("Activate your auto reply from this date"),
         widget=forms.TextInput(
-            attrs={'class': 'datefield form-control', 'readonly': 'readonly'}
+            attrs={'class': 'datefield form-control'}
         )
     )
     untildate = forms.DateTimeField(
@@ -26,7 +28,7 @@ class ARmessageForm(forms.ModelForm):
         required=False,
         help_text=ugettext_lazy("Activate your auto reply until this date"),
         widget=forms.TextInput(
-            attrs={'class': 'datefield form-control', 'readonly': 'readonly'}
+            attrs={'class': 'datefield form-control'}
         )
     )
     subject = forms.CharField(
