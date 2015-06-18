@@ -24,12 +24,14 @@ class EventsTestCase(ModoTestCase):
     def test_domain_created_event(self):
         values = {
             "name": "domain.tld", "quota": 100, "create_dom_admin": "no",
-            "stepid": 'step2'
+            "stepid": 'step3', "type": "domain"
         }
         self.ajax_post(
             reverse("modoboa_admin:domain_add"), values
         )
-        trans = Transport.objects.get(domain='autoreply.domain.tld')
+        self.assertTrue(
+            Transport.objects.filter(domain='autoreply.domain.tld').exists()
+        )
 
     def test_domain_deleted_event(self):
         dom = Domain.objects.get(name="test.com")
@@ -43,7 +45,8 @@ class EventsTestCase(ModoTestCase):
 
     def test_domain_modified_event(self):
         values = {
-            "name": "test.fr", "quota": 100, "enabled": True
+            "name": "test.fr", "quota": 100, "enabled": True,
+            "type": "domain"
         }
         dom = Domain.objects.get(name="test.com")
         self.ajax_post(
