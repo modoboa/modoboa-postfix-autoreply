@@ -19,7 +19,7 @@ from ...models import ARmessage, ARhistoric
 from ...modo_extension import PostfixAutoreply
 
 logger = logging.getLogger()
-logger.addHandler(SysLogHandler(address='/dev/log'))
+logger.addHandler(SysLogHandler(address="/dev/log"))
 logger.setLevel(logging.ERROR)
 
 
@@ -42,10 +42,8 @@ def send_autoreply(sender, mailbox, armessage):
                                   timezone.get_default_timezone())
         if lastar.last_sent + delta > now:
             logger.debug(
-                'autoreply no mail send because delta (%s) < timetout (%s)' % (
-                    delta,
-                    timeout
-                )
+                "no autoreply message sent because delta (%s) < timetout (%s)"
+                % (delta, timeout)
             )
             sys.exit(0)
 
@@ -55,26 +53,26 @@ def send_autoreply(sender, mailbox, armessage):
         lastar.sender = sender
 
     logger.debug(
-        'autoreply message send to %s' % mailbox.user.encoded_address)
+        "autoreply message sent to %s" % mailbox.user.encoded_address)
     sendmail_simple(mailbox.user.encoded_address, sender, armessage.subject,
-                    armessage.content.encode('utf-8'))
+                    armessage.content.encode("utf-8"))
 
     lastar.last_sent = datetime.datetime.now()
     lastar.save()
 
 
 class Command(BaseCommand, CloseConnectionMixin):
-    args = '<sender> <recipient ...>'
-    help = 'Send autoreply emails'
+    args = "<sender> <recipient ...>"
+    help = "Send autoreply emails"
 
     option_list = BaseCommand.option_list + (
         make_option(
-            '--debug', '-d', action='store_true', dest='debug', default=False
+            "--debug", "-d", action="store_true", dest="debug", default=False
         ),
     )
 
     def handle(self, *args, **options):
-        if options['debug']:
+        if options["debug"]:
             logger.setLevel(logging.DEBUG)
 
         if len(args) < 2:
