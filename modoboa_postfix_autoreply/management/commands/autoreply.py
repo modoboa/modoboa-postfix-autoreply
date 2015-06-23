@@ -42,8 +42,8 @@ def send_autoreply(sender, mailbox, armessage):
                                   timezone.get_default_timezone())
         if lastar.last_sent + delta > now:
             logger.debug(
-                "no autoreply message sent because delta (%s) < timetout (%s)"
-                % (delta, timeout)
+                "no autoreply message sent because delta (%s) < timetout (%s)",
+                delta, timeout
             )
             sys.exit(0)
 
@@ -76,13 +76,13 @@ class Command(BaseCommand, CloseConnectionMixin):
             logger.setLevel(logging.DEBUG)
 
         if len(args) < 2:
-            logger.debug("autoreply %s" % " ".join(args))
+            logger.debug("autoreply %s", " ".join(args))
 
             raise CommandError(
                 "usage: ./manage.py autoreply <sender> <recipient ...>")
 
         logger.debug(
-            "autoreply sender=%s recipient=%s" % (args[0], ",".join(args[1:]))
+            "autoreply sender=%s recipient=%s", args[0], ",".join(args[1:])
         )
 
         PostfixAutoreply().load()
@@ -94,7 +94,7 @@ class Command(BaseCommand, CloseConnectionMixin):
                     address=address, domain__name=domain)
             except Mailbox.DoesNotExist:
                 msg = "Unknown recipient %s" % (fulladdress)
-                logger.debug("autoreply %s" % msg)
+                logger.debug("autoreply %s", msg)
                 continue
             try:
                 armessage = ARmessage.objects.get(mbox=mbox.id, enabled=True)
