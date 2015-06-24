@@ -11,17 +11,15 @@ for the group.
 To make Postfix use this feature, you need to update your
 configuration files as follows:
 
+In ``/etc/postfix//sql-aliases.cf``, append at the end of query line ::
+
+  query = .... UNION (SELECT concat(full_address, ',', autoreply_address) FROM postfix_autoreply_alias WHERE full_address='%s')
+
+
 ``/etc/postfix/main.cf``::
 
   transport_maps = <driver>:/etc/postfix/sql-autoreplies-transport.cf
-  virtual_alias_maps = <driver>:/etc/postfix/sql-aliases.cf
-          <driver>:/etc/postfix/sql-domain-aliases-mailboxes.cf,
-          <driver>:/etc/postfix/sql-autoreplies.cf,
-          <driver>:/etc/postfix/sql-catchall-aliases.cf
 
-.. note::
-
-   The order used to define alias maps is important, please respect it
 
 ``/etc/postfix/master.cf``::
 
