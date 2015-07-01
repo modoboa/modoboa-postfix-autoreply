@@ -111,24 +111,28 @@ class FormTestCase(ModoTestCase):
     def setUp(self):
         super(FormTestCase, self).setUp()
         factories.populate_database()
+        self.clt.logout()
+        self.clt.login(username="user@test.com", password="toto")
 
-    # def test_set_autoreply(self):
-    #     self.clt.get(
-    #         reverse('modoboa.core.views.user.index')
-    #     )
-    #     values = {
-    #         'subject': 'test', 'content': "I'm off", "enabled": True
-    #     }
-    #     self.ajax_post(
-    #         reverse('modoboa.extensions.postfix_autoreply.views.autoreply'),
-    #         values
-    #     )
-    #     account = User.objects.get(username="user@test.com")
-    #     arm = ARmessage.objects.get(mbox=account.mailbox_set.all()[0])
-    #     self.assertEqual(arm.subject, 'test')
-    #     self.assertTrue(arm.enabled)
-    #     self.assertFalse(arm.untildate)
-    #     self.assertTrue(arm.fromdate)
+    def test_set_autoreply(self):
+        values = {
+            'subject': 'test', 'content': "I'm off", "enabled": True
+        }
+        self.ajax_post(reverse('autoreply'), values)
+        account = User.objects.get(username="user@test.com")
+        arm = ARmessage.objects.get(mbox=account.mailbox_set.first())
+        self.assertEqual(arm.subject, 'test')
+        self.assertTrue(arm.enabled)
+        self.assertFalse(arm.untildate)
+        self.assertTrue(arm.fromdate)
+
+    def test_set_autoreply_in_past(self):
+        """Create an autoreply with from date expired."""
+        values = {
+            'subject': 'test', 'content': "I'm off", "enabled": True,
+            "fromdate": "2014-01-01 00:00:00"
+        }
+        self.ajax_post(reverse('autoreply'), values)
 
 
 class MapFilesTestCase(MapFilesTestCaseMixin, TestCase):
