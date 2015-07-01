@@ -85,8 +85,34 @@ class Command(BaseCommand, CloseConnectionMixin):
             "autoreply sender=%s recipient=%s", args[0], ",".join(args[1:])
         )
 
-        PostfixAutoreply().load()
+        # Mailing list filter based on
+        # https://tools.ietf.org/html/rfc5230#page-7
         sender = args[0]
+
+        sender_localpart = split_mailbox(sender.lower())[0]
+        if (
+            (sender_localpart in ('mailer-daemon', 'listserv', 'majordomo')) or
+            (sender_localpart.startswith('owner-')) or
+            (sender_localpart.endswith('-request'))
+        ):
+            logger.debug("Skip auto reply, this mail comes from mailing list")
+            sys.exit(0)
+
+        for line in sys.stdin:
+            line = line.strip("\n")
+            if not line:
+                break
+
+            if (
+                (line == "Precedence: bulk") or
+                (line == "X-Mailer: PHPMailer") or
+                line.startswith('List-')
+            ):
+                logger.debug(
+                    "Skip auto reply, this mail comes from mailing list")
+                sys.exit(0)
+
+        PostfixAutoreply().load()
         for fulladdress in args[1:]:
             address, domain = split_mailbox(fulladdress)
             try:
