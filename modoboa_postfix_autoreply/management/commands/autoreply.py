@@ -122,7 +122,7 @@ class Command(BaseCommand, CloseConnectionMixin):
             logger.debug("Skip auto reply, this mail comes from mailing list")
             sys.exit(0)
 
-        content = StringIO()
+        content = StringIO.StringIO()
         for line in fileinput.input([]):
             content.write(line)
         content.seek(0)
