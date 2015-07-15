@@ -1,6 +1,8 @@
 modoboa-postfix-autoreply
 =========================
 
+|travis| |landscape|
+
 Away message editor for Modoboa (postfix compatible).
 
 Installation
