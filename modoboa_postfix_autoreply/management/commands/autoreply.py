@@ -1,17 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
-import sys
+
 import datetime
+import email
+from email.mime.text import MIMEText
+import fileinput
 import logging
 from logging.handlers import SysLogHandler
 from optparse import make_option
+import StringIO
+import smtplib
+import sys
 
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
 from modoboa.core.management.commands import CloseConnectionMixin
 from modoboa.lib import parameters
-from modoboa.lib.email_utils import split_mailbox, sendmail_simple
+from modoboa.lib.email_utils import split_mailbox, set_email_headers
 
 from modoboa_admin.models import Mailbox
 
@@ -23,7 +29,8 @@ logger.addHandler(SysLogHandler(address="/dev/log"))
 logger.setLevel(logging.ERROR)
 
 
-def send_autoreply(sender, mailbox, armessage):
+def send_autoreply(sender, mailbox, armessage, original_msg):
+    """Send an autoreply message."""
     if armessage.fromdate > timezone.now():
         return
 
@@ -52,10 +59,27 @@ def send_autoreply(sender, mailbox, armessage):
         lastar.armessage = armessage
         lastar.sender = sender
 
+    msg = MIMEText(armessage.content.encode("utf-8"), _charset="utf-8")
+    set_email_headers(
+        msg, "Auto: {}".format(armessage.subject),
+        mailbox.user.encoded_address, sender
+    )
+    msg["Auto-Submitted"] = "auto-replied"
+    message_id = original_msg.get("Message-ID")
+    if message_id:
+        msg["In-Reply-To"] = message_id
+        msg["References"] = message_id
+
+    try:
+        s = smtplib.SMTP()
+        s.sendmail(mailbox.user.encoded_address, [sender], msg.as_string())
+        s.quit()
+    except smtplib.SMTPException as exp:
+        logger.error("Failed to send autoreply message: %s", exp)
+        sys.exit(1)
+
     logger.debug(
         "autoreply message sent to %s" % mailbox.user.encoded_address)
-    sendmail_simple(mailbox.user.encoded_address, sender, armessage.subject,
-                    armessage.content.encode("utf-8"))
 
     lastar.last_sent = datetime.datetime.now()
     lastar.save()
@@ -98,19 +122,25 @@ class Command(BaseCommand, CloseConnectionMixin):
             logger.debug("Skip auto reply, this mail comes from mailing list")
             sys.exit(0)
 
-        for line in sys.stdin:
-            line = line.strip("\n")
-            if not line:
-                break
+        content = StringIO()
+        for line in fileinput.input([]):
+            content.write(line)
+        content.seek(0)
 
-            if (
-                (line == "Precedence: bulk") or
-                (line == "X-Mailer: PHPMailer") or
-                line.startswith('List-')
-            ):
-                logger.debug(
-                    "Skip auto reply, this mail comes from mailing list")
-                sys.exit(0)
+        original_msg = email.message_from_file(content)
+        ml_known_headers = [
+            "List-Id", "List-Help", "List-Subscribe", "List-Unsubscribe",
+            "List-Post", "List-Owner", "List-Archive"
+        ]
+        conditions = (
+            original_msg.get("Precedence") == "bulk",
+            original_msg.get("X-Mailer") == "PHPMailer",
+            [header for header in ml_known_headers if header in original_msg]
+        )
+        if any(conditions):
+            logger.debug(
+                "Skip auto reply, this mail comes from mailing list")
+            return
 
         PostfixAutoreply().load()
         for fulladdress in args[1:]:
@@ -129,4 +159,4 @@ class Command(BaseCommand, CloseConnectionMixin):
                 logger.debug("autoreply message not found")
                 continue
 
-            send_autoreply(sender, mbox, armessage)
+            send_autoreply(sender, mbox, armessage, original_msg)
