@@ -69,16 +69,16 @@ class ARmessageForm(forms.ModelForm):
         both in the future ONLY IF the autoreply is beeing activated.
 
         """
-        super(ARmessageForm, self).clean()
-        if not self.cleaned_data["enabled"]:
-            return self.cleaned_data
-        if not self.cleaned_data.get("fromdate"):
-            self.cleaned_data["fromdate"] = timezone.now()
-        untildate = self.cleaned_data.get("untildate")
+        cleaned_data = super(ARmessageForm, self).clean()
+        if not cleaned_data.get("fromdate"):
+            cleaned_data["fromdate"] = timezone.now()
+        if not cleaned_data["enabled"]:
+            return cleaned_data
+        untildate = cleaned_data.get("untildate")
         if untildate is not None:
             if untildate < timezone.now():
                 self.add_error("untildate", _("This date is over"))
-            elif untildate < self.cleaned_data["fromdate"]:
+            elif untildate < cleaned_data["fromdate"]:
                 self.add_error(
                     "untildate", _("Must be greater than start date"))
-        return self.cleaned_data
+        return cleaned_data
