@@ -132,15 +132,20 @@ class Command(BaseCommand, CloseConnectionMixin):
             "List-Id", "List-Help", "List-Subscribe", "List-Unsubscribe",
             "List-Post", "List-Owner", "List-Archive"
         ]
+        from_ml = False
+        for header in ml_known_headers:
+            if header in original_msg:
+                from_ml = True
+                break
         conditions = (
             original_msg.get("Precedence") == "bulk",
             original_msg.get("X-Mailer") == "PHPMailer",
-            [header for header in ml_known_headers if header in original_msg]
+            from_ml
         )
         if any(conditions):
             logger.debug(
                 "Skip auto reply, this mail comes from mailing list")
-            return
+            sys.exit(0)
 
         PostfixAutoreply().load()
         for fulladdress in args[1:]:
