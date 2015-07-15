@@ -71,7 +71,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
         msg["References"] = message_id
 
     try:
-        s = smtplib.SMTP()
+        s = smtplib.SMTP("localhost")
         s.sendmail(mailbox.user.encoded_address, [sender], msg.as_string())
         s.quit()
     except smtplib.SMTPException as exp:
