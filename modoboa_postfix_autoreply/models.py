@@ -7,7 +7,7 @@ from modoboa_admin.models import Mailbox
 
 class Transport(models.Model):
 
-    domain = models.CharField(max_length=300)
+    domain = models.CharField(max_length=300, db_index=True)
     method = models.CharField(max_length=255)
 
     class Meta:
