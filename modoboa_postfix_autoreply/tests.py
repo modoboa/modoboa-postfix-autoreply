@@ -63,10 +63,16 @@ class EventsTestCase(ModoTestCase):
     def test_mailbox_created_event(self):
         values = {
             'username': "tester@test.com",
-            'first_name': 'Tester', 'last_name': 'Toto',
-            'password1': 'toto', 'password2': 'toto', 'role': 'SimpleUsers',
-            'quota_act': True, 'is_active': True, 'email': 'tester@test.com',
-            'stepid': 'step2', 'autoreply': 'no'
+            'first_name': 'Tester',
+            'last_name': 'Toto',
+            'password1': 'aiL9oodi',
+            'password2': 'aiL9oodi',
+            'role': 'SimpleUsers',
+            'quota_act': True,
+            'is_active': True,
+            'email': 'tester@test.com',
+            'stepid': 'step2',
+            'autoreply': 'no'
         }
         self.ajax_post(
             reverse("modoboa_admin:account_add"), values
