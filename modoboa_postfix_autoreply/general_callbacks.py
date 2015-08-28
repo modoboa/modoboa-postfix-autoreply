@@ -1,13 +1,14 @@
 """Event callbacks."""
 
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import ugettext_lazy, ugettext as _
 
 from modoboa.lib import events, parameters
 from modoboa.lib.form_utils import YesNoField
 
 from modoboa_admin.models import Mailbox
 
+from .forms import ARmessageForm
 from .models import ARmessage, Transport, Alias
 
 
@@ -148,3 +149,22 @@ def save_extra_mailform_fields(form_name, mailbox, values):
         arm.fromdate = timezone.now()
     arm.enabled = True if values['autoreply'] == 'yes' else False
     arm.save()
+
+
+@events.observe("ExtraAccountForm")
+def extra_account_form(user, domain=None):
+    if user.group in ('SuperAdmins', 'DomainAdmins'):
+        return [{
+            'id': "auto_reply_message",
+            'title': _("Auto reply"),
+            'cls': ARmessageForm
+        }]
+
+    return []
+
+
+@events.observe("FillAccountInstances")
+def fill_account_tab(user, account, instances):
+    if user.group in ('SuperAdmins', 'DomainAdmins'):
+        mailbox = account.mailbox_set.first()
+        instances['auto_reply_message'] = mailbox.armessage_set.first()

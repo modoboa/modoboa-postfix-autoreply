@@ -8,7 +8,6 @@ functionality into Postfix.
 """
 
 from django.utils.translation import ugettext_lazy
-from django.utils.translation import ugettext as _
 
 from modoboa.core.extensions import ModoExtension, exts_pool
 from modoboa.lib import events, parameters
@@ -16,8 +15,7 @@ from modoboa.lib import events, parameters
 from modoboa_admin.models import Domain
 
 from . import general_callbacks
-from .models import Transport, Alias, ARmessage
-from .forms import ARmessageForm
+from .models import Transport, Alias
 
 
 class PostfixAutoreply(ModoExtension):
@@ -65,27 +63,3 @@ def extra_routes():
             'modoboa_postfix_autoreply.views.autoreply',
             name="autoreply")
     ]
-
-
-@events.observe("ExtraAccountForm")
-def extra_account_form(user, domain=None):
-    if user.group in ('SuperAdmins', 'DomainAdmins'):
-        return [{
-            'id': "auto_reply_message",
-            'title': _("Auto reply"),
-            'cls': ARmessageForm
-        }]
-
-    return []
-
-
-@events.observe("FillAccountInstances")
-def fill_account_tab(user, account, instances):
-    if user.group in ('SuperAdmins', 'DomainAdmins'):
-        mailbox = account.mailbox_set.first()
-        try:
-            arm = ARmessage.objects.get(mbox=mailbox.id)
-        except ARmessage.DoesNotExist:
-            arm = None
-
-        instances['auto_reply_message'] = arm
