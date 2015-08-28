@@ -6,9 +6,7 @@ from django.utils.translation import ugettext_lazy
 from modoboa.lib import events, parameters
 from modoboa.lib.form_utils import YesNoField
 
-from modoboa_admin.models import Mailbox
-
-from .models import ARmessage, Transport, Alias
+from .models import ARmessage
 
 
 @events.observe("ExtraUprefsJS")
@@ -35,70 +33,6 @@ def menu(target, user):
          "url": "autoreply/",
          "label": ugettext_lazy("Auto-reply message")}
     ]
-
-
-@events.observe("DomainCreated")
-def onDomainCreated(user, domain):
-    """Create a Transport record for the created domain."""
-    Transport.objects.get_or_create(
-        domain="autoreply.{}".format(domain.name), method="autoreply:"
-    )
-
-
-@events.observe("DomainModified")
-def onDomainModified(domain):
-    if domain.oldname == domain.name:
-        return
-    Transport.objects.filter(domain="autoreply.%s" % domain.oldname) \
-        .update(domain="autoreply.%s" % domain.name)
-    for al in Alias.objects.filter(
-            full_address__contains="@%s" % domain.oldname):
-        new_address = al.full_address.replace(
-            "@%s" % domain.oldname,
-            "@%s" % domain.name)
-        al.full_address = new_address
-        al.autoreply_address = "%s@autoreply.%s" % (new_address, domain.name)
-        al.save()
-
-
-@events.observe("DomainDeleted")
-def onDomainDeleted(domain):
-    Transport.objects.filter(domain="autoreply.%s" % domain.name).delete()
-
-
-@events.observe("MailboxCreated")
-def onMailboxCreated(user, mailbox):
-    alias = Alias()
-    alias.full_address = mailbox.full_address
-    alias.autoreply_address = \
-        "%s@autoreply.%s" % (mailbox.full_address, mailbox.domain.name)
-    alias.save()
-
-
-@events.observe("MailboxDeleted")
-def onMailboxDeleted(mailboxes):
-    if isinstance(mailboxes, Mailbox):
-        mailboxes = [mailboxes]
-    for mailbox in mailboxes:
-        try:
-            alias = Alias.objects.get(full_address=mailbox.full_address)
-        except Alias.DoesNotExist:
-            pass
-        else:
-            alias.delete()
-
-
-@events.observe("MailboxModified")
-def onMailboxModified(mailbox):
-    if not hasattr(mailbox, 'old_full_address'):
-        return
-    if mailbox.full_address == mailbox.old_full_address:
-        return
-    alias = Alias.objects.get(full_address=mailbox.old_full_address)
-    alias.full_address = mailbox.full_address
-    alias.autoreply_address =  \
-        "%s@autoreply.%s" % (mailbox.full_address, mailbox.domain.name)
-    alias.save()
 
 
 @events.observe("ExtraFormFields")
@@ -139,7 +73,7 @@ def save_extra_mailform_fields(form_name, mailbox, values):
     if form_name != 'mailform':
         return
     if mailbox.armessage_set.count():
-        arm = mailbox.armessage_set.all()[0]
+        arm = mailbox.armessage_set.first()
     else:
         arm = ARmessage(mbox=mailbox)
         arm.subject = parameters.get_admin("DEFAULT_SUBJECT")

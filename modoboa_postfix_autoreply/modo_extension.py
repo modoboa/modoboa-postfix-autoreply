@@ -13,11 +13,10 @@ from django.utils.translation import ugettext as _
 from modoboa.core.extensions import ModoExtension, exts_pool
 from modoboa.lib import events, parameters
 
-from modoboa_admin.models import Domain
+from modoboa_admin import models as admin_models
 
-from . import general_callbacks
-from .models import Transport, Alias, ARmessage
 from .forms import ARmessageForm
+from .models import ARmessage, Transport
 
 
 class PostfixAutoreply(ModoExtension):
@@ -39,19 +38,19 @@ class PostfixAutoreply(ModoExtension):
 
     def load_initial_data(self):
         """Create records for existing domains."""
-        for dom in Domain.objects.all():
-            try:
-                Transport.objects.get(domain="autoreply.%s" % dom.name)
-            except Transport.DoesNotExist:
-                general_callbacks.onDomainCreated(None, dom)
-            else:
+        for dom in admin_models.Domain.objects.all():
+            trans, created = Transport.objects.get_or_create(
+                domain="autoreply.{}".format(dom.name))
+            if not created:
                 continue
-
             for mb in dom.mailbox_set.all():
-                try:
-                    Alias.objects.get(full_address=mb.full_address)
-                except Alias.DoesNotExist:
-                    general_callbacks.onMailboxCreated(None, mb)
+                alias, created = admin_models.Alias.objects.get_or_create(
+                    address=mb.full_address, domain=mb.domain,
+                    internal=True)
+                admin_models.AliasRecipient.objects.create(
+                    alias=alias,
+                    address="{}@autoreply.{}".format(
+                        mb.full_address, mb.domain))
 
 exts_pool.register_extension(PostfixAutoreply)
 

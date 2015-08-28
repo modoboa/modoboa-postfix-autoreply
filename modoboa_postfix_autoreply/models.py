@@ -1,3 +1,5 @@
+"""Postfix autoreply models."""
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -12,15 +14,6 @@ class Transport(models.Model):
 
     class Meta:
         db_table = "postfix_autoreply_transport"
-
-
-class Alias(models.Model):
-
-    full_address = models.CharField(max_length=255)
-    autoreply_address = models.CharField(max_length=255)
-
-    class Meta:
-        db_table = "postfix_autoreply_alias"
 
 
 class ARmessage(models.Model):
