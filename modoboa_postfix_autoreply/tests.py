@@ -105,7 +105,8 @@ class EventsTestCase(ModoTestCase):
             'first_name': 'Tester', 'last_name': 'Toto',
             'role': 'SimpleUsers', 'quota_act': True,
             'is_active': True, 'email': 'leon@test.com',
-            'autoreply': 'no'
+            'autoreply': 'no', 'subject': 'test',
+            'content': 'test'
         }
         account = User.objects.get(username="user@test.com")
         self.ajax_post(

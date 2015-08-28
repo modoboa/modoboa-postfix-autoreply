@@ -8,15 +8,13 @@ functionality into Postfix.
 """
 
 from django.utils.translation import ugettext_lazy
-from django.utils.translation import ugettext as _
 
 from modoboa.core.extensions import ModoExtension, exts_pool
 from modoboa.lib import events, parameters
 
 from modoboa_admin import models as admin_models
 
-from .forms import ARmessageForm
-from .models import ARmessage, Transport
+from .models import Transport
 
 
 class PostfixAutoreply(ModoExtension):
@@ -35,6 +33,7 @@ class PostfixAutoreply(ModoExtension):
         from .app_settings import ParametersForm
         parameters.register(
             ParametersForm, ugettext_lazy("Automatic replies"))
+        from . import general_callbacks
 
     def load_initial_data(self):
         """Create records for existing domains."""
@@ -64,27 +63,3 @@ def extra_routes():
             'modoboa_postfix_autoreply.views.autoreply',
             name="autoreply")
     ]
-
-
-@events.observe("ExtraAccountForm")
-def extra_account_form(user, domain=None):
-    if user.group in ('SuperAdmins', 'DomainAdmins'):
-        return [{
-            'id': "auto_reply_message",
-            'title': _("Auto reply"),
-            'cls': ARmessageForm
-        }]
-
-    return []
-
-
-@events.observe("FillAccountInstances")
-def fill_account_tab(user, account, instances):
-    if user.group in ('SuperAdmins', 'DomainAdmins'):
-        mailbox = account.mailbox_set.first()
-        try:
-            arm = ARmessage.objects.get(mbox=mailbox.id)
-        except ARmessage.DoesNotExist:
-            arm = None
-
-        instances['auto_reply_message'] = arm
