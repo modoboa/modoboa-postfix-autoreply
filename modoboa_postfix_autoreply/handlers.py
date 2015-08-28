@@ -42,7 +42,7 @@ def delete_transport_entry(sender, instance, **kwargs):
 
 
 @receiver(signals.post_save, sender=admin_models.Mailbox)
-def create_autoreply_alias(sender, instance, **kwargs):
+def manage_autoreply_alias(sender, instance, **kwargs):
     """Create an alias for routing."""
     if kwargs.get("created"):
         alias, created = admin_models.Alias.objects.get_or_create(
@@ -65,9 +65,12 @@ def create_autoreply_alias(sender, instance, **kwargs):
 @receiver(signals.post_delete, sender=admin_models.Mailbox)
 def delete_autoreply_alias(sender, instance, **kwargs):
     """Delete alias."""
-    alr = admin_models.AliasRecipient.objects.get(
-        address="{}@autoreply.{}".format(
-            instance.full_address, instance.domain))
+    try:
+        alr = admin_models.AliasRecipient.objects.get(
+            address="{}@autoreply.{}".format(
+                instance.full_address, instance.domain))
+    except admin_models.AliasRecipient.DoesNotExist:
+        return
     alias = alr.alias
     alr.delete()
     if not alias.recipients_count:

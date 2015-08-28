@@ -33,7 +33,6 @@ class EventsTestCase(ModoTestCase):
 
     def test_domain_deleted_event(self):
         dom = admin_models.Domain.objects.get(name="test.com")
-        trans = Transport.objects.get(domain='autoreply.test.com')
         self.ajax_post(
             reverse("modoboa_admin:domain_delete", args=[dom.id]),
             {}
@@ -84,8 +83,6 @@ class EventsTestCase(ModoTestCase):
                 alias__address="tester@test.com", alias__internal=True,
                 address="tester@test.com@autoreply.test.com").exists()
         )
-        self.assertTrue(
-            ARmessage.objects.filter(mbox__address='tester').exists())
 
     def test_mailbox_deleted_event(self):
         account = User.objects.get(username="user@test.com")
