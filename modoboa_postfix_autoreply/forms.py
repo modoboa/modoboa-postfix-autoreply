@@ -50,10 +50,11 @@ class ARmessageForm(forms.ModelForm):
 
     class Meta:
         model = ARmessage
-        fields = ('subject', 'content', 'enabled')
+        fields = ('subject', 'content', 'enabled', 'fromdate', 'untildate')
 
     def __init__(self, *args, **kwargs):
-        super(ARmessageForm, self).__init__(*args, **kwargs)
+        self.mailbox = args[0]
+        super(ARmessageForm, self).__init__(*args[1:], **kwargs)
         self.fields = OrderedDict(
             (key, self.fields[key]) for key in
             ['subject', 'content', 'fromdate', 'untildate', 'enabled']
@@ -88,3 +89,11 @@ class ARmessageForm(forms.ModelForm):
                 self.add_error(
                     "untildate", _("Must be greater than start date"))
         return cleaned_data
+
+    def save(self, commit=True):
+        """Custom save method."""
+        instance = super(ARmessageForm, self).save(commit=False)
+        instance.mbox = self.mailbox
+        if commit:
+            instance.save()
+        return instance
