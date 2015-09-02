@@ -1,9 +1,5 @@
 """modoboa-postfix-autoreply unit tests."""
 
-import datetime
-
-import pytz
-
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
@@ -13,11 +9,9 @@ from modoboa.lib.tests import ModoTestCase
 from modoboa.lib.test_utils import MapFilesTestCaseMixin
 
 from modoboa_admin import factories
-from modoboa_admin.models import (
-    Domain
-)
+from modoboa_admin import models as admin_models
 
-from .models import Transport, Alias, ARmessage
+from .models import Transport, ARmessage
 
 
 class EventsTestCase(ModoTestCase):
@@ -39,8 +33,7 @@ class EventsTestCase(ModoTestCase):
         )
 
     def test_domain_deleted_event(self):
-        dom = Domain.objects.get(name="test.com")
-        trans = Transport.objects.get(domain='autoreply.test.com')
+        dom = admin_models.Domain.objects.get(name="test.com")
         self.ajax_post(
             reverse("modoboa_admin:domain_delete", args=[dom.id]),
             {}
@@ -53,17 +46,21 @@ class EventsTestCase(ModoTestCase):
             "name": "test.fr", "quota": 100, "enabled": True,
             "type": "domain"
         }
-        dom = Domain.objects.get(name="test.com")
+        dom = admin_models.Domain.objects.get(name="test.com")
         self.ajax_post(
             reverse("modoboa_admin:domain_change", args=[dom.id]),
             values
         )
-        trans = Transport.objects.get(domain='autoreply.test.fr')
+        self.assertTrue(
+            Transport.objects.filter(domain='autoreply.test.fr').exists())
         self.assertEqual(
-            Alias.objects.filter(full_address__contains='@test.fr').count(), 2
+            admin_models.Alias.objects.filter(
+                domain=dom, internal=True)
+            .count(), 2
         )
-        for al in Alias.objects.filter(full_address__contains='@test.fr'):
-            self.assertIn('autoreply.test.fr', al.autoreply_address)
+        for alr in admin_models.AliasRecipient.objects.filter(
+                address__contains='@test.fr'):
+            self.assertIn('autoreply.test.fr', alr.address)
 
     def test_mailbox_created_event(self):
         values = {
@@ -82,9 +79,11 @@ class EventsTestCase(ModoTestCase):
         self.ajax_post(
             reverse("modoboa_admin:account_add"), values
         )
-        al = Alias.objects.get(full_address='tester@test.com')
-        self.assertEqual(
-            al.autoreply_address, 'tester@test.com@autoreply.test.com')
+        self.assertTrue(
+            admin_models.AliasRecipient.objects.filter(
+                alias__address="tester@test.com", alias__internal=True,
+                address="tester@test.com@autoreply.test.com").exists()
+        )
 
     def test_mailbox_deleted_event(self):
         account = User.objects.get(username="user@test.com")
@@ -92,13 +91,21 @@ class EventsTestCase(ModoTestCase):
             reverse("modoboa_admin:account_delete", args=[account.id]),
             {}
         )
-        with self.assertRaises(Alias.DoesNotExist):
-            Alias.objects.get(full_address='user@test.com')
-        with self.assertRaises(ARmessage.DoesNotExist):
-            ARmessage.objects.get(
-                mbox__address='user', mbox__domain__name='test.com')
+        self.assertFalse(
+            admin_models.Alias.objects.filter(
+                address="user@test.com", internal=True).exists()
+        )
+        self.assertFalse(
+            ARmessage.objects.filter(
+                mbox__address="user", mbox__domain__name="test.com").exists()
+        )
 
     def test_modify_mailbox_event(self):
+        self.assertTrue(
+            admin_models.AliasRecipient.objects.filter(
+                alias__address="user@test.com", alias__internal=True,
+                address="user@test.com@autoreply.test.com").exists()
+        )
         values = {
             'username': "leon@test.com",
             'first_name': 'Tester', 'last_name': 'Toto',
@@ -111,9 +118,16 @@ class EventsTestCase(ModoTestCase):
             reverse("modoboa_admin:account_change", args=[account.id]),
             values
         )
-        with self.assertRaises(Alias.DoesNotExist):
-            Alias.objects.get(full_address='user@test.com')
-        al = Alias.objects.get(full_address='leon@test.com')
+        self.assertFalse(
+            admin_models.AliasRecipient.objects.filter(
+                alias__address="user@test.com", alias__internal=True,
+                address="user@test.com@autoreply.test.com").exists()
+        )
+        self.assertTrue(
+            admin_models.AliasRecipient.objects.filter(
+                alias__address="leon@test.com", alias__internal=True,
+                address="leon@test.com@autoreply.test.com").exists()
+        )
 
 
 class FormTestCase(ModoTestCase):
@@ -180,5 +194,4 @@ class MapFilesTestCase(MapFilesTestCaseMixin, TestCase):
 
     MAP_FILES = [
         "sql-autoreplies-transport.cf",
-        "sql-autoreplies.cf"
     ]
