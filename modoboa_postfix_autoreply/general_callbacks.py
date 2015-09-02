@@ -1,13 +1,10 @@
 """Event callbacks."""
 
-from django.utils import timezone
 from django.utils.translation import ugettext_lazy, ugettext as _
 
 from modoboa.lib import events, parameters
-from modoboa.lib.form_utils import YesNoField
 
 from .forms import ARmessageForm
-from .models import ARmessage
 
 
 @events.observe("ExtraUprefsJS")
@@ -36,69 +33,24 @@ def menu(target, user):
     ]
 
 
-@events.observe("ExtraFormFields")
-def extra_mailform_fields(form_name, mailbox=None):
-    """Define extra fields to include in mail forms.
-
-    For now, only the auto-reply state can be modified.
-
-    :param str form_name: form name (must be 'mailform')
-    :param Mailbox mailbox: mailbox
-    """
-    if form_name != "mailform":
-        return []
-    status = False
-    if mailbox is not None and mailbox.armessage_set.count():
-        status = mailbox.armessage_set.all()[0].enabled
-    return [
-        ('autoreply', YesNoField(
-            label=ugettext_lazy("Enable auto-reply"),
-            initial="yes" if status else "no",
-            required=False,
-            help_text=ugettext_lazy("Enable or disable Postfix auto-reply")
-        ))
-    ]
-
-
-@events.observe("SaveExtraFormFields")
-def save_extra_mailform_fields(form_name, mailbox, values):
-    """Set the auto-reply status for a mailbox.
-
-    If a corresponding auto-reply message exists, we update its
-    status. Otherwise, we create a message using default values.
-
-    :param str form_name: form name (must be 'mailform')
-    :param Mailbox mailbox: mailbox
-    :param dict values: form values
-    """
-    if form_name != 'mailform':
-        return
-    if mailbox.armessage_set.count():
-        arm = mailbox.armessage_set.first()
-    else:
-        arm = ARmessage(mbox=mailbox)
-        arm.subject = parameters.get_admin("DEFAULT_SUBJECT")
-        arm.content = parameters.get_admin("DEFAULT_CONTENT") \
-            % {'name': mailbox.user.fullname}
-        arm.fromdate = timezone.now()
-    arm.enabled = True if values['autoreply'] == 'yes' else False
-    arm.save()
-
-
 @events.observe("ExtraAccountForm")
-def extra_account_form(user, domain=None):
-    if user.group in ('SuperAdmins', 'DomainAdmins'):
-        return [{
-            'id': "auto_reply_message",
-            'title': _("Auto reply"),
-            'cls': ARmessageForm
-        }]
-
-    return []
+def extra_account_form(user, account=None):
+    """Add autoreply form to the account edition form."""
+    result = []
+    if user.group in ("SuperAdmins", "DomainAdmins"):
+        extraform = {
+            "id": "auto_reply_message",
+            "title": _("Auto reply"),
+            "cls": ARmessageForm,
+        }
+        if account.mailbox_set.first():
+            extraform["new_args"] = [account.mailbox_set.first()]
+        result.append(extraform)
+    return result
 
 
 @events.observe("FillAccountInstances")
 def fill_account_tab(user, account, instances):
-    if user.group in ('SuperAdmins', 'DomainAdmins'):
+    if user.group in ("SuperAdmins", "DomainAdmins"):
         mailbox = account.mailbox_set.first()
-        instances['auto_reply_message'] = mailbox.armessage_set.first()
+        instances["auto_reply_message"] = mailbox.armessage_set.first()

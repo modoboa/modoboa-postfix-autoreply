@@ -24,15 +24,11 @@ def autoreply(request, tplname="modoboa_postfix_autoreply/autoreply.html"):
         arm = None
     if request.method == "POST":
         if arm:
-            form = ARmessageForm(request.POST, instance=arm)
+            form = ARmessageForm(mb, request.POST, instance=arm)
         else:
-            form = ARmessageForm(request.POST)
+            form = ARmessageForm(mb, request.POST)
         if form.is_valid():
-            arm = form.save(commit=False)
-            arm.fromdate = form.cleaned_data["fromdate"]
-            arm.untildate = form.cleaned_data["untildate"]
-            arm.mbox = mb
-            arm.save()
+            form.save()
             return render_to_json_response(
                 _("Auto reply message updated successfully.")
             )

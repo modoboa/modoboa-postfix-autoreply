@@ -2,6 +2,7 @@
 
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils import timezone
 
 from modoboa.core.models import User
 from modoboa.lib.tests import ModoTestCase
@@ -105,8 +106,7 @@ class EventsTestCase(ModoTestCase):
             'first_name': 'Tester', 'last_name': 'Toto',
             'role': 'SimpleUsers', 'quota_act': True,
             'is_active': True, 'email': 'leon@test.com',
-            'autoreply': 'no', 'subject': 'test',
-            'content': 'test'
+            'subject': 'test', 'content': 'test'
         }
         account = User.objects.get(username="user@test.com")
         self.ajax_post(
@@ -147,11 +147,38 @@ class FormTestCase(ModoTestCase):
 
     def test_set_autoreply_in_past(self):
         """Create an autoreply with from date expired."""
+        fromdate = timezone.localtime(
+            timezone.now().replace(
+                year=2014, month=1, day=1, hour=12, microsecond=0))
         values = {
-            'subject': 'test', 'content': "I'm off", "enabled": True,
-            "fromdate": "2014-01-01 00:00:00"
+            'subject': 'test', 'content': "I'm off",
+            "enabled": True,
+            "fromdate": fromdate.strftime("%Y-%m-%d %H:%M:%S"),
         }
         self.ajax_post(reverse('autoreply'), values)
+        account = User.objects.get(username="user@test.com")
+        arm = ARmessage.objects.get(mbox=account.mailbox_set.first())
+        self.assertEqual(
+            timezone.localtime(arm.fromdate), fromdate)
+
+    def test_set_autoreply_dates(self):
+        """Create an autoreply with from and to dates."""
+        fromdate = timezone.localtime(timezone.now())
+        untildate = fromdate.replace(
+            day=fromdate.day + 1)
+        values = {
+            'subject': 'test', 'content': "I'm off", "enabled": True,
+            "fromdate": fromdate.strftime("%Y-%m-%d %H:%M:%S"),
+            "untildate": untildate.strftime("%Y-%m-%d %H:%M:%S"),
+        }
+        self.ajax_post(reverse('autoreply'), values)
+        account = User.objects.get(username="user@test.com")
+        arm = ARmessage.objects.get(mbox=account.mailbox_set.first())
+        self.assertEqual(
+            timezone.localtime(arm.fromdate), fromdate.replace(microsecond=0))
+        self.assertEqual(
+            timezone.localtime(arm.untildate),
+            untildate.replace(microsecond=0))
 
 
 class MapFilesTestCase(MapFilesTestCaseMixin, TestCase):
