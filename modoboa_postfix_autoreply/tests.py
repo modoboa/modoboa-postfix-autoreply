@@ -104,8 +104,7 @@ class EventsTestCase(ModoTestCase):
             'first_name': 'Tester', 'last_name': 'Toto',
             'role': 'SimpleUsers', 'quota_act': True,
             'is_active': True, 'email': 'leon@test.com',
-            'autoreply': 'no', 'subject': 'test',
-            'content': 'test'
+            'subject': 'test', 'content': 'test'
         }
         account = User.objects.get(username="user@test.com")
         self.ajax_post(
@@ -143,7 +142,8 @@ class FormTestCase(ModoTestCase):
             timezone.now().replace(
                 year=2014, month=1, day=1, hour=12, microsecond=0))
         values = {
-            'subject': 'test', 'content': "I'm off", "enabled": True,
+            'subject': 'test', 'content': "I'm off",
+            "enabled": True,
             "fromdate": fromdate.strftime("%Y-%m-%d %H:%M:%S"),
         }
         self.ajax_post(reverse('autoreply'), values)

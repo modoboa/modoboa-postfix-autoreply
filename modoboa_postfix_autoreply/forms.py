@@ -8,6 +8,8 @@ from django import forms
 from django.utils import timezone
 from django.utils.translation import ugettext as _, ugettext_lazy
 
+from modoboa.lib import parameters
+
 from .models import ARmessage
 
 
@@ -59,6 +61,11 @@ class ARmessageForm(forms.ModelForm):
             (key, self.fields[key]) for key in
             ['subject', 'content', 'fromdate', 'untildate', 'enabled']
         )
+        if not self.instance.pk:
+            self.fields["subject"].initial = parameters.get_admin(
+                "DEFAULT_SUBJECT")
+            self.fields["content"].initial = parameters.get_admin(
+                "DEFAULT_CONTENT")
         instance = kwargs.get("instance")
         if instance is not None:
             if instance.enabled:
