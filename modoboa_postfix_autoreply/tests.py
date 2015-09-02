@@ -101,6 +101,11 @@ class EventsTestCase(ModoTestCase):
         )
 
     def test_modify_mailbox_event(self):
+        self.assertTrue(
+            admin_models.AliasRecipient.objects.filter(
+                alias__address="user@test.com", alias__internal=True,
+                address="user@test.com@autoreply.test.com").exists()
+        )
         values = {
             'username': "leon@test.com",
             'first_name': 'Tester', 'last_name': 'Toto',

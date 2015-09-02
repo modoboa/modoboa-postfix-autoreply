@@ -56,8 +56,8 @@ def manage_autoreply_alias(sender, instance, **kwargs):
     old_address = getattr(instance, "old_full_address", None)
     if old_address is None or old_address == instance.full_address:
         return
-    instance.aliasrecipient_set.filter(
-        address__contains="@autoreply").update(
+    admin_models.AliasRecipient.objects.filter(
+        address__contains="{}@autoreply".format(old_address)).update(
             address="{}@autoreply.{}".format(
                 instance.full_address, instance.domain))
 
