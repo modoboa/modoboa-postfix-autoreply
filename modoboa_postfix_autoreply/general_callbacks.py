@@ -53,4 +53,5 @@ def extra_account_form(user, account=None):
 def fill_account_tab(user, account, instances):
     if user.group in ("SuperAdmins", "DomainAdmins"):
         mailbox = account.mailbox_set.first()
-        instances["auto_reply_message"] = mailbox.armessage_set.first()
+        if mailbox:
+            instances["auto_reply_message"] = mailbox.armessage_set.first()
