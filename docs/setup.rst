@@ -14,11 +14,6 @@ configuration files as follows:
 ``/etc/postfix/main.cf``::
 
   transport_maps = <driver>:/etc/postfix/sql-autoreplies-transport.cf
-  virtual_alias_maps = <driver>:/etc/postfix/sql-aliases.cf
-          <driver>:/etc/postfix/sql-domain-aliases-mailboxes.cf,
-          <driver>:/etc/postfix/sql-autoreplies.cf,
-          <driver>:/etc/postfix/sql-mailbox-self-aliases.cf,
-          <driver>:/etc/postfix/sql-catchall-aliases.cf
 
 .. note::
 
