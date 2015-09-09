@@ -37,7 +37,7 @@ def autoreply(request, tplname="modoboa_postfix_autoreply/autoreply.html"):
             {"form_errors": form.errors}, status=400
         )
 
-    form = ARmessageForm(instance=arm)
+    form = ARmessageForm(mb, instance=arm)
     return render_to_json_response({
         "content": _render_to_string(request, tplname, {"form": form}),
         "onload_cb": "autoreply_cb"
