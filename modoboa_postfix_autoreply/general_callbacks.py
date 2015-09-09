@@ -38,14 +38,15 @@ def extra_account_form(user, account=None):
     """Add autoreply form to the account edition form."""
     result = []
     if user.group in ("SuperAdmins", "DomainAdmins"):
-        extraform = {
-            "id": "auto_reply_message",
-            "title": _("Auto reply"),
-            "cls": ARmessageForm,
-        }
-        if account.mailbox_set.first():
-            extraform["new_args"] = [account.mailbox_set.first()]
-        result.append(extraform)
+        mailbox = account.mailbox_set.first()
+        if mailbox:
+            extraform = {
+                "id": "auto_reply_message",
+                "title": _("Auto reply"),
+                "cls": ARmessageForm,
+                "new_args": [mailbox]
+            }
+            result.append(extraform)
     return result
 
 
