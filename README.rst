@@ -1,7 +1,7 @@
 modoboa-postfix-autoreply
 =========================
 
-|travis| |landscape|
+|travis| |codecov| |landscape|
 
 Away message editor for Modoboa (postfix compatible).
 
@@ -40,4 +40,5 @@ apache, whatever).
    :alt: Code Health
 .. |travis| image:: https://travis-ci.org/modoboa/modoboa-postfix-autoreply.png?branch=master
    :target: https://travis-ci.org/modoboa/modoboa-postfix-autoreply
-
+.. |codecov| image:: http://codecov.io/github/modoboa/modoboa-postfix-autoreply/coverage.svg?branch=master
+   :target: http://codecov.io/github/modoboa/modoboa-postfix-autoreply?branch=master
