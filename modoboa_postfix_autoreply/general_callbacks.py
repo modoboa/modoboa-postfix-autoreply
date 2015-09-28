@@ -23,7 +23,7 @@ def extra_js(user):
 def menu(target, user):
     if target != "uprefs_menu":
         return []
-    if not user.mailbox_set.count():
+    if not hasattr(user, "mailbox"):
         return []
     return [
         {"name": "autoreply",
@@ -38,13 +38,12 @@ def extra_account_form(user, account=None):
     """Add autoreply form to the account edition form."""
     result = []
     if user.group in ("SuperAdmins", "DomainAdmins"):
-        mailbox = account.mailbox_set.first()
-        if mailbox:
+        if account.mailbox:
             extraform = {
                 "id": "auto_reply_message",
                 "title": _("Auto reply"),
                 "cls": ARmessageForm,
-                "new_args": [mailbox]
+                "new_args": [account.mailbox]
             }
             result.append(extraform)
     return result
@@ -53,6 +52,6 @@ def extra_account_form(user, account=None):
 @events.observe("FillAccountInstances")
 def fill_account_tab(user, account, instances):
     if user.group in ("SuperAdmins", "DomainAdmins"):
-        mailbox = account.mailbox_set.first()
-        if mailbox:
-            instances["auto_reply_message"] = mailbox.armessage_set.first()
+        if account.mailbox:
+            instances["auto_reply_message"] = (
+                account.mailbox.armessage_set.first())

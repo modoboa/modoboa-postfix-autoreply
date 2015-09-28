@@ -144,7 +144,7 @@ class FormTestCase(ModoTestCase):
         }
         self.ajax_post(reverse('autoreply'), values)
         account = User.objects.get(username="user@test.com")
-        arm = ARmessage.objects.get(mbox=account.mailbox_set.first())
+        arm = ARmessage.objects.get(mbox=account.mailbox)
         self.assertEqual(arm.subject, 'test')
         self.assertTrue(arm.enabled)
         self.assertFalse(arm.untildate)
@@ -162,7 +162,7 @@ class FormTestCase(ModoTestCase):
         }
         self.ajax_post(reverse('autoreply'), values)
         account = User.objects.get(username="user@test.com")
-        arm = ARmessage.objects.get(mbox=account.mailbox_set.first())
+        arm = ARmessage.objects.get(mbox=account.mailbox)
         self.assertEqual(
             timezone.localtime(arm.fromdate), fromdate)
 
@@ -178,7 +178,7 @@ class FormTestCase(ModoTestCase):
         }
         self.ajax_post(reverse('autoreply'), values)
         account = User.objects.get(username="user@test.com")
-        arm = ARmessage.objects.get(mbox=account.mailbox_set.first())
+        arm = ARmessage.objects.get(mbox=account.mailbox)
         self.assertEqual(
             timezone.localtime(arm.fromdate), fromdate.replace(microsecond=0))
         self.assertEqual(
