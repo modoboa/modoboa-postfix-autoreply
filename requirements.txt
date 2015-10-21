@@ -1,2 +1,2 @@
-modoboa-admin>=1.3.5
+modoboa-admin>=1.1.2
 pytz
