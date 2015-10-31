@@ -1,5 +1,7 @@
 """modoboa-postfix-autoreply unit tests."""
 
+import datetime
+
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
@@ -169,8 +171,7 @@ class FormTestCase(ModoTestCase):
     def test_set_autoreply_dates(self):
         """Create an autoreply with from and to dates."""
         fromdate = timezone.localtime(timezone.now())
-        untildate = fromdate.replace(
-            day=fromdate.day + 1)
+        untildate = fromdate + datetime.timedelta(days=1)
         values = {
             'subject': 'test', 'content': "I'm off", "enabled": True,
             "fromdate": fromdate.strftime("%Y-%m-%d %H:%M:%S"),
