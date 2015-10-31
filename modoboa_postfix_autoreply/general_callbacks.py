@@ -38,7 +38,7 @@ def extra_account_form(user, account=None):
     """Add autoreply form to the account edition form."""
     result = []
     if user.group in ("SuperAdmins", "DomainAdmins"):
-        if account.mailbox:
+        if hasattr(account, "mailbox"):
             extraform = {
                 "id": "auto_reply_message",
                 "title": _("Auto reply"),
@@ -52,6 +52,6 @@ def extra_account_form(user, account=None):
 @events.observe("FillAccountInstances")
 def fill_account_tab(user, account, instances):
     if user.group in ("SuperAdmins", "DomainAdmins"):
-        if account.mailbox:
+        if hasattr(account, "mailbox"):
             instances["auto_reply_message"] = (
                 account.mailbox.armessage_set.first())
