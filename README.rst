@@ -20,9 +20,10 @@ Edit the settings.py file of your modoboa instance and add
       'modoboa',
       'modoboa.core',
       'modoboa.lib',
-    
+      'modoboa.admin',
+      'modoboa.relaydomains',
+      'modoboa.limits',
       # Extensions here
-      'modoboa_admin',
       'modoboa_postfix_autoreply',
     )
 

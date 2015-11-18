@@ -10,16 +10,18 @@ from modoboa.core.models import User
 from modoboa.lib.tests import ModoTestCase
 from modoboa.lib.test_utils import MapFilesTestCaseMixin
 
-from modoboa_admin import factories
-from modoboa_admin import models as admin_models
+from modoboa.admin import factories
+from modoboa.admin import models as admin_models
 
 from .models import Transport, ARmessage
 
 
 class EventsTestCase(ModoTestCase):
 
-    def setUp(self):
-        super(EventsTestCase, self).setUp()
+    @classmethod
+    def setUpTestData(cls):
+        """Create test data."""
+        super(EventsTestCase, cls).setUpTestData()
         factories.populate_database()
 
     def test_domain_created_event(self):
@@ -28,7 +30,7 @@ class EventsTestCase(ModoTestCase):
             "stepid": 'step3', "type": "domain"
         }
         self.ajax_post(
-            reverse("modoboa_admin:domain_add"), values
+            reverse("admin:domain_add"), values
         )
         self.assertTrue(
             Transport.objects.filter(domain='autoreply.domain.tld').exists()
@@ -37,7 +39,7 @@ class EventsTestCase(ModoTestCase):
     def test_domain_deleted_event(self):
         dom = admin_models.Domain.objects.get(name="test.com")
         self.ajax_post(
-            reverse("modoboa_admin:domain_delete", args=[dom.id]),
+            reverse("admin:domain_delete", args=[dom.id]),
             {}
         )
         with self.assertRaises(Transport.DoesNotExist):
@@ -50,7 +52,7 @@ class EventsTestCase(ModoTestCase):
         }
         dom = admin_models.Domain.objects.get(name="test.com")
         self.ajax_post(
-            reverse("modoboa_admin:domain_change", args=[dom.id]),
+            reverse("admin:domain_change", args=[dom.id]),
             values
         )
         self.assertTrue(
@@ -79,7 +81,7 @@ class EventsTestCase(ModoTestCase):
             'autoreply': 'no'
         }
         self.ajax_post(
-            reverse("modoboa_admin:account_add"), values
+            reverse("admin:account_add"), values
         )
         self.assertTrue(
             admin_models.AliasRecipient.objects.filter(
@@ -90,7 +92,7 @@ class EventsTestCase(ModoTestCase):
     def test_mailbox_deleted_event(self):
         account = User.objects.get(username="user@test.com")
         self.ajax_post(
-            reverse("modoboa_admin:account_delete", args=[account.id]),
+            reverse("admin:account_delete", args=[account.id]),
             {}
         )
         self.assertFalse(
@@ -117,7 +119,7 @@ class EventsTestCase(ModoTestCase):
         }
         account = User.objects.get(username="user@test.com")
         self.ajax_post(
-            reverse("modoboa_admin:account_change", args=[account.id]),
+            reverse("admin:account_change", args=[account.id]),
             values
         )
         self.assertFalse(
@@ -134,9 +136,15 @@ class EventsTestCase(ModoTestCase):
 
 class FormTestCase(ModoTestCase):
 
-    def setUp(self):
-        super(FormTestCase, self).setUp()
+    @classmethod
+    def setUpTestData(cls):
+        """Create test data."""
+        super(FormTestCase, cls).setUpTestData()
         factories.populate_database()
+
+    def setUp(self):
+        """Initialize tests."""
+        super(FormTestCase, self).setUp()
         self.clt.logout()
         self.clt.login(username="user@test.com", password="toto")
 

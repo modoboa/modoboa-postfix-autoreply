@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy
 from modoboa.core.extensions import ModoExtension, exts_pool
 from modoboa.lib import events, parameters
 
-from modoboa_admin import models as admin_models
+from modoboa.admin import models as admin_models
 
 from .models import Transport
 

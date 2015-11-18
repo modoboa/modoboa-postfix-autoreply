@@ -3,7 +3,7 @@
 from django.db.models import signals
 from django.dispatch import receiver
 
-from modoboa_admin import models as admin_models
+from modoboa.admin import models as admin_models
 
 from . import models
 
