@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-11 14:23+0100\n"
+"POT-Creation-Date: 2015-12-02 16:36+0100\n"
 "PO-Revision-Date: 2015-01-13 15:18+0000\n"
 "Last-Translator: Olle Gustafsson <olle@dalnix.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/modoboa/language/"
@@ -20,28 +20,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: app_settings.py:15
 msgid "General"
 msgstr "Generellt"
+
 #: app_settings.py:18
 msgid "Automatic reply timeout"
 msgstr "Automatiskt svar timeout"
+
 #: app_settings.py:21
 msgid "Timeout in seconds between two auto-replies to the same recipient"
 msgstr "Timeout i sekunder mellan två auto-svar till samma mottagare"
+
 #: app_settings.py:27
 msgid "Default subject"
 msgstr "Standard ämne"
+
 #: app_settings.py:28
 msgid "I'm off"
 msgstr "Jag är borta"
+
 #: app_settings.py:30
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
 msgstr "Standard ämne när ett autosvarsmeddelande skapas automatiskt."
+
 #: app_settings.py:37
 msgid "Default content"
 msgstr "Standard innehålle"
+
 #: app_settings.py:39
 #, python-format
 msgid ""
@@ -54,6 +62,7 @@ msgstr ""
 "\n"
 "Med vänliga hälsningar,\n"
 "%(name)s\n"
+
 #: app_settings.py:45
 #, python-format
 msgid ""
@@ -62,67 +71,96 @@ msgid ""
 msgstr ""
 "Standard innehåll som används när ett autosvarsmeddelande skapas "
 "automatiskt. '%(name)s'  ersätts med användarens fullständiga namn."
+
 #: app_settings.py:62
 msgid "Invalid syntax"
 msgstr "Ogiltig syntax"
-#: forms.py:17
+
+#: forms.py:21
 msgid "From"
 msgstr "Från"
-#: forms.py:19
-msgid "Activate your auto reply from this date"
+
+#: forms.py:24
+#, fuzzy
+#| msgid "Activate your auto reply from this date"
+msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
 msgstr "Aktivera ditt autosvar från och med detta datum"
-#: forms.py:25
+
+#: forms.py:32
 msgid "Until"
 msgstr "Tills"
-#: forms.py:27
-msgid "Activate your auto reply until this date"
+
+#: forms.py:35
+#, fuzzy
+#| msgid "Activate your auto reply until this date"
+msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
 msgstr "Aktivera auto-svar fram till detta datum"
-#: forms.py:70 forms.py:76
+
+#: forms.py:94
 msgid "This date is over"
 msgstr "Detta datum har varit"
-#: forms.py:80
+
+#: forms.py:97
 msgid "Must be greater than start date"
 msgstr "Måste vara större än startdatum"
-#: general_callbacks.py:36
+
+#: general_callbacks.py:32
 #: templates/modoboa_postfix_autoreply/autoreply.html:2
 msgid "Auto-reply message"
 msgstr "Auto-svar meddelande"
-#: general_callbacks.py:120
-msgid "Enable auto-reply"
-msgstr "Aktivera autosvar"
-#: general_callbacks.py:123
-msgid "Enable or disable Postfix auto-reply"
-msgstr "Aktivera eller avaktivera Postfix autosvar"
-#: models.py:30
+
+#: general_callbacks.py:44
+#, fuzzy
+#| msgid "Automatic replies"
+msgid "Auto reply"
+msgstr "Automatiska svar"
+
+#: models.py:29
 msgid "subject"
 msgstr "ämne"
-#: models.py:31
+
+#: models.py:30
 msgid "The subject that will appear in sent emails"
 msgstr "Ämnesraden i skickade e-post meddelanden"
-#: models.py:34
+
+#: models.py:33
 msgid "content"
 msgstr "innehåll"
-#: models.py:35
+
+#: models.py:34
 msgid "The content that will appear in sent emails"
 msgstr "Innehållet i skickade e-post meddelanden"
-#: models.py:38
+
+#: models.py:37
 msgid "enabled"
 msgstr "aktiverad"
-#: models.py:39
+
+#: models.py:38
 msgid "Activate/Deactivate your auto reply"
 msgstr "Aktivera / inaktivera din autosvar"
-#: modo_extension.py:31
+
+#: modo_extension.py:30
 msgid "Auto-reply (vacation) functionality using Postfix"
 msgstr "Automatiskt svar (semester) funktionalitet med Postfix"
-#: modo_extension.py:36
+
+#: modo_extension.py:35
 msgid "Automatic replies"
 msgstr "Automatiska svar"
+
 #: templates/modoboa_postfix_autoreply/autoreply.html:2
 msgid "Define a message to automatically send when you are off"
 msgstr "Skriv meddelande att skicka automatiskt när du är borta"
+
 #: templates/modoboa_postfix_autoreply/autoreply.html:9
 msgid "Update"
 msgstr "Uppdatera"
-#: views.py:37
+
+#: views.py:33
 msgid "Auto reply message updated successfully."
 msgstr "Automatisk svarsmeddelande uppdaterats."
+
+#~ msgid "Enable auto-reply"
+#~ msgstr "Aktivera autosvar"
+
+#~ msgid "Enable or disable Postfix auto-reply"
+#~ msgstr "Aktivera eller avaktivera Postfix autosvar"
