@@ -145,8 +145,8 @@ class FormTestCase(ModoTestCase):
     def setUp(self):
         """Initialize tests."""
         super(FormTestCase, self).setUp()
-        self.clt.logout()
-        self.clt.login(username="user@test.com", password="toto")
+        self.client.logout()
+        self.client.login(username="user@test.com", password="toto")
 
     def test_set_autoreply(self):
         values = {
