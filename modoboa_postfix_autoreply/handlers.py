@@ -42,17 +42,8 @@ def delete_transport_entry(sender, instance, **kwargs):
 
 
 @receiver(signals.post_save, sender=admin_models.Mailbox)
-def manage_autoreply_alias(sender, instance, **kwargs):
-    """Create an alias for routing."""
-    if kwargs.get("created"):
-        alias, created = admin_models.Alias.objects.get_or_create(
-            address=instance.full_address, domain=instance.domain,
-            internal=True)
-        admin_models.AliasRecipient.objects.create(
-            alias=alias,
-            address=u"{}@autoreply.{}".format(
-                instance.full_address, instance.domain))
-        return
+def rename_autoreply_alias(sender, instance, **kwargs):
+    """Rename AR alias if needed."""
     old_address = getattr(instance, "old_full_address", None)
     if old_address is None or old_address == instance.full_address:
         return
@@ -75,3 +66,21 @@ def delete_autoreply_alias(sender, instance, **kwargs):
     alr.delete()
     if not alias.recipients_count:
         alias.delete()
+
+
+@receiver(signals.post_save, sender=models.ARmessage)
+def manage_autoreply_alias(sender, instance, **kwargs):
+    """Create or delete the alias."""
+    ar_alias_address = u"{}@autoreply.{}".format(
+        instance.mbox.full_address, instance.mbox.domain)
+    alias, created = admin_models.Alias.objects.get_or_create(
+        address=instance.mbox.full_address, domain=instance.mbox.domain,
+        internal=True)
+    if instance.enabled:
+        admin_models.AliasRecipient.objects.get_or_create(
+            alias=alias, address=ar_alias_address)
+    else:
+        admin_models.AliasRecipient.objects.filter(
+            address=ar_alias_address).delete()
+        if not alias.recipients_count:
+            alias.delete()
