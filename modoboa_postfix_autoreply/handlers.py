@@ -13,15 +13,15 @@ def manage_transport_entry(sender, instance, **kwargs):
     """Create or update a transport entry for this domain."""
     if kwargs.get("created"):
         models.Transport.objects.get_or_create(
-            domain="autoreply.{}".format(instance), method="autoreply:"
+            domain=u"autoreply.{}".format(instance), method="autoreply:"
         )
         return
     oldname = getattr(instance, "oldname", "None")
     if oldname is None or oldname == instance.name:
         return
     models.Transport.objects.filter(
-        domain="autoreply.%s" % oldname).update(
-            domain="autoreply.%s" % instance.name)
+        domain=u"autoreply.{}".format(oldname)).update(
+            domain=u"autoreply.{}".format(instance.name))
     qset = (
         admin_models.AliasRecipient.objects
         .select_related("alias", "r_mailbox")
@@ -50,15 +50,15 @@ def manage_autoreply_alias(sender, instance, **kwargs):
             internal=True)
         admin_models.AliasRecipient.objects.create(
             alias=alias,
-            address="{}@autoreply.{}".format(
+            address=u"{}@autoreply.{}".format(
                 instance.full_address, instance.domain))
         return
     old_address = getattr(instance, "old_full_address", None)
     if old_address is None or old_address == instance.full_address:
         return
     admin_models.AliasRecipient.objects.filter(
-        address__contains="{}@autoreply".format(old_address)).update(
-            address="{}@autoreply.{}".format(
+        address__contains=u"{}@autoreply".format(old_address)).update(
+            address=u"{}@autoreply.{}".format(
                 instance.full_address, instance.domain))
 
 
@@ -67,7 +67,7 @@ def delete_autoreply_alias(sender, instance, **kwargs):
     """Delete alias."""
     try:
         alr = admin_models.AliasRecipient.objects.get(
-            address="{}@autoreply.{}".format(
+            address=u"{}@autoreply.{}".format(
                 instance.full_address, instance.domain))
     except admin_models.AliasRecipient.DoesNotExist:
         return
