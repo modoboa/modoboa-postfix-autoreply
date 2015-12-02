@@ -15,11 +15,10 @@ import sys
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
-from modoboa.core.management.commands import CloseConnectionMixin
 from modoboa.lib import parameters
 from modoboa.lib.email_utils import split_mailbox, set_email_headers
 
-from modoboa_admin.models import Mailbox
+from modoboa.admin.models import Mailbox
 
 from ...models import ARmessage, ARhistoric
 from ...modo_extension import PostfixAutoreply
@@ -86,7 +85,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
     lastar.save()
 
 
-class Command(BaseCommand, CloseConnectionMixin):
+class Command(BaseCommand):
     args = "<sender> <recipient ...>"
     help = "Send autoreply emails"
 

@@ -7,8 +7,8 @@ from django.db import models, migrations
 def move_aliases(apps, schema_editor):
     """Move exising aliases to the main table."""
     OldAlias = apps.get_model("modoboa_postfix_autoreply", "Alias")
-    Alias = apps.get_model("modoboa_admin", "Alias")
-    AliasRecipient = apps.get_model("modoboa_admin", "AliasRecipient")
+    Alias = apps.get_model("admin", "Alias")
+    AliasRecipient = apps.get_model("admin", "AliasRecipient")
     to_create = []
     for old_alias in OldAlias.objects.all():
         alias, created = Alias.objects.get_or_create(
@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('modoboa_postfix_autoreply', '0002_auto_20150728_1236'),
-        ('modoboa_admin', '0007_auto_20150801_2101'),
     ]
 
     operations = [

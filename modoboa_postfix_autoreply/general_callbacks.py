@@ -2,7 +2,7 @@
 
 from django.utils.translation import ugettext_lazy, ugettext as _
 
-from modoboa.lib import events, parameters
+from modoboa.lib import events
 
 from .forms import ARmessageForm
 
@@ -15,7 +15,7 @@ def extra_js(user):
         language: '%(lang)s'
     });
 }
-""" % {'lang': parameters.get_user(user, "LANG", app="core")}
+""" % {"lang": user.language}
     ]
 
 

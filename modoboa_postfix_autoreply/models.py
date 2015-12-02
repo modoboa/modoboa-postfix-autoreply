@@ -4,10 +4,12 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
-from modoboa_admin.models import Mailbox
+from modoboa.admin.models import Mailbox
 
 
 class Transport(models.Model):
+
+    """A custom transport table for autoreply domains."""
 
     domain = models.CharField(max_length=300, db_index=True)
     method = models.CharField(max_length=255)
@@ -17,6 +19,8 @@ class Transport(models.Model):
 
 
 class ARmessage(models.Model):
+
+    """Auto reply messages."""
 
     mbox = models.ForeignKey(Mailbox)
     subject = models.CharField(
@@ -40,6 +44,8 @@ class ARmessage(models.Model):
 
 
 class ARhistoric(models.Model):
+
+    """Auto reply historic."""
 
     armessage = models.ForeignKey(ARmessage)
     last_sent = models.DateTimeField(auto_now=True)

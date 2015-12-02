@@ -8,7 +8,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('modoboa_admin', '__first__'),
+        ('admin', '__first__'),
     ]
 
     operations = [
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 ('enabled', models.BooleanField(default=False, help_text='Activate/Deactivate your auto reply', verbose_name='enabled')),
                 ('fromdate', models.DateTimeField(default=django.utils.timezone.now)),
                 ('untildate', models.DateTimeField(null=True, blank=True)),
-                ('mbox', models.ForeignKey(to='modoboa_admin.Mailbox')),
+                ('mbox', models.ForeignKey(to='admin.Mailbox')),
             ],
             options={
                 'db_table': 'postfix_autoreply_armessage',

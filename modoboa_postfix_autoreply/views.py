@@ -7,8 +7,8 @@ from modoboa.lib.web_utils import (
     render_to_json_response, _render_to_string
 )
 
-from modoboa_admin.lib import needs_mailbox
-from modoboa_admin.models import Mailbox
+from modoboa.admin.lib import needs_mailbox
+from modoboa.admin.models import Mailbox
 
 from .forms import ARmessageForm
 from .models import ARmessage
