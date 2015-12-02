@@ -40,16 +40,6 @@ class PostfixAutoreply(ModoExtension):
         for dom in admin_models.Domain.objects.all():
             trans, created = Transport.objects.get_or_create(
                 domain="autoreply.{}".format(dom.name))
-            if not created:
-                continue
-            for mb in dom.mailbox_set.all():
-                alias, created = admin_models.Alias.objects.get_or_create(
-                    address=mb.full_address, domain=mb.domain,
-                    internal=True)
-                admin_models.AliasRecipient.objects.create(
-                    alias=alias,
-                    address="{}@autoreply.{}".format(
-                        mb.full_address, mb.domain))
 
 exts_pool.register_extension(PostfixAutoreply)
 

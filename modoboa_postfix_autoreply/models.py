@@ -1,6 +1,7 @@
 """Postfix autoreply models."""
 
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible, smart_text
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
@@ -18,6 +19,7 @@ class Transport(models.Model):
         db_table = "postfix_autoreply_transport"
 
 
+@python_2_unicode_compatible
 class ARmessage(models.Model):
 
     """Auto reply messages."""
@@ -41,6 +43,9 @@ class ARmessage(models.Model):
 
     class Meta:
         db_table = "postfix_autoreply_armessage"
+
+    def __str__(self):
+        return smart_text("AR<{}>: {}".format(self.mbox, self.enabled))
 
 
 class ARhistoric(models.Model):

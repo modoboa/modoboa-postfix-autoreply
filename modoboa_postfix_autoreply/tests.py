@@ -10,9 +10,10 @@ from modoboa.core.models import User
 from modoboa.lib.tests import ModoTestCase
 from modoboa.lib.test_utils import MapFilesTestCaseMixin
 
-from modoboa.admin import factories
+from modoboa.admin import factories as admin_factories
 from modoboa.admin import models as admin_models
 
+from . import factories
 from .models import Transport, ARmessage
 
 
@@ -22,7 +23,7 @@ class EventsTestCase(ModoTestCase):
     def setUpTestData(cls):
         """Create test data."""
         super(EventsTestCase, cls).setUpTestData()
-        factories.populate_database()
+        admin_factories.populate_database()
 
     def test_domain_created_event(self):
         values = {
@@ -66,27 +67,33 @@ class EventsTestCase(ModoTestCase):
                 address__contains='@test.fr'):
             self.assertIn('autoreply.test.fr', alr.address)
 
-    def test_mailbox_created_event(self):
+    def test_armessage_postsave_event(self):
         values = {
-            'username': "tester@test.com",
-            'first_name': 'Tester',
-            'last_name': 'Toto',
-            'password1': 'aiL9oodi',
-            'password2': 'aiL9oodi',
-            'role': 'SimpleUsers',
-            'quota_act': True,
-            'is_active': True,
-            'email': 'tester@test.com',
-            'stepid': 'step2',
-            'autoreply': 'no'
+            'username': "leon@test.com",
+            'first_name': 'Tester', 'last_name': 'Toto',
+            'role': 'SimpleUsers', 'quota_act': True,
+            'is_active': True, 'email': 'leon@test.com',
+            'subject': 'test', 'content': 'test', 'enabled': True
         }
+        account = User.objects.get(username="user@test.com")
         self.ajax_post(
-            reverse("admin:account_add"), values
+            reverse("admin:account_change", args=[account.id]),
+            values
         )
         self.assertTrue(
             admin_models.AliasRecipient.objects.filter(
-                alias__address="tester@test.com", alias__internal=True,
-                address="tester@test.com@autoreply.test.com").exists()
+                alias__address="leon@test.com", alias__internal=True,
+                address="leon@test.com@autoreply.test.com").exists()
+        )
+        values["enabled"] = False
+        self.ajax_post(
+            reverse("admin:account_change", args=[account.id]),
+            values
+        )
+        self.assertFalse(
+            admin_models.AliasRecipient.objects.filter(
+                alias__address="leon@test.com", alias__internal=True,
+                address="leon@test.com@autoreply.test.com").exists()
         )
 
     def test_mailbox_deleted_event(self):
@@ -105,19 +112,16 @@ class EventsTestCase(ModoTestCase):
         )
 
     def test_modify_mailbox_event(self):
-        self.assertTrue(
-            admin_models.AliasRecipient.objects.filter(
-                alias__address="user@test.com", alias__internal=True,
-                address="user@test.com@autoreply.test.com").exists()
-        )
+        """Rename mailbox."""
+        account = User.objects.get(username="user@test.com")
+        factories.ARmessageFactory(mbox=account.mailbox)
         values = {
             'username': "leon@test.com",
             'first_name': 'Tester', 'last_name': 'Toto',
             'role': 'SimpleUsers', 'quota_act': True,
             'is_active': True, 'email': 'leon@test.com',
-            'subject': 'test', 'content': 'test'
+            'subject': 'test', 'content': 'test', 'enabled': True
         }
-        account = User.objects.get(username="user@test.com")
         self.ajax_post(
             reverse("admin:account_change", args=[account.id]),
             values
@@ -140,7 +144,7 @@ class FormTestCase(ModoTestCase):
     def setUpTestData(cls):
         """Create test data."""
         super(FormTestCase, cls).setUpTestData()
-        factories.populate_database()
+        admin_factories.populate_database()
 
     def setUp(self):
         """Initialize tests."""
