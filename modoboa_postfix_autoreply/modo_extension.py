@@ -25,7 +25,7 @@ class PostfixAutoreply(ModoExtension):
     """
     name = "modoboa_postfix_autoreply"
     label = "Postfix autoreply"
-    version = "1.1.2"
+    version = "1.1.3"
     description = ugettext_lazy(
         "Auto-reply (vacation) functionality using Postfix")
 
