@@ -9,10 +9,15 @@ def move_aliases(apps, schema_editor):
     OldAlias = apps.get_model("modoboa_postfix_autoreply", "Alias")
     Alias = apps.get_model("admin", "Alias")
     AliasRecipient = apps.get_model("admin", "AliasRecipient")
+    ObjectDates = apps.get_model("admin", "ObjectDates")
     to_create = []
     for old_alias in OldAlias.objects.all():
-        alias, created = Alias.objects.get_or_create(
-            address=old_alias.full_address, internal=True)
+        values = {"address": old_alias.full_address, "internal": True}
+        try:
+            alias = Alias.objects.get(**values)
+        except Alias.DoesNotExist:
+            alias = Alias.objects.create(
+                dates=ObjectDates.objects.create(), **values)
         to_create.append(AliasRecipient(
             address=old_alias.autoreply_address, alias=alias))
     AliasRecipient.objects.bulk_create(to_create)

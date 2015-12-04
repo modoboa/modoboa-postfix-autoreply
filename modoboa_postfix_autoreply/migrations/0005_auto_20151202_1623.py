@@ -11,9 +11,8 @@ def remove_useless_aliases(apps, schema_editor):
     qset = ARmessage.objects.select_related("mbox", "mbox__domain").filter(
         enabled=False)
     for armessage in qset:
-        alr_address = u"{}@autoreply.{}".format(
-            armessage.mbox.full_address, armessage.mbox.domain)
-        print alr_address
+        alr_address = u"{0}@{1}@autoreply.{1}".format(
+            armessage.mbox.address, armessage.mbox.domain)
         try:
             alr = AliasRecipient.objects.get(address=alr_address)
         except AliasRecipient.DoesNotExist:
