@@ -7,7 +7,6 @@ before_install:
 
 install:
   - pip install -e git+https://github.com/tonioo/modoboa.git#egg=modoboa
-  - pip install -e git+https://github.com/modoboa/modoboa-admin.git#egg=modoboa-admin
   - python setup.py -q develop
   - pip install -q psycopg2
 
