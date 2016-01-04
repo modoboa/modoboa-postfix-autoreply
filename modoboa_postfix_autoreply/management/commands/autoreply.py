@@ -60,7 +60,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
 
     msg = MIMEText(armessage.content.encode("utf-8"), _charset="utf-8")
     set_email_headers(
-        msg, "{} Re: {}".format(armessage.subject, original_msg["Subject"]),
+        msg, "Auto: {} Re: {}".format(armessage.subject, original_msg["Subject"]),
         mailbox.user.encoded_address, sender
     )
     msg["Auto-Submitted"] = "auto-replied"
