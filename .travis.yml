@@ -14,10 +14,11 @@ install:
 before_script:
   - psql -c 'create database modoboa_test;' -U postgres
 
-script: 
+script:
   - cd test_project
+  - PYTHONPATH=".." DJANGO_SETTINGS_MODULE="test_project.settings" python -c "import modoboa_postfix_autoreply.tests"
   - coverage run --source ../modoboa_postfix_autoreply manage.py test modoboa_postfix_autoreply.tests
 
 after_success:
   - codecov
-  
+
