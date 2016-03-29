@@ -12,7 +12,7 @@ class Transport(models.Model):
 
     """A custom transport table for autoreply domains."""
 
-    domain = models.CharField(max_length=300, db_index=True)
+    domain = models.CharField(max_length=253, db_index=True)
     method = models.CharField(max_length=255)
 
     class Meta:
