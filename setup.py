@@ -4,6 +4,8 @@ import re
 import os
 from setuptools import setup, find_packages
 
+from modoboa_postfix_autoreply import __version__
+
 ROOT = os.path.dirname(__file__)
 
 
@@ -57,7 +59,7 @@ def read(fname):
 
 setup(
     name="modoboa-postfix-autoreply",
-    version='1.1.4',
+    version=__version__,
     url='http://modoboa.org/',
     license='MIT',
     description="Away message editor for Modoboa (postfix compatible)",

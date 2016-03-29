@@ -14,6 +14,7 @@ from modoboa.lib import events, parameters
 
 from modoboa.admin import models as admin_models
 
+from . import __version__
 from .models import Transport
 
 
@@ -25,7 +26,7 @@ class PostfixAutoreply(ModoExtension):
     """
     name = "modoboa_postfix_autoreply"
     label = "Postfix autoreply"
-    version = "1.1.3"
+    version = __version__  # FIXME: handle this automatically
     description = ugettext_lazy(
         "Auto-reply (vacation) functionality using Postfix")
 
