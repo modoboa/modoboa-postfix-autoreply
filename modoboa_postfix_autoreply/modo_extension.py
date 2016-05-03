@@ -40,7 +40,8 @@ class PostfixAutoreply(ModoExtension):
         """Create records for existing domains."""
         for dom in admin_models.Domain.objects.all():
             trans, created = Transport.objects.get_or_create(
-                domain="autoreply.{}".format(dom.name))
+                domain="autoreply.{}".format(dom.name),
+                method="autoreply:")
 
 exts_pool.register_extension(PostfixAutoreply)
 
