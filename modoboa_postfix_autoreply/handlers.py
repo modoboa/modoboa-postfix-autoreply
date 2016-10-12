@@ -4,8 +4,10 @@ from django.db.models import signals
 from django.dispatch import receiver
 
 from modoboa.admin import models as admin_models
+from modoboa.core import signals as core_signals
 
 from . import models
+from . import postfix_maps
 
 
 @receiver(signals.post_save, sender=admin_models.Domain)
@@ -84,3 +86,11 @@ def manage_autoreply_alias(sender, instance, **kwargs):
             address=ar_alias_address).delete()
         if not alias.recipients_count:
             alias.delete()
+
+
+@receiver(core_signals.register_postfix_maps)
+def register_postfix_maps(sender, **kwargs):
+    """Register postfix maps."""
+    return [
+        postfix_maps.TransportMap,
+    ]
