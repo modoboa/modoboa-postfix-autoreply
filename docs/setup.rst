@@ -29,10 +29,9 @@ use. ``<modoboa_site>`` is the path of your Modoboa instance.
 
 Then, create the requested map files::
 
-  $ modoboa-admin.py postfix_maps mapfiles --extensions postfix-autoreply
+  $ python manage.py generate_postfix_maps --destdir <path>
 
-``mapfiles`` is the directory where the files will be stored. Answer the
-few questions and you're done.
+``path`` is the directory where the files will be stored.
 
 .. note::
 
