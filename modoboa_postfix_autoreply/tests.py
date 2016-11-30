@@ -152,6 +152,13 @@ class FormTestCase(ModoTestCase):
         self.client.logout()
         self.client.login(username="user@test.com", password="toto")
 
+    def test_form_display(self):
+        """Check if form is displayed."""
+        url = reverse("core:user_index")
+        response = self.client.get(url)
+        self.assertContains(response, "function autoreply_cb()")
+        self.assertContains(response, 'name="autoreply"')
+
     def test_set_autoreply(self):
         values = {
             'subject': 'test', 'content': "I'm off", "enabled": True
