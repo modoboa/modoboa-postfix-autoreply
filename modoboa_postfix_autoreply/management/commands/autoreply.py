@@ -15,10 +15,9 @@ import sys
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
-from modoboa.lib import parameters
-from modoboa.lib.email_utils import split_mailbox, set_email_headers
-
 from modoboa.admin.models import Mailbox
+from modoboa.lib.email_utils import split_mailbox, set_email_headers
+from modoboa.parameters import tools as param_tools
 
 from ...models import ARmessage, ARhistoric
 from ...modo_extension import PostfixAutoreply
@@ -41,8 +40,8 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
 
     try:
         lastar = ARhistoric.objects.get(armessage=armessage.id, sender=sender)
-        timeout = parameters.get_admin("AUTOREPLIES_TIMEOUT",
-                                       app="modoboa_postfix_autoreply")
+        timeout = param_tools.get_global_parameter(
+            "autoreplies_timeout", app="modoboa_postfix_autoreply")
         delta = datetime.timedelta(seconds=int(timeout))
         now = timezone.make_aware(datetime.datetime.now(),
                                   timezone.get_default_timezone())
