@@ -27,7 +27,7 @@ class EventsTestCase(ModoTestCase):
 
     def test_domain_created_event(self):
         values = {
-            "name": "domain.tld", "quota": 100, "create_dom_admin": "no",
+            "name": "domain.tld", "quota": 100, "create_dom_admin": False,
             "stepid": 'step3', "type": "domain"
         }
         self.ajax_post(
