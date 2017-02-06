@@ -19,14 +19,11 @@ from .models import Transport
 
 
 class PostfixAutoreply(ModoExtension):
+    """Auto-reply (vacation) functionality using Postfix."""
 
-    """
-    Auto-reply (vacation) functionality using Postfix.
-
-    """
     name = "modoboa_postfix_autoreply"
     label = "Postfix autoreply"
-    version = __version__  # FIXME: handle this automatically
+    version = __version__
     description = ugettext_lazy(
         "Auto-reply (vacation) functionality using Postfix")
 
