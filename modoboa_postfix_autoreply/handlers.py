@@ -103,10 +103,9 @@ def register_postfix_maps(sender, **kwargs):
 @receiver(core_signals.extra_uprefs_routes)
 def extra_routes(sender, **kwargs):
     """Add extra routes."""
+    from . import views
     return [
-        url(r'^user/autoreply/$',
-            'modoboa_postfix_autoreply.views.autoreply',
-            name="autoreply")
+        url(r'^user/autoreply/$', views.autoreply, name="autoreply")
     ]
 
 

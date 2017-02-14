@@ -7,7 +7,6 @@ from email.mime.text import MIMEText
 import fileinput
 import logging
 from logging.handlers import SysLogHandler
-from optparse import make_option
 import StringIO
 import smtplib
 import sys
@@ -89,11 +88,11 @@ class Command(BaseCommand):
     args = "<sender> <recipient ...>"
     help = "Send autoreply emails"
 
-    option_list = BaseCommand.option_list + (
-        make_option(
-            "--debug", "-d", action="store_true", dest="debug", default=False
-        ),
-    )
+    def add_arguments(self, parser):
+        """Add extra arguments to command line."""
+        parser.add_argument(
+            "--debug", action="store_true", dest="debug", default=False
+        )
 
     def handle(self, *args, **options):
         if options["debug"]:
