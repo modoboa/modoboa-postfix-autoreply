@@ -66,7 +66,7 @@ class ARmessageForm(forms.ModelForm):
             self.fields["subject"].initial = param_tools.get_global_parameter(
                 "default_subject")
             self.fields["content"].initial = param_tools.get_global_parameter(
-                "default_content")
+                "default_content") % {"name": self.mailbox.user.fullname}
         instance = kwargs.get("instance")
         if instance is not None:
             if instance.enabled:
