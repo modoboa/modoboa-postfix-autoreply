@@ -2,6 +2,7 @@
 
 import datetime
 
+from django.core import management
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
@@ -216,3 +217,35 @@ class MapFilesTestCase(MapFilesTestCaseMixin, TestCase):
     MAP_FILES = [
         "sql-autoreplies-transport.cf",
     ]
+
+
+class RepairTestCase(ModoTestCase):
+    """Check repair command."""
+
+    @classmethod
+    def setUpTestData(cls):
+        """Create some data."""
+        super(RepairTestCase, cls).setUpTestData()
+        admin_factories.populate_database()
+
+    def test_management_command(self):
+        """Check if problems are fixed."""
+        mbox = admin_models.Mailbox.objects.get(user__username="user@test.com")
+        alias = admin_models.Alias.objects.get(
+            internal=True, address=mbox.full_address)
+        arm = factories.ARmessageFactory(mbox=mbox, enabled=False)
+        ar_address = "{}@autoreply.{}".format(
+            mbox.full_address, mbox.domain.name)
+        admin_factories.AliasRecipientFactory(
+            alias=alias, address=ar_address)
+        management.call_command("modo", "repair", "--quiet")
+        self.assertFalse(
+            admin_models.AliasRecipient.objects.filter(
+                address=ar_address).exists())
+        admin_factories.AliasRecipientFactory(
+            alias=alias, address=ar_address)
+        arm.delete()
+        management.call_command("modo", "repair", "--quiet")
+        self.assertFalse(
+            admin_models.AliasRecipient.objects.filter(
+                address=ar_address).exists())
