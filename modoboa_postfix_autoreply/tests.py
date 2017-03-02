@@ -27,7 +27,8 @@ class EventsTestCase(ModoTestCase):
 
     def test_domain_created_event(self):
         values = {
-            "name": "domain.tld", "quota": 100, "create_dom_admin": False,
+            "name": "domain.tld", "quota": 100, "default_mailbox_quota": 1,
+            "create_dom_admin": False,
             "stepid": 'step3', "type": "domain"
         }
         self.ajax_post(
@@ -48,8 +49,8 @@ class EventsTestCase(ModoTestCase):
 
     def test_domain_modified_event(self):
         values = {
-            "name": "test.fr", "quota": 100, "enabled": True,
-            "type": "domain"
+            "name": "test.fr", "quota": 100, "default_mailbox_quota": 1,
+            "enabled": True, "type": "domain"
         }
         dom = admin_models.Domain.objects.get(name="test.com")
         self.ajax_post(
