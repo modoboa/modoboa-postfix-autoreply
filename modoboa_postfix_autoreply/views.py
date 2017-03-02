@@ -1,11 +1,11 @@
 # coding: utf-8
 
-from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
-from modoboa.lib.web_utils import (
-    render_to_json_response, _render_to_string
-)
+from django.contrib.auth.decorators import login_required
+
+from modoboa.lib.web_utils import render_to_json_response
 
 from modoboa.admin.lib import needs_mailbox
 from modoboa.admin.models import Mailbox
@@ -39,6 +39,6 @@ def autoreply(request, tplname="modoboa_postfix_autoreply/autoreply.html"):
 
     form = ARmessageForm(mb, instance=arm)
     return render_to_json_response({
-        "content": _render_to_string(request, tplname, {"form": form}),
+        "content": render_to_string(tplname, {"form": form}, request),
         "onload_cb": "autoreply_cb"
     })

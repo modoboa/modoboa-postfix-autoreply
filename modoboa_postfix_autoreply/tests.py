@@ -27,7 +27,7 @@ class EventsTestCase(ModoTestCase):
 
     def test_domain_created_event(self):
         values = {
-            "name": "domain.tld", "quota": 100, "create_dom_admin": "no",
+            "name": "domain.tld", "quota": 100, "create_dom_admin": False,
             "stepid": 'step3', "type": "domain"
         }
         self.ajax_post(
@@ -151,6 +151,13 @@ class FormTestCase(ModoTestCase):
         super(FormTestCase, self).setUp()
         self.client.logout()
         self.client.login(username="user@test.com", password="toto")
+
+    def test_form_display(self):
+        """Check if form is displayed."""
+        url = reverse("core:user_index")
+        response = self.client.get(url)
+        self.assertContains(response, "function autoreply_cb()")
+        self.assertContains(response, 'name="autoreply"')
 
     def test_set_autoreply(self):
         values = {

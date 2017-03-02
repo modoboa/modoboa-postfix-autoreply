@@ -8,13 +8,14 @@ from django import forms
 from django.utils import timezone
 from django.utils.translation import ugettext as _, ugettext_lazy
 
-from modoboa.lib import parameters
+from modoboa.lib import form_utils
+from modoboa.parameters import forms as param_forms
+from modoboa.parameters import tools as param_tools
 
 from .models import ARmessage
 
 
 class ARmessageForm(forms.ModelForm):
-
     """Form to define an auto-reply message."""
 
     fromdate = forms.DateTimeField(
@@ -62,10 +63,10 @@ class ARmessageForm(forms.ModelForm):
             ['subject', 'content', 'fromdate', 'untildate', 'enabled']
         )
         if not self.instance.pk:
-            self.fields["subject"].initial = parameters.get_admin(
-                "DEFAULT_SUBJECT")
-            self.fields["content"].initial = parameters.get_admin(
-                "DEFAULT_CONTENT")
+            self.fields["subject"].initial = param_tools.get_global_parameter(
+                "default_subject")
+            self.fields["content"].initial = param_tools.get_global_parameter(
+                "default_content")
         instance = kwargs.get("instance")
         if instance is not None:
             if instance.enabled:
@@ -104,3 +105,59 @@ class ARmessageForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+
+class ParametersForm(param_forms.AdminParametersForm):
+    """General parameters."""
+
+    app = "modoboa_postfix_autoreply"
+
+    general_sep = form_utils.SeparatorField(label=ugettext_lazy("General"))
+
+    autoreplies_timeout = forms.IntegerField(
+        label=ugettext_lazy("Automatic reply timeout"),
+        initial=86400,
+        help_text=ugettext_lazy(
+            "Timeout in seconds between two auto-replies to the same recipient"
+        ),
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
+
+    default_subject = forms.CharField(
+        label=ugettext_lazy("Default subject"),
+        initial=ugettext_lazy("I'm off"),
+        help_text=ugettext_lazy(
+            "Default subject used when an auto-reply message is created "
+            "automatically"
+        ),
+        widget=forms.TextInput(attrs={"class": "form-control"})
+    )
+
+    default_content = forms.CharField(
+        label=ugettext_lazy("Default content"),
+        initial=ugettext_lazy(
+            """I'm currently off. I'll answer as soon as I come back.
+
+Best regards,
+%(name)s
+"""),
+        help_text=ugettext_lazy(
+            "Default content used when an auto-reply message is created "
+            "automatically. The '%(name)s' macro will be replaced by the "
+            "user's full name."
+        ),
+        widget=forms.widgets.Textarea(attrs={"class": "form-control"})
+    )
+
+    def clean_default_content(self):
+        """Check if the provided value is valid.
+
+        Must be a valid format string which will be used with the %
+        operator.
+        """
+        tpl = self.cleaned_data["default_content"]
+        try:
+            test = tpl % {"name": "Antoine Nguyen"}
+        except (KeyError, ValueError):
+            raise forms.ValidationError(ugettext_lazy("Invalid syntax"))
+        return tpl
