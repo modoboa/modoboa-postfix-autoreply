@@ -59,6 +59,7 @@ MODOBOA_APPS = (
     'modoboa.admin',
     'modoboa.relaydomains',
     'modoboa.limits',
+    'modoboa.parameters',
     # Modoboa extensions here.
     'modoboa_postfix_autoreply',
 
@@ -77,13 +78,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'modoboa.core.middleware.LocalConfigMiddleware',
     'modoboa.lib.middleware.AjaxLoginRedirect',
     'modoboa.lib.middleware.CommonExceptionCatcher',
     'modoboa.lib.middleware.RequestCatcherMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
-    'modoboa.lib.authbackends.SimpleBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + [
@@ -115,7 +117,7 @@ USE_TZ = True
 STATIC_URL = '/sitestatic/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'sitestatic')
 STATICFILES_DIRS = (
-    '/home/tonio/.pythonenvs/modoboa/lib/python2.7/site-packages/modoboa-1.3.3-py2.7.egg/modoboa/bower_components',
+
 )
 
 MEDIA_URL = '/media/'
@@ -160,4 +162,3 @@ LOGGING = {
         }
     }
 }
-
