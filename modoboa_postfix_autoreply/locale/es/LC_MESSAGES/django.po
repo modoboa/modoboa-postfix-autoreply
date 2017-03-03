@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 16:36+0100\n"
+"POT-Creation-Date: 2017-03-03 09:28+0100\n"
 "PO-Revision-Date: 2013-10-01 09:56+0000\n"
 "Last-Translator: Pedro Gracia <lasarux@neuroomante.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/modoboa/language/"
@@ -20,38 +20,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app_settings.py:15
+#: forms.py:22
+msgid "From"
+msgstr "Desde"
+
+#: forms.py:25
+#, fuzzy
+msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
+msgstr "Activar su autorespuesta hasta esta fecha"
+
+#: forms.py:33
+msgid "Until"
+msgstr "Hasta"
+
+#: forms.py:36
+#, fuzzy
+#| msgid "Activate your auto reply until this date"
+msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
+msgstr "Activar su autorespuesta hasta esta fecha"
+
+#: forms.py:95
+msgid "This date is over"
+msgstr "Esta fecha ha pasado"
+
+#: forms.py:98
+#, fuzzy
+msgid "Must be greater than start date"
+msgstr "es mayor que"
+
+#: forms.py:115
 msgid "General"
 msgstr "General"
 
-#: app_settings.py:18
+#: forms.py:118
 msgid "Automatic reply timeout"
 msgstr "Tiempo de caducidad de respuestas automáticas"
 
-#: app_settings.py:21
+#: forms.py:121
 msgid "Timeout in seconds between two auto-replies to the same recipient"
 msgstr "Tiempo en segundos entre dos autorespuestas para el mismo emisor"
 
-#: app_settings.py:27
+#: forms.py:127
 #, fuzzy
 msgid "Default subject"
 msgstr "Editor por defecto"
 
-#: app_settings.py:28
+#: forms.py:128
 msgid "I'm off"
 msgstr ""
 
-#: app_settings.py:30
+#: forms.py:130
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
 msgstr ""
 
-#: app_settings.py:37
+#: forms.py:137
 #, fuzzy
 msgid "Default content"
 msgstr "Editor por defecto"
 
-#: app_settings.py:39
+#: forms.py:139
 #, python-format
 msgid ""
 "I'm currently off. I'll answer as soon as I come back.\n"
@@ -60,51 +88,22 @@ msgid ""
 "%(name)s\n"
 msgstr ""
 
-#: app_settings.py:45
+#: forms.py:145
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
 msgstr ""
 
-#: app_settings.py:62
+#: forms.py:162
 msgid "Invalid syntax"
 msgstr "Sintaxis inválida"
 
-#: forms.py:21
-msgid "From"
-msgstr "Desde"
-
-#: forms.py:24
-#, fuzzy
-msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activar su autorespuesta hasta esta fecha"
-
-#: forms.py:32
-msgid "Until"
-msgstr "Hasta"
-
-#: forms.py:35
-#, fuzzy
-#| msgid "Activate your auto reply until this date"
-msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activar su autorespuesta hasta esta fecha"
-
-#: forms.py:94
-msgid "This date is over"
-msgstr "Esta fecha ha pasado"
-
-#: forms.py:97
-#, fuzzy
-msgid "Must be greater than start date"
-msgstr "es mayor que"
-
-#: general_callbacks.py:32
-#: templates/modoboa_postfix_autoreply/autoreply.html:2
+#: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
 msgstr "Mensaje de autorespuesta"
 
-#: general_callbacks.py:44
+#: handlers.py:147
 #, fuzzy
 #| msgid "Automatic replies"
 msgid "Auto reply"
@@ -134,20 +133,20 @@ msgstr "activado"
 msgid "Activate/Deactivate your auto reply"
 msgstr "Activar/desactivar su autorespuesta"
 
-#: modo_extension.py:30
+#: modo_extension.py:28
 msgid "Auto-reply (vacation) functionality using Postfix"
 msgstr "Funcionalidad de autorespuesta (vacaciones) usando Postfix"
 
-#: modo_extension.py:35
+#: modo_extension.py:32
 msgid "Automatic replies"
 msgstr "Contestaciones automáticas"
 
-#: templates/modoboa_postfix_autoreply/autoreply.html:2
+#: templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Define a message to automatically send when you are off"
 msgstr ""
 "Defina el mensaje que automáticamente se enviará cuando esté desconectado"
 
-#: templates/modoboa_postfix_autoreply/autoreply.html:9
+#: templates/modoboa_postfix_autoreply/autoreply.html:10
 msgid "Update"
 msgstr "Actualizar"
 

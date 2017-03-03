@@ -1,83 +1,75 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Andrew <buddha@cryptolab.net>, 2014
-# TuxBrother <vrijwilligerswerk@wij.rs>, 2014
+# sin88 <sin@sin.waw.pl>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-03 09:28+0100\n"
-"PO-Revision-Date: 2014-12-31 11:37+0000\n"
-"Last-Translator: TuxBrother <vrijwilligerswerk@wij.rs>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/"
-"modoboa/language/nl_NL/)\n"
-"Language: nl_NL\n"
+"PO-Revision-Date: 2016-11-09 16:13+0000\n"
+"Last-Translator: sin88 <sin@sin.waw.pl>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/tonio/modoboa/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: forms.py:22
 msgid "From"
-msgstr "Van"
+msgstr "Od"
 
 #: forms.py:25
-#, fuzzy
-#| msgid "Activate your auto reply from this date"
 msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activeer uw auto-antwoord vanaf deze datum"
+msgstr "Włącz auto-odpowiedzi od tej daty. Format : RRRR-MM-DD GG:mm:ss"
 
 #: forms.py:33
 msgid "Until"
-msgstr "Tot"
+msgstr "Do"
 
 #: forms.py:36
-#, fuzzy
-#| msgid "Activate your auto reply until this date"
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activeer uw auto-antwoord tot deze datum"
+msgstr "Włącz auto-odpowiedzi do tej daty Format : RRRR-MM-DD GG:mm:ss"
 
 #: forms.py:95
 msgid "This date is over"
-msgstr "Deze datum is over"
+msgstr "Data z przeszłości"
 
 #: forms.py:98
 msgid "Must be greater than start date"
-msgstr "De datum moet in de toekomst vanaf de startdatum liggen"
+msgstr "Musi być większa niż data początkowa"
 
 #: forms.py:115
 msgid "General"
-msgstr "Algemeen"
+msgstr "Ogólne"
 
 #: forms.py:118
 msgid "Automatic reply timeout"
-msgstr "Automatisch antwoorden timeout"
+msgstr "Automatyczny limit czasu odpowiedzi"
 
 #: forms.py:121
 msgid "Timeout in seconds between two auto-replies to the same recipient"
-msgstr "Timeout in seconden tussen twee auto-antwoorden naar dezelfde afzender"
+msgstr "Limit w sek. pomiędzie dwiema auto-odpowiedziami dla tego samego odbiorcy"
 
 #: forms.py:127
 msgid "Default subject"
-msgstr "Standaard onderwerp"
+msgstr "Domyślny temat"
 
 #: forms.py:128
 msgid "I'm off"
-msgstr "Ik ben niet aanwezig"
+msgstr "Jestem niedostępny"
 
 #: forms.py:130
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
-msgstr ""
-"Standaard onderwerp gebruikt wanneer een automatisch antwoord automatisch is "
-"aangemaakt"
+msgstr "Domyślny temat używany dla automatycznych autoodpowiedzi"
 
 #: forms.py:137
 msgid "Default content"
-msgstr "Standaard inhoud"
+msgstr "Domyślna zawartość"
 
 #: forms.py:139
 #, python-format
@@ -86,83 +78,67 @@ msgid ""
 "\n"
 "Best regards,\n"
 "%(name)s\n"
-msgstr ""
-"Momenteel ben ik niet aanwezig. Ik zal antwoorden zodra ik terug kom.\n"
-"\n"
-"Met vriendelijke groet,\n"
-"%(name)s\n"
+msgstr "Aktualnie jestem niedostępny. Odpowiem po powrocie.\n\nPozdrawiam,\n%(name)s\n"
 
 #: forms.py:145
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
-msgstr ""
-"Standaard inhoud gebruikt wanneer een automatisch antwoord bericht "
-"automatisch is aangemaakt. De '%(name)s' macro zal vervangen worden door de "
-"naam van de gebruiker."
+msgstr "Domyślna zawartość dla automatycznych auto-odpowiedzi. Macro '%(name)s' zostanie zastąpione przez pełną nazwę użytkownika."
 
 #: forms.py:162
 msgid "Invalid syntax"
-msgstr "Ongeldige zinsbouw"
+msgstr "Nieprawidłowa składnia"
 
 #: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
-msgstr "Auto-antwoord bericht"
+msgstr "Wadomość auto-odpowiedź"
 
 #: handlers.py:147
-#, fuzzy
-#| msgid "Automatic replies"
 msgid "Auto reply"
-msgstr "Automatisch antwoorden"
+msgstr "Automatyczna odpowidź"
 
 #: models.py:29
 msgid "subject"
-msgstr "onderwerp"
+msgstr "temat"
 
 #: models.py:30
 msgid "The subject that will appear in sent emails"
-msgstr "Het onderwerp dat zal verschijnen in verstuurde mails"
+msgstr "Temat, który się pojawi w wysłanych wiadomościach"
 
 #: models.py:33
 msgid "content"
-msgstr "inhoud"
+msgstr "zawartość"
 
 #: models.py:34
 msgid "The content that will appear in sent emails"
-msgstr "De inhoud die zal verschijnen in versuurde mails"
+msgstr "Zawartość, która pojawi się w wysłanych wiadomościach"
 
 #: models.py:37
 msgid "enabled"
-msgstr "actief"
+msgstr "włączone"
 
 #: models.py:38
 msgid "Activate/Deactivate your auto reply"
-msgstr "Activeer/Deactiveer uw auto-antwoord"
+msgstr "Włącz/Wyłącz auto-odpowiedzi"
 
 #: modo_extension.py:28
 msgid "Auto-reply (vacation) functionality using Postfix"
-msgstr "Auto-antwoord (vakantiebericht) functionaliteit dmv. Postfix"
+msgstr "Funkcja auto-odpowiedzi (wakacje) używana przez Postfix'a"
 
 #: modo_extension.py:32
 msgid "Automatic replies"
-msgstr "Automatisch antwoorden"
+msgstr "Autoamtyczne odpowiedzi"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Define a message to automatically send when you are off"
-msgstr ""
-"Maak een bericht dat automatisch verstuurd word wanneer u niet aanwezig bent"
+msgstr "Zdefiniuj wiadmość wysyłaną kiedy jesteś niedostępny"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:10
 msgid "Update"
-msgstr "Toepassen"
+msgstr "Zaktualizuj"
 
 #: views.py:33
 msgid "Auto reply message updated successfully."
-msgstr "Auto antwoord bericht successvol aangepast."
-
-#~ msgid "Enable auto-reply"
-#~ msgstr "Activeer auto-antwoord"
-
-#~ msgid "Enable or disable Postfix auto-reply"
-#~ msgstr "Activeer of Deactiveer Postfix auto-antwoord"
+msgstr "Auto reply message updated successfully."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: modoboa-1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-02 16:36+0100\n"
+"POT-Creation-Date: 2017-03-03 09:28+0100\n"
 "PO-Revision-Date: 2011-01-07 10:00+100\n"
 "Last-Translator: Antoine Nguyen <tonio@ngyn.org>\n"
 "Language-Team: FR <tonio@ngyn.org>\n"
@@ -17,39 +17,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app_settings.py:15
+#: forms.py:22
+msgid "From"
+msgstr "De"
+
+#: forms.py:25
+msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
+msgstr ""
+"Activer votre réponse automatique à partir de cette date. Format : YYYY-MM-"
+"DD HH:mm:ss"
+
+#: forms.py:33
+msgid "Until"
+msgstr "Jusqu'à"
+
+#: forms.py:36
+msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
+msgstr ""
+"Activer votre réponse automatique jusqu'à cette date. Format : YYYY-MM-DD HH:"
+"mm:ss"
+
+#: forms.py:95
+msgid "This date is over"
+msgstr "Cette date est dépassée"
+
+#: forms.py:98
+msgid "Must be greater than start date"
+msgstr "Doit être supérieure à la date de démarrage"
+
+#: forms.py:115
 msgid "General"
 msgstr "Général"
 
-#: app_settings.py:18
+#: forms.py:118
 msgid "Automatic reply timeout"
 msgstr "Délai d'expiration d'une réponse automatique"
 
-#: app_settings.py:21
+#: forms.py:121
 msgid "Timeout in seconds between two auto-replies to the same recipient"
 msgstr ""
 "Timeout en secondes entre deux réponses automatiques pour le même "
 "destinataire"
 
-#: app_settings.py:27
+#: forms.py:127
 msgid "Default subject"
 msgstr "Sujet par défaut"
 
-#: app_settings.py:28
+#: forms.py:128
 msgid "I'm off"
 msgstr "Je suis absent"
 
-#: app_settings.py:30
+#: forms.py:130
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
 msgstr ""
 "Sujet par défaut utilisé quand un message d'absence est créé automatiquement"
 
-#: app_settings.py:37
+#: forms.py:137
 msgid "Default content"
 msgstr "Contenu par défaut"
 
-#: app_settings.py:39
+#: forms.py:139
 #, python-format
 msgid ""
 "I'm currently off. I'll answer as soon as I come back.\n"
@@ -62,7 +90,7 @@ msgstr ""
 "Cordialement,\n"
 "%(name)s\n"
 
-#: app_settings.py:45
+#: forms.py:145
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
@@ -72,40 +100,15 @@ msgstr ""
 "automatiquement.La macro '%(name)s' sera remplacée par le nom complet de "
 "l'utilisateur."
 
-#: app_settings.py:62
+#: forms.py:162
 msgid "Invalid syntax"
 msgstr "Syntaxe invalide"
 
-#: forms.py:21
-msgid "From"
-msgstr "De"
-
-#: forms.py:24
-msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activer votre réponse automatique à partir de cette date. Format : YYYY-MM-DD HH:mm:ss"
-
-#: forms.py:32
-msgid "Until"
-msgstr "Jusqu'à"
-
-#: forms.py:35
-msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activer votre réponse automatique jusqu'à cette date. Format : YYYY-MM-DD HH:mm:ss"
-
-#: forms.py:94
-msgid "This date is over"
-msgstr "Cette date est dépassée"
-
-#: forms.py:97
-msgid "Must be greater than start date"
-msgstr "Doit être supérieure à la date de démarrage"
-
-#: general_callbacks.py:32
-#: templates/modoboa_postfix_autoreply/autoreply.html:2
+#: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
 msgstr "Message de réponse automatique"
 
-#: general_callbacks.py:44
+#: handlers.py:147
 msgid "Auto reply"
 msgstr "Réponse automatique"
 
@@ -133,19 +136,19 @@ msgstr "Activé"
 msgid "Activate/Deactivate your auto reply"
 msgstr "Activer/Désactiver votre réponse automatique"
 
-#: modo_extension.py:30
+#: modo_extension.py:28
 msgid "Auto-reply (vacation) functionality using Postfix"
 msgstr "Fonction de réponse automatique (vacances) utilisant Postfix"
 
-#: modo_extension.py:35
+#: modo_extension.py:32
 msgid "Automatic replies"
 msgstr "Réponses automatiques"
 
-#: templates/modoboa_postfix_autoreply/autoreply.html:2
+#: templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Define a message to automatically send when you are off"
 msgstr "Définir un message à envoyer automatiquement quand vous êtes absent"
 
-#: templates/modoboa_postfix_autoreply/autoreply.html:9
+#: templates/modoboa_postfix_autoreply/autoreply.html:10
 msgid "Update"
 msgstr "Mettre à jour"
 
