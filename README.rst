@@ -23,6 +23,7 @@ Edit the settings.py file of your modoboa instance and add
       'modoboa.admin',
       'modoboa.relaydomains',
       'modoboa.limits',
+      'modoboa.parameters',
       # Extensions here
       'modoboa_postfix_autoreply',
     )
@@ -31,6 +32,7 @@ Run the following commands to setup the database tables::
 
   $ cd <modoboa_instance_dir>
   $ python manage.py migrate modoboa_postfix_autoreply
+  $ python manage.py collectstatic
   $ python manage.py load_initial_data
     
 Finally, restart the python process running modoboa (uwsgi, gunicorn,
