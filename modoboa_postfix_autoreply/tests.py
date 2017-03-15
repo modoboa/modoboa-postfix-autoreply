@@ -1,7 +1,10 @@
 """modoboa-postfix-autoreply unit tests."""
 
 import datetime
+import StringIO
+import sys
 
+from django.core import mail
 from django.core import management
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -16,6 +19,28 @@ from modoboa.admin import models as admin_models
 
 from . import factories
 from .models import Transport, ARmessage
+
+
+TEST_EMAIL_CONTENT = """
+From: Homer Simpson <homer@simpson.test>
+Date: Wed, 15 Mar 2017 18:35:19 +0100
+Message-ID: <CAN0378wA1V0VJg5OxyavB2uJgAimMc2ttGSc-yvWsXTaKqnKuw@simpson.test>
+Subject: Test
+To: user@test.com
+Content-Type: multipart/alternative; boundary=001a114420be4c231a054ac85e75
+
+--001a114420be4c231a054ac85e75
+Content-Type: text/plain; charset=UTF-8
+
+pouet
+
+--001a114420be4c231a054ac85e75
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">pouet<br></div>
+
+--001a114420be4c231a054ac85e75--
+"""
 
 
 class EventsTestCase(ModoTestCase):
@@ -249,3 +274,26 @@ class RepairTestCase(ModoTestCase):
         self.assertFalse(
             admin_models.AliasRecipient.objects.filter(
                 address=ar_address).exists())
+
+
+class ManagementCommandTestCase(ModoTestCase):
+    """Management command related tests."""
+
+    def setUp(self):
+        """Replace stdin."""
+        super(ManagementCommandTestCase, self).setUp()
+        admin_factories.populate_database()
+        self.stdin = sys.stdin
+        sys.stdin = StringIO.StringIO(TEST_EMAIL_CONTENT)
+
+    def tearDown(self):
+        """Restore stdin."""
+        sys.stdin = self.stdin
+
+    def test_simple_case(self):
+        """Check basic autoreply."""
+        account = User.objects.get(username="user@test.com")
+        factories.ARmessageFactory(mbox=account.mailbox)
+        management.call_command(
+            "autoreply", "homer@simpson.test", "user@test.com")
+        self.assertEqual(len(mail.outbox), 1)
