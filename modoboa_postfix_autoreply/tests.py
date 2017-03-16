@@ -213,6 +213,9 @@ class FormTestCase(ModoTestCase):
         self.assertContains(response, "function autoreply_cb()")
         self.assertContains(response, 'name="autoreply"')
 
+        response = self.ajax_get(reverse("autoreply"))
+        self.assertIn("user@test.com", response["content"])
+
     def test_set_autoreply(self):
         values = {
             'subject': 'test', 'content': "I'm off", "enabled": True
