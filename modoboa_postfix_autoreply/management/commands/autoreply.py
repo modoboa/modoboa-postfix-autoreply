@@ -29,12 +29,16 @@ logger.setLevel(logging.ERROR)
 def send_autoreply(sender, mailbox, armessage, original_msg):
     """Send an autoreply message."""
     if armessage.fromdate > timezone.now():
+        # Too soon, come back later
         return
 
-    if armessage.untildate is not None \
-            and armessage.untildate < timezone.now():
+    condition = (
+        armessage.untildate is not None and
+        armessage.untildate < timezone.now())
+    if condition:
+        # ARmessage has expired, disable it
         armessage.enabled = False
-        armessage.save()
+        armessage.save(update_fields=["enabled"])
         return
 
     try:
@@ -49,7 +53,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
                 "no autoreply message sent because delta (%s) < timetout (%s)",
                 delta, timeout
             )
-            sys.exit(0)
+            return
 
     except ARhistoric.DoesNotExist:
         lastar = ARhistoric()
@@ -113,8 +117,9 @@ class Command(BaseCommand):
             (sender_localpart.startswith('owner-')) or
             (sender_localpart.endswith('-request'))
         ):
-            logger.debug("Skip auto reply, this mail comes from mailing list")
-            sys.exit(0)
+            logger.debug(
+                "Skip auto reply, this mail comes from a mailing list")
+            return
 
         content = StringIO.StringIO()
         for line in fileinput.input([]):
@@ -122,6 +127,7 @@ class Command(BaseCommand):
         content.seek(0)
 
         original_msg = email.message_from_file(content)
+
         # Mailing list filter based on
         # https://tools.ietf.org/html/rfc5230#page-7
         ml_known_headers = [
@@ -133,15 +139,15 @@ class Command(BaseCommand):
             if header in original_msg:
                 from_ml = True
                 break
-        conditions = (
-            original_msg.get("Precedence") == "bulk",
-            original_msg.get("X-Mailer") == "PHPMailer",
+        condition = (
+            original_msg.get("Precedence") == "bulk" or
+            original_msg.get("X-Mailer") == "PHPMailer" or
             from_ml
         )
-        if any(conditions):
+        if condition:
             logger.debug(
-                "Skip auto reply, this mail comes from mailing list")
-            sys.exit(0)
+                "Skip auto reply, this mail comes from a mailing list")
+            return
 
         PostfixAutoreply().load()
         for fulladdress in options["recipient"]:
