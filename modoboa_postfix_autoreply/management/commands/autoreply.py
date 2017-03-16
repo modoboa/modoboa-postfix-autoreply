@@ -3,7 +3,6 @@
 
 import datetime
 import email
-from email.mime.text import MIMEText
 import fileinput
 import logging
 from logging.handlers import SysLogHandler
@@ -11,11 +10,12 @@ import StringIO
 import smtplib
 import sys
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.mail import EmailMessage
+from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from modoboa.admin.models import Mailbox
-from modoboa.lib.email_utils import split_mailbox, set_email_headers
+from modoboa.lib.email_utils import split_mailbox
 from modoboa.parameters import tools as param_tools
 
 from ...models import ARmessage, ARhistoric
@@ -29,12 +29,16 @@ logger.setLevel(logging.ERROR)
 def send_autoreply(sender, mailbox, armessage, original_msg):
     """Send an autoreply message."""
     if armessage.fromdate > timezone.now():
+        # Too soon, come back later
         return
 
-    if armessage.untildate is not None \
-            and armessage.untildate < timezone.now():
+    condition = (
+        armessage.untildate is not None and
+        armessage.untildate < timezone.now())
+    if condition:
+        # ARmessage has expired, disable it
         armessage.enabled = False
-        armessage.save()
+        armessage.save(update_fields=["enabled"])
         return
 
     try:
@@ -49,43 +53,43 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
                 "no autoreply message sent because delta (%s) < timetout (%s)",
                 delta, timeout
             )
-            sys.exit(0)
+            return
 
     except ARhistoric.DoesNotExist:
         lastar = ARhistoric()
         lastar.armessage = armessage
         lastar.sender = sender
 
-    msg = MIMEText(armessage.content.encode("utf-8"), _charset="utf-8")
-    set_email_headers(
-        msg,
-        u"Auto: {} Re: {}".format(armessage.subject, original_msg["Subject"]),
-        mailbox.user.encoded_address, sender
-    )
-    msg["Auto-Submitted"] = "auto-replied"
-    msg["Precedence"] = "bulk"
+    headers = {
+        "Auto-Submitted": "auto-replied",
+        "Precedence": "bulk"
+    }
     message_id = original_msg.get("Message-ID")
     if message_id:
-        msg["In-Reply-To"] = message_id
-        msg["References"] = message_id
-
+        headers.update({"In-Reply-To": message_id, "References": message_id})
+    msg = EmailMessage(
+        u"Auto: {} Re: {}".format(armessage.subject, original_msg["Subject"]),
+        armessage.content.encode("utf-8"),
+        mailbox.user.encoded_address,
+        [sender],
+        headers=headers
+    )
     try:
-        s = smtplib.SMTP("localhost")
-        s.sendmail(mailbox.user.encoded_address, [sender], msg.as_string())
-        s.quit()
+        msg.send()
     except smtplib.SMTPException as exp:
         logger.error("Failed to send autoreply message: %s", exp)
         sys.exit(1)
 
     logger.debug(
-        "autoreply message sent to %s" % mailbox.user.encoded_address)
+        "autoreply message sent to %s", mailbox.user.encoded_address)
 
     lastar.last_sent = datetime.datetime.now()
     lastar.save()
 
 
 class Command(BaseCommand):
-    args = "<sender> <recipient ...>"
+    """Command definition."""
+
     help = "Send autoreply emails"
 
     def add_arguments(self, parser):
@@ -93,24 +97,19 @@ class Command(BaseCommand):
         parser.add_argument(
             "--debug", action="store_true", dest="debug", default=False
         )
+        parser.add_argument("sender", type=unicode)
+        parser.add_argument("recipient", type=unicode, nargs="+")
 
     def handle(self, *args, **options):
         if options["debug"]:
             logger.setLevel(logging.DEBUG)
 
-        if len(args) < 2:
-            logger.debug("autoreply %s", " ".join(args))
-
-            raise CommandError(
-                "usage: ./manage.py autoreply <sender> <recipient ...>")
-
         logger.debug(
-            "autoreply sender=%s recipient=%s", args[0], ",".join(args[1:])
+            "autoreply sender=%s recipient=%s",
+            options["sender"], ",".join(options["recipient"])
         )
 
-        # Mailing list filter based on
-        # https://tools.ietf.org/html/rfc5230#page-7
-        sender = args[0]
+        sender = options["sender"]
 
         sender_localpart = split_mailbox(sender.lower())[0]
         if (
@@ -118,8 +117,9 @@ class Command(BaseCommand):
             (sender_localpart.startswith('owner-')) or
             (sender_localpart.endswith('-request'))
         ):
-            logger.debug("Skip auto reply, this mail comes from mailing list")
-            sys.exit(0)
+            logger.debug(
+                "Skip auto reply, this mail comes from a mailing list")
+            return
 
         content = StringIO.StringIO()
         for line in fileinput.input([]):
@@ -127,6 +127,9 @@ class Command(BaseCommand):
         content.seek(0)
 
         original_msg = email.message_from_file(content)
+
+        # Mailing list filter based on
+        # https://tools.ietf.org/html/rfc5230#page-7
         ml_known_headers = [
             "List-Id", "List-Help", "List-Subscribe", "List-Unsubscribe",
             "List-Post", "List-Owner", "List-Archive"
@@ -136,18 +139,18 @@ class Command(BaseCommand):
             if header in original_msg:
                 from_ml = True
                 break
-        conditions = (
-            original_msg.get("Precedence") == "bulk",
-            original_msg.get("X-Mailer") == "PHPMailer",
+        condition = (
+            original_msg.get("Precedence") == "bulk" or
+            original_msg.get("X-Mailer") == "PHPMailer" or
             from_ml
         )
-        if any(conditions):
+        if condition:
             logger.debug(
-                "Skip auto reply, this mail comes from mailing list")
-            sys.exit(0)
+                "Skip auto reply, this mail comes from a mailing list")
+            return
 
         PostfixAutoreply().load()
-        for fulladdress in args[1:]:
+        for fulladdress in options["recipient"]:
             address, domain = split_mailbox(fulladdress)
             try:
                 mbox = Mailbox.objects.get(

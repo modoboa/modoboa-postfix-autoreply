@@ -62,16 +62,9 @@ def rename_autoreply_alias(sender, instance, **kwargs):
 @receiver(signals.post_delete, sender=admin_models.Mailbox)
 def delete_autoreply_alias(sender, instance, **kwargs):
     """Delete alias."""
-    try:
-        alr = admin_models.AliasRecipient.objects.get(
-            address=u"{}@autoreply.{}".format(
-                instance.full_address, instance.domain))
-    except admin_models.AliasRecipient.DoesNotExist:
-        return
-    alias = alr.alias
-    alr.delete()
-    if not alias.recipients_count:
-        alias.delete()
+    admin_models.AliasRecipient.objects.filter(
+        address=u"{}@autoreply.{}".format(
+            instance.full_address, instance.domain)).delete()
 
 
 @receiver(signals.post_save, sender=models.ARmessage)
@@ -88,8 +81,6 @@ def manage_autoreply_alias(sender, instance, **kwargs):
     else:
         admin_models.AliasRecipient.objects.filter(
             address=ar_alias_address).delete()
-        if not alias.recipients_count:
-            alias.delete()
 
 
 @receiver(core_signals.register_postfix_maps)
