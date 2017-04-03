@@ -28,17 +28,17 @@ logger.setLevel(logging.ERROR)
 
 
 def safe_subject(msg):
-    """Clean message subject and return it"""
-    decoded = email.header.decode_header(msg.get('Subject'))
-    subject = u''
+    """Clean message subject and return it."""
+    decoded = email.header.decode_header(msg.get("Subject"))
+    subject = u""
     for sub, charset in decoded:
         # charset can be None
-        charset = charset or 'utf8'
+        charset = charset or "utf8"
         try:
             subject += sub.decode(charset)
         except UnicodeDecodeError:
             pass
-    return u' '.join(subject.split())
+    return u" ".join(subject.split())
 
 
 def send_autoreply(sender, mailbox, armessage, original_msg):
