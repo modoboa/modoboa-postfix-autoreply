@@ -44,6 +44,27 @@ Content-Type: text/html; charset=UTF-8
 --001a114420be4c231a054ac85e75--
 """
 
+ENCODED_EMAIL_SUBJECT = r"""
+From: Homer Simpson <homer@simpson.test>
+Date: Wed, 15 Mar 2017 18:35:19 +0100
+Message-ID: <CAN0378wA1V0VJg5OxyavB2uJgAimMc2ttGSc-yvWsXTaKqnKuw@simpson.test>
+Subject: =?utf-8?q?A_m=C3=A9_non!!?=\n =?utf-8?q?_=C3=A7a_va_pas!!?=
+To: user@test.com
+Content-Type: multipart/alternative; boundary=001a114420be4c231a054ac85e75
+
+--001a114420be4c231a054ac85e75
+Content-Type: text/plain; charset=UTF-8
+
+pouet
+
+--001a114420be4c231a054ac85e75
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">pouet<br></div>
+
+--001a114420be4c231a054ac85e75--
+"""
+
 EMAIL_FROM_ML_CONTENT = """
 From: Homer Simpson <homer@simpson.test>
 Date: Wed, 15 Mar 2017 18:35:19 +0100
@@ -372,6 +393,13 @@ class ManagementCommandTestCase(ModoTestCase):
         management.call_command(
             "autoreply", "homer@simpson.com", "admin@test.com")
         self.assertEqual(len(mail.outbox), 0)
+
+    def test_encoded_message(self):
+        """Message received with encoded header"""
+        sys.stdin = StringIO.StringIO(ENCODED_EMAIL_SUBJECT.strip())
+        management.call_command(
+            "autoreply", "homer@simpson.test", "user@test.com")
+        self.assertEqual(len(mail.outbox), 1)
 
     def test_message_from_ml(self):
         """Message received from a mailing list."""

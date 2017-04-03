@@ -3,6 +3,7 @@
 
 import datetime
 import email
+import email.header
 import fileinput
 import logging
 from logging.handlers import SysLogHandler
@@ -24,6 +25,20 @@ from ...modo_extension import PostfixAutoreply
 logger = logging.getLogger()
 logger.addHandler(SysLogHandler(address="/dev/log"))
 logger.setLevel(logging.ERROR)
+
+
+def safe_subject(msg):
+    """Clean message subject and return it"""
+    decoded = email.header.decode_header(msg.get('Subject'))
+    subject = u''
+    for sub, charset in decoded:
+        # charset can be None
+        charset = charset or 'utf8'
+        try:
+            subject += sub.decode(charset)
+        except UnicodeDecodeError:
+            pass
+    return u' '.join(subject.split())
 
 
 def send_autoreply(sender, mailbox, armessage, original_msg):
@@ -67,8 +82,11 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
     message_id = original_msg.get("Message-ID")
     if message_id:
         headers.update({"In-Reply-To": message_id, "References": message_id})
+
+    subject = safe_subject(original_msg)
+
     msg = EmailMessage(
-        u"Auto: {} Re: {}".format(armessage.subject, original_msg["Subject"]),
+        u"Auto: {} Re: {}".format(armessage.subject, subject),
         armessage.content.encode("utf-8"),
         mailbox.user.encoded_address,
         [sender],
