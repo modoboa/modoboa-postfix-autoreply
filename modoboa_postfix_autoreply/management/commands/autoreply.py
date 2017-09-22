@@ -27,8 +27,6 @@ from ...models import ARmessage, ARhistoric
 from ...modo_extension import PostfixAutoreply
 
 logger = logging.getLogger()
-logger.addHandler(SysLogHandler(address="/dev/log"))
-logger.setLevel(logging.ERROR)
 
 
 def safe_subject(msg):
@@ -122,10 +120,17 @@ class Command(BaseCommand):
         parser.add_argument(
             "--debug", action="store_true", dest="debug", default=False
         )
+        parser.add_argument(
+            "--syslog-socket-path", default="/dev/log",
+            help="Path to syslog socket"
+        )
         parser.add_argument("sender")
         parser.add_argument("recipient", nargs="+")
 
     def handle(self, *args, **options):
+        logger.addHandler(
+            SysLogHandler(address=options["syslog_socket_path"]))
+        logger.setLevel(logging.ERROR)
         if options["debug"]:
             logger.setLevel(logging.DEBUG)
 
