@@ -1,5 +1,7 @@
 """Django signal handlers for modoboa_postfix_autoreply."""
 
+from __future__ import unicode_literals
+
 from django.conf.urls import url
 from django.db.models import signals
 from django.dispatch import receiver
@@ -19,15 +21,15 @@ def manage_transport_entry(sender, instance, **kwargs):
     """Create or update a transport entry for this domain."""
     if kwargs.get("created"):
         models.Transport.objects.get_or_create(
-            domain=u"autoreply.{}".format(instance), method="autoreply:"
+            domain="autoreply.{}".format(instance), method="autoreply:"
         )
         return
     oldname = getattr(instance, "oldname", "None")
     if oldname is None or oldname == instance.name:
         return
     models.Transport.objects.filter(
-        domain=u"autoreply.{}".format(oldname)).update(
-            domain=u"autoreply.{}".format(instance.name))
+        domain="autoreply.{}".format(oldname)).update(
+            domain="autoreply.{}".format(instance.name))
     qset = (
         admin_models.AliasRecipient.objects
         .select_related("alias", "r_mailbox")
@@ -54,8 +56,8 @@ def rename_autoreply_alias(sender, instance, **kwargs):
     if old_address is None or old_address == instance.full_address:
         return
     admin_models.AliasRecipient.objects.filter(
-        address__contains=u"{}@autoreply".format(old_address)).update(
-            address=u"{}@autoreply.{}".format(
+        address__contains="{}@autoreply".format(old_address)).update(
+            address="{}@autoreply.{}".format(
                 instance.full_address, instance.domain))
 
 
@@ -63,14 +65,14 @@ def rename_autoreply_alias(sender, instance, **kwargs):
 def delete_autoreply_alias(sender, instance, **kwargs):
     """Delete alias."""
     admin_models.AliasRecipient.objects.filter(
-        address=u"{}@autoreply.{}".format(
+        address="{}@autoreply.{}".format(
             instance.full_address, instance.domain)).delete()
 
 
 @receiver(signals.post_save, sender=models.ARmessage)
 def manage_autoreply_alias(sender, instance, **kwargs):
     """Create or delete the alias."""
-    ar_alias_address = u"{}@autoreply.{}".format(
+    ar_alias_address = "{}@autoreply.{}".format(
         instance.mbox.full_address, instance.mbox.domain)
     alias, created = admin_models.Alias.objects.get_or_create(
         address=instance.mbox.full_address, domain=instance.mbox.domain,
