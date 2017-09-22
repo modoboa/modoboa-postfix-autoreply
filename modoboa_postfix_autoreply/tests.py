@@ -1,10 +1,10 @@
 """modoboa-postfix-autoreply unit tests."""
 
 import datetime
-import StringIO
 import sys
 
 from dateutil.relativedelta import relativedelta
+from six import StringIO
 
 from django.core import mail
 from django.core import management
@@ -148,7 +148,8 @@ class EventsTestCase(ModoTestCase):
             "first_name": "Tester", "last_name": "Toto",
             "role": "SimpleUsers", "quota_act": True,
             "is_active": True, "email": "leon@test.com",
-            "subject": "test", "content": "test", "enabled": True
+            "subject": "test", "content": "test", "enabled": True,
+            "language": "en"
         }
         account = User.objects.get(username="user@test.com")
         self.ajax_post(
@@ -195,7 +196,8 @@ class EventsTestCase(ModoTestCase):
             'first_name': 'Tester', 'last_name': 'Toto',
             'role': 'SimpleUsers', 'quota_act': True,
             'is_active': True, 'email': 'leon@test.com',
-            'subject': 'test', 'content': 'test', 'enabled': True
+            'subject': 'test', 'content': 'test', 'enabled': True,
+            'language': 'en'
         }
         self.ajax_post(
             reverse("admin:account_change", args=[account.id]),
@@ -342,7 +344,7 @@ class ManagementCommandTestCase(ModoTestCase):
         """Replace stdin."""
         super(ManagementCommandTestCase, self).setUp()
         self.stdin = sys.stdin
-        sys.stdin = StringIO.StringIO(SIMPLE_EMAIL_CONTENT.strip())
+        sys.stdin = StringIO(SIMPLE_EMAIL_CONTENT.strip())
 
     def tearDown(self):
         """Restore stdin."""
@@ -396,14 +398,14 @@ class ManagementCommandTestCase(ModoTestCase):
 
     def test_encoded_message(self):
         """Message received with encoded header"""
-        sys.stdin = StringIO.StringIO(ENCODED_EMAIL_SUBJECT.strip())
+        sys.stdin = StringIO(ENCODED_EMAIL_SUBJECT.strip())
         management.call_command(
             "autoreply", "homer@simpson.test", "user@test.com")
         self.assertEqual(len(mail.outbox), 1)
 
     def test_message_from_ml(self):
         """Message received from a mailing list."""
-        sys.stdin = StringIO.StringIO(EMAIL_FROM_ML_CONTENT.strip())
+        sys.stdin = StringIO(EMAIL_FROM_ML_CONTENT.strip())
         management.call_command(
             "autoreply", "mailer-daemon@list.test", "user@test.com")
         self.assertEqual(len(mail.outbox), 0)

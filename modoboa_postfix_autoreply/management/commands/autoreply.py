@@ -1,19 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+from __future__ import unicode_literals
+
 import datetime
 import email
 import email.header
 import fileinput
 import logging
 from logging.handlers import SysLogHandler
-import StringIO
 import smtplib
 import sys
+
+import six
 
 from django.core.mail import EmailMessage
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+from django.utils.encoding import smart_str
 
 from modoboa.admin.models import Mailbox
 from modoboa.lib.email_utils import split_mailbox
@@ -30,15 +34,18 @@ logger.setLevel(logging.ERROR)
 def safe_subject(msg):
     """Clean message subject and return it."""
     decoded = email.header.decode_header(msg.get("Subject"))
-    subject = u""
+    subject = ""
     for sub, charset in decoded:
+        if isinstance(sub, six.text_type):
+            subject += sub
+            continue
         # charset can be None
-        charset = charset or "utf8"
+        charset = charset if charset else "utf-8"
         try:
             subject += sub.decode(charset)
         except UnicodeDecodeError:
             pass
-    return u" ".join(subject.split())
+    return " ".join(subject.split())
 
 
 def send_autoreply(sender, mailbox, armessage, original_msg):
@@ -86,8 +93,8 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
     subject = safe_subject(original_msg)
 
     msg = EmailMessage(
-        u"Auto: {} Re: {}".format(armessage.subject, subject),
-        armessage.content.encode("utf-8"),
+        "Auto: {} Re: {}".format(armessage.subject, subject),
+        smart_str(armessage.content),
         mailbox.user.encoded_address,
         [sender],
         headers=headers
@@ -115,8 +122,8 @@ class Command(BaseCommand):
         parser.add_argument(
             "--debug", action="store_true", dest="debug", default=False
         )
-        parser.add_argument("sender", type=unicode)
-        parser.add_argument("recipient", type=unicode, nargs="+")
+        parser.add_argument("sender")
+        parser.add_argument("recipient", nargs="+")
 
     def handle(self, *args, **options):
         if options["debug"]:
@@ -139,7 +146,7 @@ class Command(BaseCommand):
                 "Skip auto reply, this mail comes from a mailing list")
             return
 
-        content = StringIO.StringIO()
+        content = six.StringIO()
         for line in fileinput.input([]):
             content.write(line)
         content.seek(0)
