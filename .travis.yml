@@ -41,7 +41,7 @@ deploy:
   provider: pypi
   user: tonio
   password:
-    secure: UUOuE4KA1k0tEoDV8JYe7HR1qI3FzQemGJ1z1cw4cZeE28LTlM4SZv07rx1qmG7A9krBpAXcIkKhDrLrqRqJAcMNEDLIl1UpAUHvydY5M60ysdKbJ0N2d4avm/ygCRIPaWX4ZZiK8TY22ilwusc10mmAoCYAfNahEk3OmX2ft1M=
+    secure: KGr/3pz3ynbIBVYAHwUhibqRqCWCE6itWqDgKizkERUhhxdyXzjxo662EW1V4Ahu6rg8pHcDT33IAIc9zKqGFzpJa1d7rlY2lcJll3wXzIcqDonB8Wo8YfwytP4WbxNYYEfcKI5W4eB7MiuccGz5TYO837df+QQNDMrhq0ScLws=
   skip_cleanup: true
   on:
     tags: true
