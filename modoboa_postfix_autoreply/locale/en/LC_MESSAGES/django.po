@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 09:28+0100\n"
+"POT-Creation-Date: 2017-12-08 15:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,44 +33,52 @@ msgstr ""
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
 msgstr ""
 
-#: forms.py:95
+#: forms.py:53
+#, python-format
+msgid ""
+"The content of your answer. You can use the following variables, which will "
+"be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
+"%(untildate)s"
+msgstr ""
+
+#: forms.py:100
 msgid "This date is over"
 msgstr ""
 
-#: forms.py:98
+#: forms.py:103
 msgid "Must be greater than start date"
 msgstr ""
 
-#: forms.py:115
+#: forms.py:120
 msgid "General"
 msgstr ""
 
-#: forms.py:118
+#: forms.py:123
 msgid "Automatic reply timeout"
 msgstr ""
 
-#: forms.py:121
+#: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
 msgstr ""
 
-#: forms.py:127
+#: forms.py:132
 msgid "Default subject"
 msgstr ""
 
-#: forms.py:128
+#: forms.py:133
 msgid "I'm off"
 msgstr ""
 
-#: forms.py:130
+#: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
 msgstr ""
 
-#: forms.py:137
+#: forms.py:142
 msgid "Default content"
 msgstr ""
 
-#: forms.py:139
+#: forms.py:144
 #, python-format
 msgid ""
 "I'm currently off. I'll answer as soon as I come back.\n"
@@ -79,22 +87,22 @@ msgid ""
 "%(name)s\n"
 msgstr ""
 
-#: forms.py:145
+#: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
 msgstr ""
 
-#: forms.py:162
+#: forms.py:167
 msgid "Invalid syntax"
 msgstr ""
 
-#: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
+#: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
 msgstr ""
 
-#: handlers.py:147
+#: handlers.py:143
 msgid "Auto reply"
 msgstr ""
 
@@ -138,6 +146,6 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: views.py:33
+#: views.py:35
 msgid "Auto reply message updated successfully."
 msgstr ""

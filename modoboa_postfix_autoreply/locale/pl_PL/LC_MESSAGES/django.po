@@ -1,22 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # sin88 <sin@sin.waw.pl>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 09:28+0100\n"
+"POT-Creation-Date: 2017-12-08 15:54+0100\n"
 "PO-Revision-Date: 2016-11-09 16:13+0000\n"
 "Last-Translator: sin88 <sin@sin.waw.pl>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/tonio/modoboa/language/pl_PL/)\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/tonio/modoboa/"
+"language/pl_PL/)\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl_PL\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: forms.py:22
 msgid "From"
@@ -34,68 +37,83 @@ msgstr "Do"
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
 msgstr "Włącz auto-odpowiedzi do tej daty Format : RRRR-MM-DD GG:mm:ss"
 
-#: forms.py:95
+#: forms.py:53
+#, python-format
+msgid ""
+"The content of your answer. You can use the following variables, which will "
+"be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
+"%(untildate)s"
+msgstr ""
+
+#: forms.py:100
 msgid "This date is over"
 msgstr "Data z przeszłości"
 
-#: forms.py:98
+#: forms.py:103
 msgid "Must be greater than start date"
 msgstr "Musi być większa niż data początkowa"
 
-#: forms.py:115
+#: forms.py:120
 msgid "General"
 msgstr "Ogólne"
 
-#: forms.py:118
+#: forms.py:123
 msgid "Automatic reply timeout"
 msgstr "Automatyczny limit czasu odpowiedzi"
 
-#: forms.py:121
+#: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
-msgstr "Limit w sek. pomiędzie dwiema auto-odpowiedziami dla tego samego odbiorcy"
+msgstr ""
+"Limit w sek. pomiędzie dwiema auto-odpowiedziami dla tego samego odbiorcy"
 
-#: forms.py:127
+#: forms.py:132
 msgid "Default subject"
 msgstr "Domyślny temat"
 
-#: forms.py:128
+#: forms.py:133
 msgid "I'm off"
 msgstr "Jestem niedostępny"
 
-#: forms.py:130
+#: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
 msgstr "Domyślny temat używany dla automatycznych autoodpowiedzi"
 
-#: forms.py:137
+#: forms.py:142
 msgid "Default content"
 msgstr "Domyślna zawartość"
 
-#: forms.py:139
+#: forms.py:144
 #, python-format
 msgid ""
 "I'm currently off. I'll answer as soon as I come back.\n"
 "\n"
 "Best regards,\n"
 "%(name)s\n"
-msgstr "Aktualnie jestem niedostępny. Odpowiem po powrocie.\n\nPozdrawiam,\n%(name)s\n"
+msgstr ""
+"Aktualnie jestem niedostępny. Odpowiem po powrocie.\n"
+"\n"
+"Pozdrawiam,\n"
+"%(name)s\n"
 
-#: forms.py:145
+#: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
-msgstr "Domyślna zawartość dla automatycznych auto-odpowiedzi. Macro '%(name)s' zostanie zastąpione przez pełną nazwę użytkownika."
+msgstr ""
+"Domyślna zawartość dla automatycznych auto-odpowiedzi. Macro '%(name)s' "
+"zostanie zastąpione przez pełną nazwę użytkownika."
 
-#: forms.py:162
+#: forms.py:167
 msgid "Invalid syntax"
 msgstr "Nieprawidłowa składnia"
 
-#: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
+#: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
 msgstr "Wadomość auto-odpowiedź"
 
-#: handlers.py:147
+#: handlers.py:143
 msgid "Auto reply"
 msgstr "Automatyczna odpowidź"
 
@@ -139,6 +157,6 @@ msgstr "Zdefiniuj wiadmość wysyłaną kiedy jesteś niedostępny"
 msgid "Update"
 msgstr "Zaktualizuj"
 
-#: views.py:33
+#: views.py:35
 msgid "Auto reply message updated successfully."
 msgstr "Auto reply message updated successfully."

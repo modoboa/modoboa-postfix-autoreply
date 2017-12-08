@@ -3,10 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Andrew <buddha@cryptolab.net>, 2014
-# Ronald Otto <ronald@tuxis.nl>, 2017
-# TuxBrother <vrijwilligerswerk@wij.rs>, 2014
-# Tuxis Internet Engineering V.O.F. <info@tuxis.nl>, 2016
+# Giannis Kapetanakis <bilias@edu.physics.uoc.gr>, 2016
+# Kostas Moumouris <moumouriskostas@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
@@ -14,28 +12,28 @@ msgstr ""
 "POT-Creation-Date: 2017-12-08 15:54+0100\n"
 "PO-Revision-Date: 2017-12-08 14:54+0000\n"
 "Last-Translator: Antoine Nguyen <tonio@ngyn.org>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/tonio/modoboa/language/nl_NL/)\n"
+"Language-Team: Greek (Greece) (http://www.transifex.com/tonio/modoboa/language/el_GR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl_NL\n"
+"Language: el_GR\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:22
 msgid "From"
-msgstr "Van"
+msgstr "Από"
 
 #: forms.py:25
 msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activeer uw automatische antwoord vanaf deze datum. Formaat: JJJJ-MM-DD UU:mm:ss"
+msgstr "Ενεργοποίηση της αυτόματης απάντησης από αυτήν την ημερομηνία. Μορφή  : YYYY-MM-DD HH:mm:ss"
 
 #: forms.py:33
 msgid "Until"
-msgstr "Tot"
+msgstr "Έως"
 
 #: forms.py:36
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activeer uw automatische antwoord tot deze datum. Formaat: JJJJ-MM-DD UU:mm:ss"
+msgstr "Ενεργοποίηση της αυτόματης απάντησης μέχρι αυτήν την ημερομηνία. Μορφή  : YYYY-MM-DD HH:mm:ss"
 
 #: forms.py:53
 #, python-format
@@ -47,40 +45,40 @@ msgstr ""
 
 #: forms.py:100
 msgid "This date is over"
-msgstr "Deze datum is over"
+msgstr "Αυτή η ημερομηνία έχει παρέλθει"
 
 #: forms.py:103
 msgid "Must be greater than start date"
-msgstr "Moet na de startdatum liggen"
+msgstr "Πρέπει να είναι μεγαλύτερη από την ημερομηνία έναρξης"
 
 #: forms.py:120
 msgid "General"
-msgstr "Algemeen"
+msgstr "Γενικά"
 
 #: forms.py:123
 msgid "Automatic reply timeout"
-msgstr "Automatisch antwoorden timeout"
+msgstr "Χρονικό όριο λήξης αυτόματης απάντησης"
 
 #: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
-msgstr "Minimale tijd in seconden tussen twee auto-antwoorden naar dezelfde afzender"
+msgstr "Χρονικό όριο λήξης σε δευτερόλεπτα μεταξύ δύο αυτόματων απαντήσεων προς τον ίδιο παραλήπτη"
 
 #: forms.py:132
 msgid "Default subject"
-msgstr "Standaard onderwerp"
+msgstr "Προεπιλεγμένος τίτλος"
 
 #: forms.py:133
 msgid "I'm off"
-msgstr "Ik ben nu niet aanwezig"
+msgstr "Λείπω"
 
 #: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
-msgstr "Standaard onderwerp gebruikt wanneer een automatisch antwoord automatisch is aangemaakt"
+msgstr "Προκαθορισμένο θέμα που θα χρησιμοποιείται όταν δημιουργούνται αυτόματες απαντήσεις μηνυμάτων"
 
 #: forms.py:142
 msgid "Default content"
-msgstr "Standaard inhoud"
+msgstr "Προεπιλεγμένο περιεχόμενο"
 
 #: forms.py:144
 #, python-format
@@ -89,67 +87,67 @@ msgid ""
 "\n"
 "Best regards,\n"
 "%(name)s\n"
-msgstr "Momenteel ben ik niet aanwezig. Ik zal antwoorden zodra ik terug kom.\n\nMet vriendelijke groet,\n%(name)s\n"
+msgstr "Αυτή την στιγμή είμαι εκτός γραφείου. Θα σας απαντήσω μόλις επιστρέψω.\n\nΦιλικά,\n%(name)s\n"
 
 #: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
-msgstr "Standaard inhoud gebruikt wanneer een automatisch antwoord bericht automatisch is aangemaakt. De '%(name)s' macro zal vervangen worden door de naam van de gebruiker."
+msgstr "Το προεπιλεγμένο κείμενο που θα χρησιμοποιείται στις αυτόματες απαντήσεις. Το macro '%(name)s' αντικαθίσταται από το όνομα του χρήστη. "
 
 #: forms.py:167
 msgid "Invalid syntax"
-msgstr "Ongeldige zinsbouw"
+msgstr "Μη έγκυρη σύνταξη"
 
 #: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
-msgstr "Auto-antwoord bericht"
+msgstr "Κείμενο αυτόματης απάντησης"
 
 #: handlers.py:143
 msgid "Auto reply"
-msgstr "Automatisch antwoord"
+msgstr "Αυτόματη απάντηση"
 
 #: models.py:29
 msgid "subject"
-msgstr "onderwerp"
+msgstr "τίτλος"
 
 #: models.py:30
 msgid "The subject that will appear in sent emails"
-msgstr "Het onderwerp dat zal verschijnen in verstuurde mails"
+msgstr "Ο τίτλος που θα φαίνεται στα απεσταλμένα email"
 
 #: models.py:33
 msgid "content"
-msgstr "inhoud"
+msgstr "περιεχόμενο"
 
 #: models.py:34
 msgid "The content that will appear in sent emails"
-msgstr "De inhoud die zal verschijnen in versuurde mails"
+msgstr "Το κείμενο που θα φαίνεται στα απεσταλμένα email"
 
 #: models.py:37
 msgid "enabled"
-msgstr "actief"
+msgstr "ενεργοποιημένο"
 
 #: models.py:38
 msgid "Activate/Deactivate your auto reply"
-msgstr "Activeer/Deactiveer uw auto-antwoord"
+msgstr "Ενεργοποίηση/Απενεργοποίηση της αυτόματης απάντησης"
 
 #: modo_extension.py:28
 msgid "Auto-reply (vacation) functionality using Postfix"
-msgstr "Auto-antwoord (vakantiebericht) functionaliteit dmv. Postfix"
+msgstr "Δυνατότητα αυτόματης απάντησης (vacation) με χρήση Postfix"
 
 #: modo_extension.py:32
 msgid "Automatic replies"
-msgstr "Automatische antwoorden"
+msgstr "Αυτόματες απαντήσεις"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Define a message to automatically send when you are off"
-msgstr "Maak een bericht dat automatisch verstuurd word wanneer u niet aanwezig bent"
+msgstr "Ορίστε το μήνυμα αυτόματης απάντησης για όταν λείπετε"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:10
 msgid "Update"
-msgstr "Toepassen"
+msgstr "Ενημέρωση"
 
 #: views.py:35
 msgid "Auto reply message updated successfully."
-msgstr "Auto antwoord bericht successvol aangepast."
+msgstr "Το μήνυμα αυτόματης απάντησης ενημερώθηκε επιτυχώς"

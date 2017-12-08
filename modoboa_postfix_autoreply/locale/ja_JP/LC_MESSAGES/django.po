@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # cwatanab <chihiro.watanabe@live.jp>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 09:28+0100\n"
+"POT-Creation-Date: 2017-12-08 15:54+0100\n"
 "PO-Revision-Date: 2016-11-09 16:13+0000\n"
 "Last-Translator: cwatanab <chihiro.watanabe@live.jp>\n"
-"Language-Team: Japanese (Japan) (http://www.transifex.com/tonio/modoboa/language/ja_JP/)\n"
+"Language-Team: Japanese (Japan) (http://www.transifex.com/tonio/modoboa/"
+"language/ja_JP/)\n"
+"Language: ja_JP\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:22
@@ -24,7 +25,9 @@ msgstr "から"
 
 #: forms.py:25
 msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "この日時から自動応答を有効にします。\n書式 : YYYY-MM-DD HH:mm:ss"
+msgstr ""
+"この日時から自動応答を有効にします。\n"
+"書式 : YYYY-MM-DD HH:mm:ss"
 
 #: forms.py:33
 msgid "Until"
@@ -32,70 +35,88 @@ msgstr "まで"
 
 #: forms.py:36
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "この日時まで自動応答を有効にします。\n書式 : YYYY-MM-DD HH:mm:ss"
+msgstr ""
+"この日時まで自動応答を有効にします。\n"
+"書式 : YYYY-MM-DD HH:mm:ss"
 
-#: forms.py:95
+#: forms.py:53
+#, python-format
+msgid ""
+"The content of your answer. You can use the following variables, which will "
+"be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
+"%(untildate)s"
+msgstr ""
+
+#: forms.py:100
 msgid "This date is over"
 msgstr "この日付は過ぎています"
 
-#: forms.py:98
+#: forms.py:103
 msgid "Must be greater than start date"
 msgstr "開始日時より大きくなければいけません"
 
-#: forms.py:115
+#: forms.py:120
 msgid "General"
 msgstr "全般"
 
-#: forms.py:118
+#: forms.py:123
 msgid "Automatic reply timeout"
 msgstr "自動応答間隔"
 
-#: forms.py:121
+#: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
 msgstr "同じ受信者へ自動応答する間隔 (秒)"
 
-#: forms.py:127
+#: forms.py:132
 msgid "Default subject"
 msgstr "デフォルトの件名"
 
-#: forms.py:128
+#: forms.py:133
 msgid "I'm off"
 msgstr "不在"
 
-#: forms.py:130
+#: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
-msgstr "自動応答メッセージが自動的に作成されたときにデフォルトの件名を使用しました。"
+msgstr ""
+"自動応答メッセージが自動的に作成されたときにデフォルトの件名を使用しました。"
 
-#: forms.py:137
+#: forms.py:142
 msgid "Default content"
 msgstr "デフォルトの本文"
 
-#: forms.py:139
+#: forms.py:144
 #, python-format
 msgid ""
 "I'm currently off. I'll answer as soon as I come back.\n"
 "\n"
 "Best regards,\n"
 "%(name)s\n"
-msgstr "ただいま不在にしています。\n戻り次第、お返事いたします。\n\nよろしくお願いします。\n%(name)s\n"
+msgstr ""
+"ただいま不在にしています。\n"
+"戻り次第、お返事いたします。\n"
+"\n"
+"よろしくお願いします。\n"
+"%(name)s\n"
 
-#: forms.py:145
+#: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
-msgstr "自動応答メッセージが作成されたときにデフォルトのコンテンツを使用しました。\n\"%(name)s\" のマクロは、ユーザーのフルネームに置き換えられます。"
+msgstr ""
+"自動応答メッセージが作成されたときにデフォルトのコンテンツを使用しました。\n"
+"\"%(name)s\" のマクロは、ユーザーのフルネームに置き換えられます。"
 
-#: forms.py:162
+#: forms.py:167
 msgid "Invalid syntax"
 msgstr "不正な構文"
 
-#: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
+#: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
 msgstr "自動応答メッセージ"
 
-#: handlers.py:147
+#: handlers.py:143
 msgid "Auto reply"
 msgstr "自動応答"
 
@@ -139,6 +160,6 @@ msgstr "不在のとき、自動的に送るメッセージを設定する"
 msgid "Update"
 msgstr "更新"
 
-#: views.py:33
+#: views.py:35
 msgid "Auto reply message updated successfully."
 msgstr "自動応答メッセージの更新に成功しました"

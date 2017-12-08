@@ -1,24 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # csmk, 2014
 # Paulino Michelazzo <paulino@michelazzo.com.br>, 2014
-# Rafael Barretto Alves <ch3yd@hotmail.com>, 2013,2015
+# Rafael Barretto <ch3yd@hotmail.com>, 2013,2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 09:28+0100\n"
-"PO-Revision-Date: 2015-08-10 20:52+0000\n"
-"Last-Translator: Rafael Barretto Alves <ch3yd@hotmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/tonio/modoboa/"
-"language/pt_BR/)\n"
-"Language: pt_BR\n"
+"POT-Creation-Date: 2017-12-08 15:54+0100\n"
+"PO-Revision-Date: 2017-12-08 14:54+0000\n"
+"Last-Translator: Antoine Nguyen <tonio@ngyn.org>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/tonio/modoboa/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: forms.py:22
@@ -26,98 +25,89 @@ msgid "From"
 msgstr "De"
 
 #: forms.py:25
-#, fuzzy
-#| msgid "Activate your auto reply from this date"
 msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Ativar sua resposta automática desta data"
+msgstr "Ativar auto resposta a partir dessa data. Formato: YYYY-MM-DD HH:mm:ss"
 
 #: forms.py:33
 msgid "Until"
 msgstr "Até"
 
 #: forms.py:36
-#, fuzzy
-#| msgid "Activate your auto reply until this date"
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Ativar auto resposta até essa data"
+msgstr "Ativar auto resposta até essa data. Formato: YYYY-MM-DD HH:mm:ss"
 
-#: forms.py:95
+#: forms.py:53
+#, python-format
+msgid ""
+"The content of your answer. You can use the following variables, which will "
+"be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
+"%(untildate)s"
+msgstr ""
+
+#: forms.py:100
 msgid "This date is over"
 msgstr "Esta data já passou"
 
-#: forms.py:98
+#: forms.py:103
 msgid "Must be greater than start date"
 msgstr "Deve ser maior que a data de início"
 
-#: forms.py:115
+#: forms.py:120
 msgid "General"
 msgstr "Geral"
 
-#: forms.py:118
+#: forms.py:123
 msgid "Automatic reply timeout"
 msgstr "Tempo de resposta automática"
 
-#: forms.py:121
+#: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
-msgstr ""
-"Timeout em segundos entre duas respostas automáticas para o mesmo "
-"destinatário"
+msgstr "Timeout em segundos entre duas respostas automáticas para o mesmo destinatário"
 
-#: forms.py:127
+#: forms.py:132
 msgid "Default subject"
 msgstr "Assunto padrão"
 
-#: forms.py:128
+#: forms.py:133
 msgid "I'm off"
 msgstr "Ausente"
 
-#: forms.py:130
+#: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
-msgstr ""
-"Assunto padrão usado quando uma mensagem de auto-resposta é criada "
-"automaticamente"
+msgstr "Assunto padrão usado quando uma mensagem de auto-resposta é criada automaticamente"
 
-#: forms.py:137
+#: forms.py:142
 msgid "Default content"
 msgstr "Conteúdo padrão"
 
-#: forms.py:139
+#: forms.py:144
 #, python-format
 msgid ""
 "I'm currently off. I'll answer as soon as I come back.\n"
 "\n"
 "Best regards,\n"
 "%(name)s\n"
-msgstr ""
-"Eu estou atualmente fora e responderei assim que retornar.\n"
-"\n"
-"Saudações,\n"
-"%(name)s\n"
+msgstr "Eu estou atualmente fora e responderei assim que retornar.\n\nSaudações,\n%(name)s\n"
 
-#: forms.py:145
+#: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
-msgstr ""
-"Conteúdo padrão usado quando uma mensagem de auto-resposta é criada "
-"automaticamente. A macro '%(name)s' será trocada pelo nome completo do "
-"usuário."
+msgstr "Conteúdo padrão usado quando uma mensagem de auto-resposta é criada automaticamente. A macro '%(name)s' será trocada pelo nome completo do usuário."
 
-#: forms.py:162
+#: forms.py:167
 msgid "Invalid syntax"
 msgstr "Sintaxe inválida"
 
-#: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
+#: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
 msgstr "Mensagem de auto resposta"
 
-#: handlers.py:147
-#, fuzzy
-#| msgid "Automatic replies"
+#: handlers.py:143
 msgid "Auto reply"
-msgstr "Respostas automáticas"
+msgstr "Auto resposta"
 
 #: models.py:29
 msgid "subject"
@@ -153,19 +143,12 @@ msgstr "Respostas automáticas"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Define a message to automatically send when you are off"
-msgstr ""
-"Defina uma mensagem para enviar automaticamente quando você estiver ausente"
+msgstr "Defina uma mensagem para enviar automaticamente quando você estiver ausente"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:10
 msgid "Update"
 msgstr "Atualizar"
 
-#: views.py:33
+#: views.py:35
 msgid "Auto reply message updated successfully."
 msgstr "Resposta automática atualizada com sucesso."
-
-#~ msgid "Enable auto-reply"
-#~ msgstr "Habilitar resposta automática"
-
-#~ msgid "Enable or disable Postfix auto-reply"
-#~ msgstr "Habilitar ou desabilitar resposta automática do Postfix"

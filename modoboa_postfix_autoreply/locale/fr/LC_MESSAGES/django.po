@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: modoboa-1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 09:28+0100\n"
-"PO-Revision-Date: 2011-01-07 10:00+100\n"
+"POT-Creation-Date: 2017-12-08 15:54+0100\n"
+"PO-Revision-Date: 2017-12-08 15:56+0100\n"
 "Last-Translator: Antoine Nguyen <tonio@ngyn.org>\n"
 "Language-Team: FR <tonio@ngyn.org>\n"
 "Language: Français\n"
@@ -37,47 +37,55 @@ msgstr ""
 "Activer votre réponse automatique jusqu'à cette date. Format : YYYY-MM-DD HH:"
 "mm:ss"
 
-#: forms.py:95
+#: forms.py:53
+#, python-format
+msgid ""
+"The content of your answer. You can use the following variables, which will "
+"be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
+"%(untildate)s"
+msgstr "Le contenu de votre réponse. Vous pouvez utiliser les variables suivantes, qui seront automatiquement remplacées par des valeurs appropriées : %(name)s, %(fromdate)s, %(untildate)s"
+
+#: forms.py:100
 msgid "This date is over"
 msgstr "Cette date est dépassée"
 
-#: forms.py:98
+#: forms.py:103
 msgid "Must be greater than start date"
 msgstr "Doit être supérieure à la date de démarrage"
 
-#: forms.py:115
+#: forms.py:120
 msgid "General"
 msgstr "Général"
 
-#: forms.py:118
+#: forms.py:123
 msgid "Automatic reply timeout"
 msgstr "Délai d'expiration d'une réponse automatique"
 
-#: forms.py:121
+#: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
 msgstr ""
 "Timeout en secondes entre deux réponses automatiques pour le même "
 "destinataire"
 
-#: forms.py:127
+#: forms.py:132
 msgid "Default subject"
 msgstr "Sujet par défaut"
 
-#: forms.py:128
+#: forms.py:133
 msgid "I'm off"
 msgstr "Je suis absent"
 
-#: forms.py:130
+#: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
 msgstr ""
 "Sujet par défaut utilisé quand un message d'absence est créé automatiquement"
 
-#: forms.py:137
+#: forms.py:142
 msgid "Default content"
 msgstr "Contenu par défaut"
 
-#: forms.py:139
+#: forms.py:144
 #, python-format
 msgid ""
 "I'm currently off. I'll answer as soon as I come back.\n"
@@ -90,7 +98,7 @@ msgstr ""
 "Cordialement,\n"
 "%(name)s\n"
 
-#: forms.py:145
+#: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
@@ -100,15 +108,15 @@ msgstr ""
 "automatiquement.La macro '%(name)s' sera remplacée par le nom complet de "
 "l'utilisateur."
 
-#: forms.py:162
+#: forms.py:167
 msgid "Invalid syntax"
 msgstr "Syntaxe invalide"
 
-#: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
+#: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
 msgstr "Message de réponse automatique"
 
-#: handlers.py:147
+#: handlers.py:143
 msgid "Auto reply"
 msgstr "Réponse automatique"
 
@@ -152,6 +160,6 @@ msgstr "Définir un message à envoyer automatiquement quand vous êtes absent"
 msgid "Update"
 msgstr "Mettre à jour"
 
-#: views.py:33
+#: views.py:35
 msgid "Auto reply message updated successfully."
 msgstr "Message de réponse auto. mis à jour."

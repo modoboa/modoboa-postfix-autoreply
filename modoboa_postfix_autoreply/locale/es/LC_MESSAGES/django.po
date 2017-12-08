@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Pedro Gracia <lasarux@neuroomante.com>, 2011-2013
-# Pedro Gracia <pedro.gracia@impulzia.com>, 2010-2011
+# Evilham <github@evilham.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 09:28+0100\n"
-"PO-Revision-Date: 2013-10-01 09:56+0000\n"
-"Last-Translator: Pedro Gracia <lasarux@neuroomante.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/modoboa/language/"
-"es/)\n"
-"Language: es\n"
+"POT-Creation-Date: 2017-12-08 15:54+0100\n"
+"PO-Revision-Date: 2017-12-08 14:54+0000\n"
+"Last-Translator: Antoine Nguyen <tonio@ngyn.org>\n"
+"Language-Team: Spanish (http://www.transifex.com/tonio/modoboa/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:22
@@ -25,89 +23,89 @@ msgid "From"
 msgstr "Desde"
 
 #: forms.py:25
-#, fuzzy
 msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activar su autorespuesta hasta esta fecha"
+msgstr "Activar su autorepuesta a partir de esta fecha. Formato: YYYY-MM-DD HH:mm:ss"
 
 #: forms.py:33
 msgid "Until"
 msgstr "Hasta"
 
 #: forms.py:36
-#, fuzzy
-#| msgid "Activate your auto reply until this date"
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Activar su autorespuesta hasta esta fecha"
+msgstr "Activar su autorepuesta hasta esta fecha. Formato: YYYY-MM-DD HH:mm:ss"
 
-#: forms.py:95
+#: forms.py:53
+#, python-format
+msgid ""
+"The content of your answer. You can use the following variables, which will "
+"be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
+"%(untildate)s"
+msgstr ""
+
+#: forms.py:100
 msgid "This date is over"
 msgstr "Esta fecha ha pasado"
 
-#: forms.py:98
-#, fuzzy
+#: forms.py:103
 msgid "Must be greater than start date"
-msgstr "es mayor que"
+msgstr "Debe ser posterior a la fecha inicial"
 
-#: forms.py:115
+#: forms.py:120
 msgid "General"
 msgstr "General"
 
-#: forms.py:118
+#: forms.py:123
 msgid "Automatic reply timeout"
 msgstr "Tiempo de caducidad de respuestas automáticas"
 
-#: forms.py:121
+#: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
 msgstr "Tiempo en segundos entre dos autorespuestas para el mismo emisor"
 
-#: forms.py:127
-#, fuzzy
+#: forms.py:132
 msgid "Default subject"
-msgstr "Editor por defecto"
+msgstr "Asunto por defecto"
 
-#: forms.py:128
+#: forms.py:133
 msgid "I'm off"
-msgstr ""
+msgstr "Estoy fuera"
 
-#: forms.py:130
+#: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
-msgstr ""
+msgstr "El asunto por defecto es usado cuando un mensaje de autorespuesta es creado automáticamente"
 
-#: forms.py:137
-#, fuzzy
+#: forms.py:142
 msgid "Default content"
-msgstr "Editor por defecto"
+msgstr "Contenido por defecto"
 
-#: forms.py:139
+#: forms.py:144
 #, python-format
 msgid ""
 "I'm currently off. I'll answer as soon as I come back.\n"
 "\n"
 "Best regards,\n"
 "%(name)s\n"
-msgstr ""
+msgstr "Estoy fuera ahora. Le responderé tan pronto como regrese.\n\nSaludos cordiales,\n%(name)s\n"
 
-#: forms.py:145
+#: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
-msgstr ""
+msgstr "El contenido por defecto es usado cuando un mensaje de autorespuesta es creado automáticamente. La macro '%(name)s' será reemplazada por el nombre completo del usuario."
 
-#: forms.py:162
+#: forms.py:167
 msgid "Invalid syntax"
 msgstr "Sintaxis inválida"
 
-#: handlers.py:135 templates/modoboa_postfix_autoreply/autoreply.html:3
+#: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
 msgstr "Mensaje de autorespuesta"
 
-#: handlers.py:147
-#, fuzzy
-#| msgid "Automatic replies"
+#: handlers.py:143
 msgid "Auto reply"
-msgstr "Contestaciones automáticas"
+msgstr "Contestación automática"
 
 #: models.py:29
 msgid "subject"
@@ -143,13 +141,12 @@ msgstr "Contestaciones automáticas"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Define a message to automatically send when you are off"
-msgstr ""
-"Defina el mensaje que automáticamente se enviará cuando esté desconectado"
+msgstr "Defina el mensaje que automáticamente se enviará cuando esté desconectado"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:10
 msgid "Update"
 msgstr "Actualizar"
 
-#: views.py:33
+#: views.py:35
 msgid "Auto reply message updated successfully."
 msgstr "El mensaje de autorespuesta se ha actualizado correctamente."
