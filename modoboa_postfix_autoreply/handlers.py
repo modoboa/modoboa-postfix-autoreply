@@ -74,6 +74,9 @@ def manage_autoreply_alias(sender, instance, **kwargs):
     """Create or delete the alias."""
     ar_alias_address = "{}@autoreply.{}".format(
         instance.mbox.full_address, instance.mbox.domain)
+    admin_models.Alias.objects.get(
+        address=instance.mbox.full_address, domain=instance.mbox.domain,
+        internal=True)
     alias, created = admin_models.Alias.objects.get_or_create(
         address=instance.mbox.full_address, domain=instance.mbox.domain,
         internal=True)

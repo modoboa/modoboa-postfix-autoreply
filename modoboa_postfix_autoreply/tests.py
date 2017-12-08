@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """modoboa-postfix-autoreply unit tests."""
 
 import datetime
@@ -11,6 +13,7 @@ from django.core import management
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
+from django.utils.formats import localize
 
 from modoboa.core.models import User
 from modoboa.lib.tests import ModoTestCase
@@ -237,7 +240,7 @@ class FormTestCase(ModoTestCase):
         self.assertContains(response, 'name="autoreply"')
 
         response = self.ajax_get(reverse("autoreply"))
-        self.assertIn("user@test.com", response["content"])
+        self.assertIn("%(name)s", response["content"])
 
     def test_set_autoreply(self):
         values = {
@@ -338,13 +341,13 @@ class ManagementCommandTestCase(ModoTestCase):
         super(ManagementCommandTestCase, cls).setUpTestData()
         admin_factories.populate_database()
         cls.account = User.objects.get(username="user@test.com")
-        cls.arm = factories.ARmessageFactory(mbox=cls.account.mailbox)
 
     def setUp(self):
         """Replace stdin."""
         super(ManagementCommandTestCase, self).setUp()
         self.stdin = sys.stdin
         sys.stdin = StringIO(SIMPLE_EMAIL_CONTENT.strip())
+        self.arm = factories.ARmessageFactory(mbox=self.account.mailbox)
 
     def tearDown(self):
         """Restore stdin."""
@@ -414,3 +417,35 @@ class ManagementCommandTestCase(ModoTestCase):
         management.call_command(
             "autoreply", "sender@list.test", "user@test.com")
         self.assertEqual(len(mail.outbox), 0)
+
+    def test_variable_substitution(self):
+        """Check when message contains variables."""
+        tz = timezone.get_current_timezone()
+        self.arm.fromdate = tz.localize(
+            datetime.datetime(2017, 12, 8, 14, 0, 0, 0))
+        self.arm.content = "%(name)s %(fromdate)s %(untildate)s"
+        self.arm.save()
+        self.account.language = "fr"
+        self.account.save(update_fields=["language"])
+        management.call_command(
+            "autoreply", "homer@simpson.test", "user@test.com")
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(
+            "user@test.com 8 décembre 2017 14:00", mail.outbox[0].body.strip())
+
+    def test_untildate_substitution(self):
+        """Check substitution of until date."""
+        tz = timezone.get_current_timezone()
+        self.arm.fromdate = tz.localize(
+            datetime.datetime(2017, 12, 8, 14, 0, 0, 0))
+        self.arm.untildate = timezone.now() + relativedelta(hours=1)
+        self.arm.content = "%(name)s %(fromdate)s %(untildate)s"
+        self.arm.save()
+        management.call_command(
+            "autoreply", "homer@simpson.test", "user@test.com")
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(
+            "user@test.com Dec. 8, 2017, 2 p.m. {}".format(
+                localize(self.arm.untildate)),
+            mail.outbox[0].body.strip()
+        )
