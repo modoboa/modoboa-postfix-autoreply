@@ -48,6 +48,11 @@ class ARmessageForm(forms.ModelForm):
     content = forms.CharField(
         widget=forms.Textarea(
             attrs={'class': 'form-control'}
+        ),
+        help_text=ugettext_lazy(
+            "The content of your answer. You can use the following variables, "
+            "which will be automatically replaced by the appropriate value: "
+            "%(name)s, %(fromdate)s, %(untildate)s"
         )
     )
 

@@ -17,7 +17,9 @@ import six
 from django.core.mail import EmailMessage
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+from django.utils import translation
 from django.utils.encoding import smart_str
+from django.utils.formats import localize
 
 from modoboa.admin.models import Mailbox
 from modoboa.lib.email_utils import split_mailbox
@@ -89,10 +91,18 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
         headers.update({"In-Reply-To": message_id, "References": message_id})
 
     subject = safe_subject(original_msg)
-
+    with translation.override(mailbox.user.language):
+        context = {
+            "name": mailbox.user.fullname,
+            "fromdate": localize(armessage.fromdate),
+            "untildate": ""
+        }
+        if armessage.untildate:
+            context.update({"untildate": localize(armessage.untildate)})
+    content = armessage.content % context
     msg = EmailMessage(
         "Auto: {} Re: {}".format(armessage.subject, subject),
-        smart_str(armessage.content),
+        smart_str(content),
         mailbox.user.encoded_address,
         [sender],
         headers=headers
