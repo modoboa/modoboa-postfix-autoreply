@@ -24,7 +24,7 @@ class ARmessage(models.Model):
 
     """Auto reply messages."""
 
-    mbox = models.ForeignKey(Mailbox)
+    mbox = models.ForeignKey(Mailbox, on_delete=models.CASCADE)
     subject = models.CharField(
         _('subject'), max_length=255,
         help_text=_("The subject that will appear in sent emails")
@@ -52,7 +52,7 @@ class ARhistoric(models.Model):
 
     """Auto reply historic."""
 
-    armessage = models.ForeignKey(ARmessage)
+    armessage = models.ForeignKey(ARmessage, on_delete=models.CASCADE)
     last_sent = models.DateTimeField(auto_now=True)
     sender = models.CharField(max_length=254)
 
