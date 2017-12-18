@@ -2,6 +2,8 @@
 
 """modoboa-postfix-autoreply unit tests."""
 
+from __future__ import unicode_literals
+
 import datetime
 import sys
 
