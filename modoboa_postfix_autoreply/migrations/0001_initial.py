@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 ('enabled', models.BooleanField(default=False, help_text='Activate/Deactivate your auto reply', verbose_name='enabled')),
                 ('fromdate', models.DateTimeField(default=django.utils.timezone.now)),
                 ('untildate', models.DateTimeField(null=True, blank=True)),
-                ('mbox', models.ForeignKey(to='admin.Mailbox')),
+                ('mbox', models.ForeignKey(to='admin.Mailbox', on_delete=models.CASCADE)),
             ],
             options={
                 'db_table': 'postfix_autoreply_armessage',
@@ -67,7 +67,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='arhistoric',
             name='armessage',
-            field=models.ForeignKey(to='modoboa_postfix_autoreply.ARmessage'),
+            field=models.ForeignKey(to='modoboa_postfix_autoreply.ARmessage', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(

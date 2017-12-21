@@ -2,6 +2,8 @@
 
 """modoboa-postfix-autoreply unit tests."""
 
+from __future__ import unicode_literals
+
 import datetime
 import sys
 
@@ -10,7 +12,7 @@ from six import StringIO
 
 from django.core import mail
 from django.core import management
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.utils import timezone
 from django.utils.formats import localize

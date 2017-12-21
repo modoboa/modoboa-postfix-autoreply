@@ -18,7 +18,7 @@ from django.core.mail import EmailMessage
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from django.utils import translation
-from django.utils.encoding import smart_str
+from django.utils.encoding import smart_text
 from django.utils.formats import localize
 
 from modoboa.admin.models import Mailbox
@@ -102,7 +102,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
     content = armessage.content % context
     msg = EmailMessage(
         "Auto: {} Re: {}".format(armessage.subject, subject),
-        smart_str(content),
+        smart_text(content),
         mailbox.user.encoded_address,
         [sender],
         headers=headers
