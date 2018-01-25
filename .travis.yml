@@ -14,33 +14,23 @@ env:
 
 sudo: false
 
+cache: pip
+
 addons:
+  postgresql: "9.3"
+  mysql: "5.5"
   apt:
     packages:
       - rsyslog
 
-cache: pip
-
-services:
-  - postgres
-  - mysql
-
 before_install:
   - pip install codecov
-  - if [[ $DB = "POSTGRESQL" ]]; then pip install -q psycopg2; fi
-  - if [[ $DB = "MYSQL" ]]; then pip install -q mysqlclient; fi
-  - pip install -e git+https://github.com/tonioo/modoboa.git#egg=modoboa
+  - pip install -e git+https://github.com/modoboa/modoboa.git#egg=modoboa
 
 install:
-  - pip install -q -r requirements.txt
-  - pip install -q -r test-requirements.txt
-  - python setup.py -q develop
-
-before_script:
-  - if [[ $DB = "POSTGRESQL" ]]; then psql -c "CREATE DATABASE modoboa_test;" -U postgres; fi
-  - if [[ $DB = "MYSQL" ]]; then mysql -e "CREATE DATABASE IF NOT EXISTS modoboa_test;" -uroot; fi
-  - if [[ $DB = "MYSQL" ]]; then mysql -e "CREATE USER 'modoboa'@'localhost' IDENTIFIED BY 'modoboa'" -uroot; fi
-  - if [[ $DB = "MYSQL" ]]; then mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'modoboa'@'localhost';" -uroot; fi
+  - pip install -r requirements.txt
+  - pip install -r test-requirements.txt
+  - python setup.py develop
 
 script:
   - cd test_project
@@ -60,6 +50,8 @@ deploy:
   password:
     secure: KGr/3pz3ynbIBVYAHwUhibqRqCWCE6itWqDgKizkERUhhxdyXzjxo662EW1V4Ahu6rg8pHcDT33IAIc9zKqGFzpJa1d7rlY2lcJll3wXzIcqDonB8Wo8YfwytP4WbxNYYEfcKI5W4eB7MiuccGz5TYO837df+QQNDMrhq0ScLws=
   skip_cleanup: true
+  distributions: "sdist bdist_wheel"
   on:
     tags: true
-    python: '3.6'
+    python: "3.6"
+    condition: $DB = POSTGRESQL

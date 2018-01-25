@@ -10,6 +10,7 @@ import fileinput
 import logging
 from logging.handlers import SysLogHandler
 import smtplib
+import socket
 import sys
 
 import six
@@ -138,8 +139,16 @@ class Command(BaseCommand):
         parser.add_argument("recipient", nargs="+")
 
     def handle(self, *args, **options):
-        logger.addHandler(
-            SysLogHandler(address=options["syslog_socket_path"]))
+        try:
+            handler = SysLogHandler(address=options["syslog_socket_path"])
+        except socket.error as ex:
+            if ex.errno == 2:
+                # try the default, localhost:514
+                handler = SysLogHandler()
+            else:
+                raise
+
+        logger.addHandler(handler)
         logger.setLevel(logging.ERROR)
         if options["debug"]:
             logger.setLevel(logging.DEBUG)
