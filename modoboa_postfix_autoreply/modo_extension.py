@@ -35,4 +35,5 @@ class PostfixAutoreply(ModoExtension):
                 domain="autoreply.{}".format(dom.name),
                 method="autoreply:")
 
+
 exts_pool.register_extension(PostfixAutoreply)
