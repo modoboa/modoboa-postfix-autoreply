@@ -26,15 +26,15 @@ class ARmessage(models.Model):
 
     mbox = models.ForeignKey(Mailbox, on_delete=models.CASCADE)
     subject = models.CharField(
-        _('subject'), max_length=255,
+        _("subject"), max_length=255,
         help_text=_("The subject that will appear in sent emails")
     )
     content = models.TextField(
-        _('content'),
+        _("content"),
         help_text=_("The content that will appear in sent emails")
     )
     enabled = models.BooleanField(
-        _('enabled'),
+        _("enabled"),
         help_text=_("Activate/Deactivate your auto reply"),
         default=False
     )

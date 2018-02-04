@@ -106,7 +106,7 @@ class EventsTestCase(ModoTestCase):
         values = {
             "name": "domain.tld", "quota": 100, "default_mailbox_quota": 1,
             "create_dom_admin": False,
-            "stepid": 'step3', "type": "domain"
+            "stepid": "step3", "type": "domain"
         }
         self.ajax_post(
             reverse("admin:domain_add"), values
@@ -123,7 +123,7 @@ class EventsTestCase(ModoTestCase):
             {}
         )
         with self.assertRaises(models.Transport.DoesNotExist):
-            models.Transport.objects.get(domain='autoreply.test.com')
+            models.Transport.objects.get(domain="autoreply.test.com")
 
     def test_domain_modified_event(self):
         values = {
@@ -197,12 +197,12 @@ class EventsTestCase(ModoTestCase):
         account = User.objects.get(username="user@test.com")
         factories.ARmessageFactory(mbox=account.mailbox)
         values = {
-            'username': "leon@test.com",
-            'first_name': 'Tester', 'last_name': 'Toto',
-            'role': 'SimpleUsers', 'quota_act': True,
-            'is_active': True, 'email': 'leon@test.com',
-            'subject': 'test', 'content': 'test', 'enabled': True,
-            'language': 'en'
+            "username": "leon@test.com",
+            "first_name": "Tester", "last_name": "Toto",
+            "role": "SimpleUsers", "quota_act": True,
+            "is_active": True, "email": "leon@test.com",
+            "subject": "test", "content": "test", "enabled": True,
+            "language": "en"
         }
         self.ajax_post(
             reverse("admin:account_change", args=[account.id]),
@@ -246,12 +246,12 @@ class FormTestCase(ModoTestCase):
 
     def test_set_autoreply(self):
         values = {
-            'subject': 'test', 'content': "I'm off", "enabled": True
+            "subject": "test", "content": "I'm off", "enabled": True
         }
-        self.ajax_post(reverse('autoreply'), values)
+        self.ajax_post(reverse("autoreply"), values)
         account = User.objects.get(username="user@test.com")
         arm = models.ARmessage.objects.get(mbox=account.mailbox)
-        self.assertEqual(arm.subject, 'test')
+        self.assertEqual(arm.subject, "test")
         self.assertTrue(arm.enabled)
         self.assertFalse(arm.untildate)
         self.assertTrue(arm.fromdate)
@@ -262,11 +262,11 @@ class FormTestCase(ModoTestCase):
             timezone.now().replace(
                 year=2014, month=1, day=1, hour=12, microsecond=0))
         values = {
-            'subject': 'test', 'content': "I'm off",
+            "subject": "test", "content": "I'm off",
             "enabled": True,
             "fromdate": fromdate.strftime("%Y-%m-%d %H:%M:%S"),
         }
-        self.ajax_post(reverse('autoreply'), values)
+        self.ajax_post(reverse("autoreply"), values)
         account = User.objects.get(username="user@test.com")
         arm = models.ARmessage.objects.get(mbox=account.mailbox)
         self.assertEqual(
@@ -277,11 +277,11 @@ class FormTestCase(ModoTestCase):
         fromdate = timezone.localtime(timezone.now())
         untildate = fromdate + datetime.timedelta(days=1)
         values = {
-            'subject': 'test', 'content': "I'm off", "enabled": True,
+            "subject": "test", "content": "I'm off", "enabled": True,
             "fromdate": fromdate.strftime("%Y-%m-%d %H:%M:%S"),
             "untildate": untildate.strftime("%Y-%m-%d %H:%M:%S"),
         }
-        self.ajax_post(reverse('autoreply'), values)
+        self.ajax_post(reverse("autoreply"), values)
         account = User.objects.get(username="user@test.com")
         arm = models.ARmessage.objects.get(mbox=account.mailbox)
         self.assertEqual(

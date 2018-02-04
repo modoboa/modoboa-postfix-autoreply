@@ -162,9 +162,9 @@ class Command(BaseCommand):
 
         sender_localpart = split_mailbox(sender.lower())[0]
         if (
-            (sender_localpart in ('mailer-daemon', 'listserv', 'majordomo')) or
-            (sender_localpart.startswith('owner-')) or
-            (sender_localpart.endswith('-request'))
+            (sender_localpart in ("mailer-daemon", "listserv", "majordomo")) or
+            (sender_localpart.startswith("owner-")) or
+            (sender_localpart.endswith("-request"))
         ):
             logger.debug(
                 "Skip auto reply, this mail comes from a mailing list")

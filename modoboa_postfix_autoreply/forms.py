@@ -19,35 +19,35 @@ class ARmessageForm(forms.ModelForm):
     """Form to define an auto-reply message."""
 
     fromdate = forms.DateTimeField(
-        label=ugettext_lazy('From'),
+        label=ugettext_lazy("From"),
         required=False,
         help_text=ugettext_lazy(
             "Activate your auto reply from this date. "
             "Format : YYYY-MM-DD HH:mm:ss"
         ),
         widget=forms.TextInput(
-            attrs={'class': 'datefield form-control'}
+            attrs={"class": "datefield form-control"}
         )
     )
     untildate = forms.DateTimeField(
-        label=ugettext_lazy('Until'),
+        label=ugettext_lazy("Until"),
         required=False,
         help_text=ugettext_lazy(
             "Activate your auto reply until this date. "
             "Format : YYYY-MM-DD HH:mm:ss"
         ),
         widget=forms.TextInput(
-            attrs={'class': 'datefield form-control'}
+            attrs={"class": "datefield form-control"}
         )
     )
     subject = forms.CharField(
         widget=forms.TextInput(
-            attrs={'class': 'form-control'}
+            attrs={"class": "form-control"}
         )
     )
     content = forms.CharField(
         widget=forms.Textarea(
-            attrs={'class': 'form-control'}
+            attrs={"class": "form-control"}
         ),
         help_text=ugettext_lazy(
             "The content of your answer. You can use the following variables, "
@@ -58,14 +58,14 @@ class ARmessageForm(forms.ModelForm):
 
     class Meta:
         model = ARmessage
-        fields = ('subject', 'content', 'enabled', 'fromdate', 'untildate')
+        fields = ("subject", "content", "enabled", "fromdate", "untildate")
 
     def __init__(self, *args, **kwargs):
         self.mailbox = args[0]
         super(ARmessageForm, self).__init__(*args[1:], **kwargs)
         self.fields = OrderedDict(
             (key, self.fields[key]) for key in
-            ['subject', 'content', 'fromdate', 'untildate', 'enabled']
+            ["subject", "content", "fromdate", "untildate", "enabled"]
         )
         if not self.instance.pk:
             self.fields["subject"].initial = param_tools.get_global_parameter(
