@@ -122,7 +122,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
 class Command(BaseCommand):
     """Command definition."""
 
-    help = "Send autoreply emails"
+    help = "Send autoreply emails"  # NOQA:A003
 
     def add_arguments(self, parser):
         """Add extra arguments to command line."""

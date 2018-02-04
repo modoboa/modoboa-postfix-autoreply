@@ -160,7 +160,7 @@ Best regards,
         """
         tpl = self.cleaned_data["default_content"]
         try:
-            test = tpl % {"name": "Antoine Nguyen"}
+            tpl % {"name": "Antoine Nguyen"}
         except (KeyError, ValueError):
             raise forms.ValidationError(ugettext_lazy("Invalid syntax"))
         return tpl

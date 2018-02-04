@@ -11,4 +11,4 @@ class PostfixAutoreplyConfig(AppConfig):
     verbose_name = "Auto-reply functionality using Postfix"
 
     def ready(self):
-        from . import handlers
+        from . import handlers  # NOQA:F401

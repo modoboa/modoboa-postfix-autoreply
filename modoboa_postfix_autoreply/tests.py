@@ -91,7 +91,7 @@ Content-Type: text/html; charset=UTF-8
 class EventsTestCase(ModoTestCase):
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # NOQA:N802
         """Create test data."""
         super(EventsTestCase, cls).setUpTestData()
         admin_factories.populate_database()
@@ -217,7 +217,7 @@ class EventsTestCase(ModoTestCase):
 class FormTestCase(ModoTestCase):
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # NOQA:N802
         """Create test data."""
         super(FormTestCase, cls).setUpTestData()
         admin_factories.populate_database()
@@ -300,7 +300,7 @@ class RepairTestCase(ModoTestCase):
     """Check repair command."""
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # NOQA:N802
         """Create some data."""
         super(RepairTestCase, cls).setUpTestData()
         admin_factories.populate_database()
@@ -332,7 +332,7 @@ class ManagementCommandTestCase(ModoTestCase):
     """Management command related tests."""
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # NOQA:N802
         """Create some data."""
         super(ManagementCommandTestCase, cls).setUpTestData()
         admin_factories.populate_database()

@@ -12,8 +12,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import os
-import sys
+# import os
+# import sys
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -46,7 +46,7 @@ master_doc = "index"
 
 # General information about the project.
 project = u'modoboa-postfix-autoreply'
-copyright = u'2017, Antoine Nguyen'
+copyright = u'2017, Antoine Nguyen'  # NOQA:A001
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
