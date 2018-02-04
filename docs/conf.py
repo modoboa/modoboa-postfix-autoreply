@@ -11,6 +11,7 @@
 #
 # All configuration values have a default; values that are commented out
 # serve to show the default.
+from __future__ import unicode_literals
 
 # import os
 # import sys
@@ -45,8 +46,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u'modoboa-postfix-autoreply'
-copyright = u'2017, Antoine Nguyen'  # NOQA:A001
+project = "modoboa-postfix-autoreply"
+copyright = "2017, Antoine Nguyen"  # NOQA:A001
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -200,8 +201,8 @@ latex_elements = {
 latex_documents = [
     ("index",
      "modoboa-postfix-autoreply.tex",
-     u'modoboa-postfix-autoreply Documentation',
-     u'Antoine Nguyen',
+     "modoboa-postfix-autoreply Documentation",
+     "Antoine Nguyen",
      "manual"),
 ]
 
@@ -233,8 +234,8 @@ latex_documents = [
 man_pages = [
     ("index",
      "modoboa-postfix-autoreply",
-     u'modoboa-postfix-autoreply Documentation',
-     [u'Antoine Nguyen'],
+     "modoboa-postfix-autoreply Documentation",
+     ["Antoine Nguyen"],
      1)]
 
 # If true, show URL addresses after external links.
@@ -249,8 +250,8 @@ man_pages = [
 texinfo_documents = [
     ("index",
      "modoboa-postfix-autoreply",
-     u'modoboa-postfix-autoreply Documentation',
-     u'Antoine Nguyen',
+     "modoboa-postfix-autoreply Documentation",
+     "Antoine Nguyen",
      "modoboa-postfix-autoreply",
      "One line description of project.",
      "Miscellaneous"),

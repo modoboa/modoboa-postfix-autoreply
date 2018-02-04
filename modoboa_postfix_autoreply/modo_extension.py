@@ -7,6 +7,8 @@ functionality into Postfix.
 
 """
 
+from __future__ import unicode_literals
+
 from django.utils.translation import ugettext_lazy
 
 from modoboa.admin import models as admin_models

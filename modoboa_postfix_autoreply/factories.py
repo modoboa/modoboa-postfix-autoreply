@@ -1,5 +1,7 @@
 """Postfix auto reply factories."""
 
+from __future__ import unicode_literals
+
 import factory
 
 from modoboa.admin import factories as admin_factories

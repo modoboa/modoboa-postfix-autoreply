@@ -1,4 +1,5 @@
 """Map file definitions for postfix."""
+from __future__ import unicode_literals
 
 
 class TransportMap(object):
