@@ -7,13 +7,9 @@ from django.db.models import signals
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
 
-from modoboa.admin import models as admin_models
-from modoboa.admin import signals as admin_signals
+from modoboa.admin import models as admin_models, signals as admin_signals
 from modoboa.core import signals as core_signals
-
-from . import forms
-from . import models
-from . import postfix_maps
+from . import forms, models, postfix_maps
 
 
 @receiver(signals.post_save, sender=admin_models.Domain)

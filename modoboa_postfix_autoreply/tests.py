@@ -10,23 +10,17 @@ import sys
 from dateutil.relativedelta import relativedelta
 from six import StringIO
 
-from django.core import mail
-from django.core import management
-from django.urls import reverse
+from django.core import mail, management
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.formats import localize
 
+from modoboa.admin import factories as admin_factories, models as admin_models
 from modoboa.core.models import User
-from modoboa.lib.tests import ModoTestCase
 from modoboa.lib.test_utils import MapFilesTestCaseMixin
-
-from modoboa.admin import factories as admin_factories
-from modoboa.admin import models as admin_models
-
-from . import factories
-from . import models
-
+from modoboa.lib.tests import ModoTestCase
+from . import factories, models
 
 SIMPLE_EMAIL_CONTENT = """
 From: Homer Simpson <homer@simpson.test>

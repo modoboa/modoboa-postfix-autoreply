@@ -9,9 +9,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext as _, ugettext_lazy
 
 from modoboa.lib import form_utils
-from modoboa.parameters import forms as param_forms
-from modoboa.parameters import tools as param_tools
-
+from modoboa.parameters import forms as param_forms, tools as param_tools
 from .models import ARmessage
 
 

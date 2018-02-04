@@ -3,7 +3,6 @@
 import factory
 
 from modoboa.admin import factories as admin_factories
-
 from . import models
 
 

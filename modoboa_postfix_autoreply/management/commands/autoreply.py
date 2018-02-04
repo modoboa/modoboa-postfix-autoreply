@@ -8,25 +8,23 @@ import email
 import email.header
 import fileinput
 import logging
-from logging.handlers import SysLogHandler
 import smtplib
 import socket
 import sys
+from logging.handlers import SysLogHandler
 
 import six
 
 from django.core.mail import EmailMessage
 from django.core.management.base import BaseCommand
-from django.utils import timezone
-from django.utils import translation
+from django.utils import timezone, translation
 from django.utils.encoding import smart_text
 from django.utils.formats import localize
 
 from modoboa.admin.models import Mailbox
 from modoboa.lib.email_utils import split_mailbox
 from modoboa.parameters import tools as param_tools
-
-from ...models import ARmessage, ARhistoric
+from ...models import ARhistoric, ARmessage
 from ...modo_extension import PostfixAutoreply
 
 logger = logging.getLogger()

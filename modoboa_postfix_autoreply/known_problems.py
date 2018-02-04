@@ -2,7 +2,6 @@
 
 from modoboa.admin import models as admin_models
 from modoboa.admin.management.commands.subcommands import _repair
-
 from . import models
 
 
