@@ -158,7 +158,7 @@ class Command(BaseCommand):
             options["sender"], ",".join(options["recipient"])
         )
 
-        sender = options["sender"]
+        sender = smart_text(options["sender"])
 
         sender_localpart = split_mailbox(sender.lower())[0]
         if (
@@ -199,7 +199,8 @@ class Command(BaseCommand):
             return
 
         PostfixAutoreply().load()
-        for fulladdress in options["recipient"]:
+        recipients = [smart_text(rcpt) for rcpt in options["recipient"]]
+        for fulladdress in recipients:
             address, domain = split_mailbox(fulladdress)
             try:
                 mbox = Mailbox.objects.get(
