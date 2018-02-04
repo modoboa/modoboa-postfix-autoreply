@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """AppConfig for modoboa_postfix_autoreply."""
 
 from __future__ import unicode_literals

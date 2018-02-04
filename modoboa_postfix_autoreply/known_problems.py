@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Know problems and associated fixes."""
 
 from __future__ import unicode_literals

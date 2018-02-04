@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Postfix autoreply models."""
 
 from __future__ import unicode_literals

@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+
 """Map file definitions for postfix."""
+
 from __future__ import unicode_literals
 
 
