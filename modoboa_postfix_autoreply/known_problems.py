@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+
 """Know problems and associated fixes."""
+
+from __future__ import unicode_literals
 
 from modoboa.admin import models as admin_models
 from modoboa.admin.management.commands.subcommands import _repair
-
 from . import models
 
 

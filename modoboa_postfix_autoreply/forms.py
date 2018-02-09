@@ -1,6 +1,8 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 """Custom forms."""
+
+from __future__ import unicode_literals
 
 from collections import OrderedDict
 
@@ -9,9 +11,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext as _, ugettext_lazy
 
 from modoboa.lib import form_utils
-from modoboa.parameters import forms as param_forms
-from modoboa.parameters import tools as param_tools
-
+from modoboa.parameters import forms as param_forms, tools as param_tools
 from .models import ARmessage
 
 
@@ -19,35 +19,35 @@ class ARmessageForm(forms.ModelForm):
     """Form to define an auto-reply message."""
 
     fromdate = forms.DateTimeField(
-        label=ugettext_lazy('From'),
+        label=ugettext_lazy("From"),
         required=False,
         help_text=ugettext_lazy(
             "Activate your auto reply from this date. "
             "Format : YYYY-MM-DD HH:mm:ss"
         ),
         widget=forms.TextInput(
-            attrs={'class': 'datefield form-control'}
+            attrs={"class": "datefield form-control"}
         )
     )
     untildate = forms.DateTimeField(
-        label=ugettext_lazy('Until'),
+        label=ugettext_lazy("Until"),
         required=False,
         help_text=ugettext_lazy(
             "Activate your auto reply until this date. "
             "Format : YYYY-MM-DD HH:mm:ss"
         ),
         widget=forms.TextInput(
-            attrs={'class': 'datefield form-control'}
+            attrs={"class": "datefield form-control"}
         )
     )
     subject = forms.CharField(
         widget=forms.TextInput(
-            attrs={'class': 'form-control'}
+            attrs={"class": "form-control"}
         )
     )
     content = forms.CharField(
         widget=forms.Textarea(
-            attrs={'class': 'form-control'}
+            attrs={"class": "form-control"}
         ),
         help_text=ugettext_lazy(
             "The content of your answer. You can use the following variables, "
@@ -58,14 +58,14 @@ class ARmessageForm(forms.ModelForm):
 
     class Meta:
         model = ARmessage
-        fields = ('subject', 'content', 'enabled', 'fromdate', 'untildate')
+        fields = ("subject", "content", "enabled", "fromdate", "untildate")
 
     def __init__(self, *args, **kwargs):
         self.mailbox = args[0]
         super(ARmessageForm, self).__init__(*args[1:], **kwargs)
         self.fields = OrderedDict(
             (key, self.fields[key]) for key in
-            ['subject', 'content', 'fromdate', 'untildate', 'enabled']
+            ["subject", "content", "fromdate", "untildate", "enabled"]
         )
         if not self.instance.pk:
             self.fields["subject"].initial = param_tools.get_global_parameter(
@@ -162,7 +162,7 @@ Best regards,
         """
         tpl = self.cleaned_data["default_content"]
         try:
-            test = tpl % {"name": "Antoine Nguyen"}
+            tpl % {"name": "Antoine Nguyen"}
         except (KeyError, ValueError):
             raise forms.ValidationError(ugettext_lazy("Invalid syntax"))
         return tpl

@@ -1,4 +1,4 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 """modoboa-postfix-autoreply unit tests."""
 
@@ -10,23 +10,17 @@ import sys
 from dateutil.relativedelta import relativedelta
 from six import StringIO
 
-from django.core import mail
-from django.core import management
-from django.urls import reverse
+from django.core import mail, management
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.formats import localize
 
+from modoboa.admin import factories as admin_factories, models as admin_models
 from modoboa.core.models import User
-from modoboa.lib.tests import ModoTestCase
 from modoboa.lib.test_utils import MapFilesTestCaseMixin
-
-from modoboa.admin import factories as admin_factories
-from modoboa.admin import models as admin_models
-
-from . import factories
-from . import models
-
+from modoboa.lib.tests import ModoTestCase
+from . import factories, models
 
 SIMPLE_EMAIL_CONTENT = """
 From: Homer Simpson <homer@simpson.test>
@@ -97,7 +91,7 @@ Content-Type: text/html; charset=UTF-8
 class EventsTestCase(ModoTestCase):
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # NOQA:N802
         """Create test data."""
         super(EventsTestCase, cls).setUpTestData()
         admin_factories.populate_database()
@@ -106,7 +100,7 @@ class EventsTestCase(ModoTestCase):
         values = {
             "name": "domain.tld", "quota": 100, "default_mailbox_quota": 1,
             "create_dom_admin": False,
-            "stepid": 'step3', "type": "domain"
+            "stepid": "step3", "type": "domain"
         }
         self.ajax_post(
             reverse("admin:domain_add"), values
@@ -123,7 +117,7 @@ class EventsTestCase(ModoTestCase):
             {}
         )
         with self.assertRaises(models.Transport.DoesNotExist):
-            models.Transport.objects.get(domain='autoreply.test.com')
+            models.Transport.objects.get(domain="autoreply.test.com")
 
     def test_domain_modified_event(self):
         values = {
@@ -197,12 +191,12 @@ class EventsTestCase(ModoTestCase):
         account = User.objects.get(username="user@test.com")
         factories.ARmessageFactory(mbox=account.mailbox)
         values = {
-            'username': "leon@test.com",
-            'first_name': 'Tester', 'last_name': 'Toto',
-            'role': 'SimpleUsers', 'quota_act': True,
-            'is_active': True, 'email': 'leon@test.com',
-            'subject': 'test', 'content': 'test', 'enabled': True,
-            'language': 'en'
+            "username": "leon@test.com",
+            "first_name": "Tester", "last_name": "Toto",
+            "role": "SimpleUsers", "quota_act": True,
+            "is_active": True, "email": "leon@test.com",
+            "subject": "test", "content": "test", "enabled": True,
+            "language": "en"
         }
         self.ajax_post(
             reverse("admin:account_change", args=[account.id]),
@@ -223,7 +217,7 @@ class EventsTestCase(ModoTestCase):
 class FormTestCase(ModoTestCase):
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # NOQA:N802
         """Create test data."""
         super(FormTestCase, cls).setUpTestData()
         admin_factories.populate_database()
@@ -246,12 +240,12 @@ class FormTestCase(ModoTestCase):
 
     def test_set_autoreply(self):
         values = {
-            'subject': 'test', 'content': "I'm off", "enabled": True
+            "subject": "test", "content": "I'm off", "enabled": True
         }
-        self.ajax_post(reverse('autoreply'), values)
+        self.ajax_post(reverse("autoreply"), values)
         account = User.objects.get(username="user@test.com")
         arm = models.ARmessage.objects.get(mbox=account.mailbox)
-        self.assertEqual(arm.subject, 'test')
+        self.assertEqual(arm.subject, "test")
         self.assertTrue(arm.enabled)
         self.assertFalse(arm.untildate)
         self.assertTrue(arm.fromdate)
@@ -262,11 +256,11 @@ class FormTestCase(ModoTestCase):
             timezone.now().replace(
                 year=2014, month=1, day=1, hour=12, microsecond=0))
         values = {
-            'subject': 'test', 'content': "I'm off",
+            "subject": "test", "content": "I'm off",
             "enabled": True,
             "fromdate": fromdate.strftime("%Y-%m-%d %H:%M:%S"),
         }
-        self.ajax_post(reverse('autoreply'), values)
+        self.ajax_post(reverse("autoreply"), values)
         account = User.objects.get(username="user@test.com")
         arm = models.ARmessage.objects.get(mbox=account.mailbox)
         self.assertEqual(
@@ -277,11 +271,11 @@ class FormTestCase(ModoTestCase):
         fromdate = timezone.localtime(timezone.now())
         untildate = fromdate + datetime.timedelta(days=1)
         values = {
-            'subject': 'test', 'content': "I'm off", "enabled": True,
+            "subject": "test", "content": "I'm off", "enabled": True,
             "fromdate": fromdate.strftime("%Y-%m-%d %H:%M:%S"),
             "untildate": untildate.strftime("%Y-%m-%d %H:%M:%S"),
         }
-        self.ajax_post(reverse('autoreply'), values)
+        self.ajax_post(reverse("autoreply"), values)
         account = User.objects.get(username="user@test.com")
         arm = models.ARmessage.objects.get(mbox=account.mailbox)
         self.assertEqual(
@@ -306,7 +300,7 @@ class RepairTestCase(ModoTestCase):
     """Check repair command."""
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # NOQA:N802
         """Create some data."""
         super(RepairTestCase, cls).setUpTestData()
         admin_factories.populate_database()
@@ -338,7 +332,7 @@ class ManagementCommandTestCase(ModoTestCase):
     """Management command related tests."""
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls):  # NOQA:N802
         """Create some data."""
         super(ManagementCommandTestCase, cls).setUpTestData()
         admin_factories.populate_database()

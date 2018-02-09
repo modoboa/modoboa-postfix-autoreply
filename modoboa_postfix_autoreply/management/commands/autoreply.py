@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
 
@@ -8,25 +7,23 @@ import email
 import email.header
 import fileinput
 import logging
-from logging.handlers import SysLogHandler
 import smtplib
 import socket
 import sys
+from logging.handlers import SysLogHandler
 
 import six
 
 from django.core.mail import EmailMessage
 from django.core.management.base import BaseCommand
-from django.utils import timezone
-from django.utils import translation
+from django.utils import timezone, translation
 from django.utils.encoding import smart_text
 from django.utils.formats import localize
 
 from modoboa.admin.models import Mailbox
 from modoboa.lib.email_utils import split_mailbox
 from modoboa.parameters import tools as param_tools
-
-from ...models import ARmessage, ARhistoric
+from ...models import ARhistoric, ARmessage
 from ...modo_extension import PostfixAutoreply
 
 logger = logging.getLogger()
@@ -124,7 +121,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
 class Command(BaseCommand):
     """Command definition."""
 
-    help = "Send autoreply emails"
+    help = "Send autoreply emails"  # NOQA:A003
 
     def add_arguments(self, parser):
         """Add extra arguments to command line."""
@@ -162,9 +159,9 @@ class Command(BaseCommand):
 
         sender_localpart = split_mailbox(sender.lower())[0]
         if (
-            (sender_localpart in ('mailer-daemon', 'listserv', 'majordomo')) or
-            (sender_localpart.startswith('owner-')) or
-            (sender_localpart.endswith('-request'))
+            (sender_localpart in ("mailer-daemon", "listserv", "majordomo")) or
+            (sender_localpart.startswith("owner-")) or
+            (sender_localpart.endswith("-request"))
         ):
             logger.debug(
                 "Skip auto reply, this mail comes from a mailing list")

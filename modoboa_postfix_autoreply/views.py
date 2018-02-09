@@ -1,17 +1,14 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
 
+from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
-from django.contrib.auth.decorators import login_required
-
-from modoboa.lib.web_utils import render_to_json_response
-
 from modoboa.admin.lib import needs_mailbox
 from modoboa.admin.models import Mailbox
-
+from modoboa.lib.web_utils import render_to_json_response
 from .forms import ARmessageForm
 from .models import ARmessage
 
