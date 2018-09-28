@@ -20,6 +20,8 @@ from modoboa.admin import factories as admin_factories, models as admin_models
 from modoboa.core.models import User
 from modoboa.lib.test_utils import MapFilesTestCaseMixin
 from modoboa.lib.tests import ModoTestCase
+from modoboa.transport import models as tr_models
+
 from . import factories, models
 
 SIMPLE_EMAIL_CONTENT = """
@@ -106,8 +108,8 @@ class EventsTestCase(ModoTestCase):
             reverse("admin:domain_add"), values
         )
         self.assertTrue(
-            models.Transport.objects.filter(
-                domain="autoreply.domain.tld").exists()
+            tr_models.Transport.objects.filter(
+                pattern="autoreply.domain.tld").exists()
         )
 
     def test_domain_deleted_event(self):
@@ -116,8 +118,8 @@ class EventsTestCase(ModoTestCase):
             reverse("admin:domain_delete", args=[dom.id]),
             {}
         )
-        with self.assertRaises(models.Transport.DoesNotExist):
-            models.Transport.objects.get(domain="autoreply.test.com")
+        with self.assertRaises(tr_models.Transport.DoesNotExist):
+            tr_models.Transport.objects.get(pattern="autoreply.test.com")
 
     def test_domain_modified_event(self):
         values = {
@@ -130,8 +132,8 @@ class EventsTestCase(ModoTestCase):
             values
         )
         self.assertTrue(
-            models.Transport.objects.filter(
-                domain="autoreply.test.fr").exists())
+            tr_models.Transport.objects.filter(
+                pattern="autoreply.test.fr").exists())
         self.assertEqual(
             admin_models.Alias.objects.filter(
                 domain=dom, internal=True)
@@ -283,17 +285,6 @@ class FormTestCase(ModoTestCase):
         self.assertEqual(
             timezone.localtime(arm.untildate),
             untildate.replace(microsecond=0))
-
-
-class MapFilesTestCase(MapFilesTestCaseMixin, TestCase):
-
-    """Test case for modoboa_postfix_autoreply."""
-
-    extension = "modoboa_postfix_autoreply"
-
-    MAP_FILES = [
-        "sql-autoreplies-transport.cf",
-    ]
 
 
 class RepairTestCase(ModoTestCase):

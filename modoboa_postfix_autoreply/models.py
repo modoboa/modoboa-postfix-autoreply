@@ -12,17 +12,6 @@ from django.utils.translation import ugettext_lazy as _
 from modoboa.admin.models import Mailbox
 
 
-class Transport(models.Model):
-
-    """A custom transport table for autoreply domains."""
-
-    domain = models.CharField(max_length=253, db_index=True)
-    method = models.CharField(max_length=255)
-
-    class Meta:
-        db_table = "postfix_autoreply_transport"
-
-
 @python_2_unicode_compatible
 class ARmessage(models.Model):
 
