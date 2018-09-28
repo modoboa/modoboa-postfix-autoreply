@@ -11,15 +11,13 @@ from dateutil.relativedelta import relativedelta
 from six import StringIO
 
 from django.core import mail, management
-from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.formats import localize
 
 from modoboa.admin import factories as admin_factories, models as admin_models
 from modoboa.core.models import User
-from modoboa.lib.test_utils import MapFilesTestCaseMixin
-from modoboa.lib.tests import ModoTestCase
+from modoboa.lib.tests import ModoTestCase, ModoAPITestCase
 from modoboa.transport import models as tr_models
 
 from . import factories, models
@@ -436,3 +434,77 @@ class ManagementCommandTestCase(ModoTestCase):
                 localize(self.arm.untildate)),
             mail.outbox[0].body.strip()
         )
+
+
+class ARMessageViewSetTestCase(ModoAPITestCase):
+    """API test case."""
+
+    @classmethod
+    def setUpTestData(cls):
+        super(ARMessageViewSetTestCase, cls).setUpTestData()
+        admin_factories.populate_database()
+        cls.account = User.objects.get(username="user@test.com")
+        cls.arm = factories.ARmessageFactory(mbox=cls.account.mailbox)
+
+    def test_retrieve_armessage(self):
+        url = reverse("api:armessage-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        url = reverse("api:armessage-detail", args=[response.data[0]["id"]])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_armessage(self):
+        url = reverse("api:armessage-list")
+        account = User.objects.get(username="user@test2.com")
+        data = {
+            "mbox": account.mailbox.pk,
+            "subject": "Je suis absent",
+            "content": "Je reviens bientôt",
+            "enabled": True
+        }
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 201)
+
+    def test_update_armessage(self):
+        url = reverse("api:armessage-detail", args=[self.arm.pk])
+        data = {"enabled": False}
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, 200)
+        self.arm.refresh_from_db()
+        self.assertFalse(self.arm.enabled)
+
+        data = {
+            "mbox": self.account.mailbox.pk,
+            "subject": "Je suis absent",
+            "content": "Je reviens bientôt",
+            "enabled": True,
+            "untildate": (timezone.now() + relativedelta(days=1)).isoformat()
+        }
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, 200)
+        self.arm.refresh_from_db()
+        self.assertIsNot(self.arm.untildate, None)
+
+    def test_date_constraints(self):
+        url = reverse("api:armessage-detail", args=[self.arm.pk])
+        data = {
+            "mbox": self.account.mailbox.pk,
+            "subject": "Je suis absent",
+            "content": "Je reviens bientôt",
+            "enabled": True,
+            "untildate": timezone.now().isoformat()
+        }
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.data["untildate"][0], "This date is over")
+
+        data.update({
+            "fromdate": (timezone.now() + relativedelta(days=2)).isoformat(),
+            "untildate": (timezone.now() + relativedelta(days=1)).isoformat()
+        })
+        response = self.client.patch(url, data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(
+            response.data["untildate"][0], "Must be greater than start date")
