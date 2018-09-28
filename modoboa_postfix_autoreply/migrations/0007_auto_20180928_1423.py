@@ -23,7 +23,7 @@ def backward(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('transport', '0001_initial'),
+        ('transport', '0002_auto_20180928_1520'),
         ('modoboa_postfix_autoreply', '0006_auto_20160329_1501'),
     ]
 
