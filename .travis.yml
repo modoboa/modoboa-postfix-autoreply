@@ -34,7 +34,7 @@ install:
 
 script:
   - cd test_project
-  - coverage run --source ../modoboa_postfix_autoreply manage.py test modoboa_postfix_autoreply.tests
+  - coverage run --source ../modoboa_postfix_autoreply manage.py test --nomigrations modoboa_postfix_autoreply.tests
 
 after_success:
   - codecov

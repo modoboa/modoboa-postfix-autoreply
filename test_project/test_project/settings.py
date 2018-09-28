@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     "ckeditor_uploader",
     "rest_framework",
     "rest_framework.authtoken",
+    "test_without_migrations",
 )
 
 # A dedicated place to register Modoboa applications
