@@ -444,16 +444,43 @@ class ARMessageViewSetTestCase(ModoAPITestCase):
         super(ARMessageViewSetTestCase, cls).setUpTestData()
         admin_factories.populate_database()
         cls.account = User.objects.get(username="user@test.com")
+        cls.account2 = User.objects.get(username="user@test2.com")
         cls.arm = factories.ARmessageFactory(mbox=cls.account.mailbox)
+        cls.arm2 = factories.ARmessageFactory(mbox=cls.account2.mailbox)
 
     def test_retrieve_armessage(self):
         url = reverse("api:armessage-list")
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data), 2)
         url = reverse("api:armessage-detail", args=[response.data[0]["id"]])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+
+    def test_retrieve_armessage_domadmin(self):
+        admin = User.objects.get(username="admin@test.com")
+        self.client.logout()
+        self.client.force_login(admin)
+        url = reverse("api:armessage-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+
+        url = reverse("api:armessage-detail", args=[self.arm2.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_retrieve_armessage_simpleuser(self):
+        self.client.logout()
+        self.client.force_login(self.account)
+        url = reverse("api:armessage-list")
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+
+        url = reverse("api:armessage-detail", args=[self.arm2.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
 
     def test_create_armessage(self):
         url = reverse("api:armessage-list")

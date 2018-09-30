@@ -24,9 +24,9 @@ class ARMessageViewSet(
         qset = models.ARmessage.objects.all()
         role = self.request.user.role
         if role == "SimpleUsers":
-            qset = qset.filter(mailbox=self.request.user.mailbox)
+            qset = qset.filter(mbox=self.request.user.mailbox)
         elif role in ["DomainAdmins", "Resellers"]:
             mailboxes = admin_models.Mailbox.objects.get_for_admin(
                 self.request.user)
-            qset = qset.filter(mailbox__in=mailboxes)
+            qset = qset.filter(mbox__in=mailboxes)
         return qset
