@@ -3,37 +3,36 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# sin88 <sin@sin.waw.pl>, 2016
-# Wojtek Gajda <vac@milowice.net>, 2018
+# Andrei-Ilie Olteanu <andrei@flashsoft.ro>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-08 15:54+0100\n"
-"PO-Revision-Date: 2018-08-27 19:58+0000\n"
-"Last-Translator: Wojtek Gajda <vac@milowice.net>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/tonio/modoboa/language/pl_PL/)\n"
+"PO-Revision-Date: 2018-06-13 08:40+0000\n"
+"Last-Translator: Andrei-Ilie Olteanu <andrei@flashsoft.ro>\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/tonio/modoboa/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl_PL\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #: forms.py:22
 msgid "From"
-msgstr "Od"
+msgstr "De la"
 
 #: forms.py:25
 msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Włącz auto-odpowiedzi od tej daty. Format : RRRR-MM-DD GG:mm:ss"
+msgstr "Activați răspunsul dvs. automat pornind de la această dată. Format: AAAA-MM-DD HH: mm: ss"
 
 #: forms.py:33
 msgid "Until"
-msgstr "Do"
+msgstr "Până la"
 
 #: forms.py:36
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Włącz auto-odpowiedzi do tej daty Format : RRRR-MM-DD GG:mm:ss"
+msgstr "Activați răspunsul dvs. automat până la această dată. Format: AAAA-MM-DD HH: mm: ss"
 
 #: forms.py:53
 #, python-format
@@ -41,44 +40,44 @@ msgid ""
 "The content of your answer. You can use the following variables, which will "
 "be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
 "%(untildate)s"
-msgstr "Zawartość Twojej odpowiedzi. Możesz używać następujących zmiennych, które zostaną automatycznie zastąpione odpowiednią wartością: %(name)s, %(fromdate)s, %(untildate)s"
+msgstr "Conținutul răspunsului dvs. Puteți utiliza următoarele variabile, care vor fi înlocuite automat cu valoarea corespunzătoare: %(name)s, %(fromdate)s, %(untildate)s"
 
 #: forms.py:100
 msgid "This date is over"
-msgstr "Data z przeszłości"
+msgstr "Această dată s-a încheiat"
 
 #: forms.py:103
 msgid "Must be greater than start date"
-msgstr "Musi być większa niż data początkowa"
+msgstr "Trebuie să fie mai mare decât data de începere"
 
 #: forms.py:120
 msgid "General"
-msgstr "Ogólne"
+msgstr "General"
 
 #: forms.py:123
 msgid "Automatic reply timeout"
-msgstr "Automatyczny limit czasu odpowiedzi"
+msgstr "Timpul de timeout pentru mesajele automate"
 
 #: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
-msgstr "Limit w sek. pomiędzie dwiema auto-odpowiedziami dla tego samego odbiorcy"
+msgstr "Întârziere în secunde între două răspunsuri automate la același destinatar"
 
 #: forms.py:132
 msgid "Default subject"
-msgstr "Domyślny temat"
+msgstr "Subiect implicit"
 
 #: forms.py:133
 msgid "I'm off"
-msgstr "Jestem niedostępny"
+msgstr "Sunt indisponibil"
 
 #: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
-msgstr "Domyślny temat używany dla automatycznych autoodpowiedzi"
+msgstr "Subiectul implicit utilizat atunci când un mesaj de răspuns auto este creat automat"
 
 #: forms.py:142
 msgid "Default content"
-msgstr "Domyślna zawartość"
+msgstr "Conținut implicit"
 
 #: forms.py:144
 #, python-format
@@ -87,67 +86,67 @@ msgid ""
 "\n"
 "Best regards,\n"
 "%(name)s\n"
-msgstr "Aktualnie jestem niedostępny. Odpowiem po powrocie.\n\nPozdrawiam,\n%(name)s\n"
+msgstr "Momentan sunt indisponibil. Voi răspunde imediat în momentul în care voi fi disponibil.\n\nCu respect,\n%(name)s\n"
 
 #: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
-msgstr "Domyślna zawartość dla automatycznych auto-odpowiedzi. Macro '%(name)s' zostanie zastąpione przez pełną nazwę użytkownika."
+msgstr "Conținutul implicit utilizat la crearea automata a unui mesaj de auto răspuns. Termenul '%(name)s' va fi înlocuit cu numele complet al utilizatorului."
 
 #: forms.py:167
 msgid "Invalid syntax"
-msgstr "Nieprawidłowa składnia"
+msgstr "Sintaxă invalidă"
 
 #: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
-msgstr "Wadomość auto-odpowiedź"
+msgstr "Mesajul de auto răspuns"
 
 #: handlers.py:143
 msgid "Auto reply"
-msgstr "Automatyczna odpowidź"
+msgstr "Raspuns automat"
 
 #: models.py:29
 msgid "subject"
-msgstr "temat"
+msgstr "subiect"
 
 #: models.py:30
 msgid "The subject that will appear in sent emails"
-msgstr "Temat, który się pojawi w wysłanych wiadomościach"
+msgstr "Subiectul care va apărea în e-mailurile trimise"
 
 #: models.py:33
 msgid "content"
-msgstr "zawartość"
+msgstr "conținut"
 
 #: models.py:34
 msgid "The content that will appear in sent emails"
-msgstr "Zawartość, która pojawi się w wysłanych wiadomościach"
+msgstr "Conținutul care va apărea în e-mailurile trimise"
 
 #: models.py:37
 msgid "enabled"
-msgstr "włączone"
+msgstr "activat"
 
 #: models.py:38
 msgid "Activate/Deactivate your auto reply"
-msgstr "Włącz/Wyłącz auto-odpowiedzi"
+msgstr "Activați / dezactivați răspunsul dvs. automat"
 
 #: modo_extension.py:28
 msgid "Auto-reply (vacation) functionality using Postfix"
-msgstr "Funkcja auto-odpowiedzi (wakacje) używana przez Postfix'a"
+msgstr "Funcția de răspuns automat (vacanță) folosind Postfix"
 
 #: modo_extension.py:32
 msgid "Automatic replies"
-msgstr "Autoamtyczne odpowiedzi"
+msgstr "Răspunsuri automate"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Define a message to automatically send when you are off"
-msgstr "Zdefiniuj wiadmość wysyłaną kiedy jesteś niedostępny"
+msgstr "Definiți un mesaj de trimitere automată când sunteți plecat/indisponibil"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:10
 msgid "Update"
-msgstr "Zaktualizuj"
+msgstr "Actualizare"
 
 #: views.py:35
 msgid "Auto reply message updated successfully."
-msgstr "Auto reply message updated successfully."
+msgstr "Mesajul de răspuns automat a fost actualizat cu succes."

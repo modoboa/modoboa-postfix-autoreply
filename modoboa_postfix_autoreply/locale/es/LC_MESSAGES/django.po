@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Evilham <github@evilham.com>, 2017
+# Jon Quiros <jaq@etcetera.com.sv>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-08 15:54+0100\n"
-"PO-Revision-Date: 2017-12-08 14:54+0000\n"
-"Last-Translator: Antoine Nguyen <tonio@ngyn.org>\n"
+"PO-Revision-Date: 2018-01-14 17:51+0000\n"
+"Last-Translator: Jon Quiros <jaq@etcetera.com.sv>\n"
 "Language-Team: Spanish (http://www.transifex.com/tonio/modoboa/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +41,7 @@ msgid ""
 "The content of your answer. You can use the following variables, which will "
 "be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
 "%(untildate)s"
-msgstr ""
+msgstr "El contenido de su respuesta.  Puede utilizar las siguientes variable, que serán reemplazados automáticamente por su valor apropiado:  %(name)s,%(fromdate)s,%(untildate)s"
 
 #: forms.py:100
 msgid "This date is over"

@@ -3,37 +3,37 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# sin88 <sin@sin.waw.pl>, 2016
-# Wojtek Gajda <vac@milowice.net>, 2018
+# akong <akong@aspa.idv.tw>, 2018
+# Radium <ztl8702@126.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Modoboa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-08 15:54+0100\n"
-"PO-Revision-Date: 2018-08-27 19:58+0000\n"
-"Last-Translator: Wojtek Gajda <vac@milowice.net>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/tonio/modoboa/language/pl_PL/)\n"
+"PO-Revision-Date: 2018-06-28 09:40+0000\n"
+"Last-Translator: akong <akong@aspa.idv.tw>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/tonio/modoboa/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl_PL\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: forms.py:22
 msgid "From"
-msgstr "Od"
+msgstr "寄件者"
 
 #: forms.py:25
 msgid "Activate your auto reply from this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Włącz auto-odpowiedzi od tej daty. Format : RRRR-MM-DD GG:mm:ss"
+msgstr "從這個日期開始啟用自動答覆. 格式： YYYY-MM-DD HH:mm:ss"
 
 #: forms.py:33
 msgid "Until"
-msgstr "Do"
+msgstr "直到"
 
 #: forms.py:36
 msgid "Activate your auto reply until this date. Format : YYYY-MM-DD HH:mm:ss"
-msgstr "Włącz auto-odpowiedzi do tej daty Format : RRRR-MM-DD GG:mm:ss"
+msgstr "啟用自動答覆直到這個日期。 格式： YYYY-MM-DD HH:mm:ss"
 
 #: forms.py:53
 #, python-format
@@ -41,44 +41,44 @@ msgid ""
 "The content of your answer. You can use the following variables, which will "
 "be automatically replaced by the appropriate value: %(name)s, %(fromdate)s, "
 "%(untildate)s"
-msgstr "Zawartość Twojej odpowiedzi. Możesz używać następujących zmiennych, które zostaną automatycznie zastąpione odpowiednią wartością: %(name)s, %(fromdate)s, %(untildate)s"
+msgstr "此內容的答案。您可以使用以下的變數，這將會自動替換適當的值: %(name)s, %(fromdate)s, %(untildate)s"
 
 #: forms.py:100
 msgid "This date is over"
-msgstr "Data z przeszłości"
+msgstr "這個日期已經過了"
 
 #: forms.py:103
 msgid "Must be greater than start date"
-msgstr "Musi być większa niż data początkowa"
+msgstr "必須比開始日期遲"
 
 #: forms.py:120
 msgid "General"
-msgstr "Ogólne"
+msgstr "一般"
 
 #: forms.py:123
 msgid "Automatic reply timeout"
-msgstr "Automatyczny limit czasu odpowiedzi"
+msgstr "自動答覆逾時"
 
 #: forms.py:126
 msgid "Timeout in seconds between two auto-replies to the same recipient"
-msgstr "Limit w sek. pomiędzie dwiema auto-odpowiedziami dla tego samego odbiorcy"
+msgstr "向同一個收件人發送兩次自動答覆的時間間隔，以秒計算"
 
 #: forms.py:132
 msgid "Default subject"
-msgstr "Domyślny temat"
+msgstr "預設主體"
 
 #: forms.py:133
 msgid "I'm off"
-msgstr "Jestem niedostępny"
+msgstr "我不在位置上"
 
 #: forms.py:135
 msgid ""
 "Default subject used when an auto-reply message is created automatically"
-msgstr "Domyślny temat używany dla automatycznych autoodpowiedzi"
+msgstr "當自動回覆訊息自動建立後會使用預設主旨"
 
 #: forms.py:142
 msgid "Default content"
-msgstr "Domyślna zawartość"
+msgstr "預設內容"
 
 #: forms.py:144
 #, python-format
@@ -87,67 +87,67 @@ msgid ""
 "\n"
 "Best regards,\n"
 "%(name)s\n"
-msgstr "Aktualnie jestem niedostępny. Odpowiem po powrocie.\n\nPozdrawiam,\n%(name)s\n"
+msgstr "我目前不在位置上。我會盡快回覆您。\n\nBest regards,\n%(name)s\n"
 
 #: forms.py:150
 #, python-format
 msgid ""
 "Default content used when an auto-reply message is created automatically. "
 "The '%(name)s' macro will be replaced by the user's full name."
-msgstr "Domyślna zawartość dla automatycznych auto-odpowiedzi. Macro '%(name)s' zostanie zastąpione przez pełną nazwę użytkownika."
+msgstr "當自動回覆訊息自動建立後會使用預設內容。此 '%(name)s' 巨集會取代使用者名稱。"
 
 #: forms.py:167
 msgid "Invalid syntax"
-msgstr "Nieprawidłowa składnia"
+msgstr "無效語法"
 
 #: handlers.py:131 templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Auto-reply message"
-msgstr "Wadomość auto-odpowiedź"
+msgstr "自動答覆訊息"
 
 #: handlers.py:143
 msgid "Auto reply"
-msgstr "Automatyczna odpowidź"
+msgstr "自動答覆"
 
 #: models.py:29
 msgid "subject"
-msgstr "temat"
+msgstr "主題"
 
 #: models.py:30
 msgid "The subject that will appear in sent emails"
-msgstr "Temat, który się pojawi w wysłanych wiadomościach"
+msgstr "主旨將會出現在寄送郵件中。"
 
 #: models.py:33
 msgid "content"
-msgstr "zawartość"
+msgstr "內容"
 
 #: models.py:34
 msgid "The content that will appear in sent emails"
-msgstr "Zawartość, która pojawi się w wysłanych wiadomościach"
+msgstr "內容將會出現在寄送郵件中。"
 
 #: models.py:37
 msgid "enabled"
-msgstr "włączone"
+msgstr "已啟用"
 
 #: models.py:38
 msgid "Activate/Deactivate your auto reply"
-msgstr "Włącz/Wyłącz auto-odpowiedzi"
+msgstr "啟用/停用您的自動回覆"
 
 #: modo_extension.py:28
 msgid "Auto-reply (vacation) functionality using Postfix"
-msgstr "Funkcja auto-odpowiedzi (wakacje) używana przez Postfix'a"
+msgstr "自動回覆 (假期) 功能是使用 Postfix"
 
 #: modo_extension.py:32
 msgid "Automatic replies"
-msgstr "Autoamtyczne odpowiedzi"
+msgstr "自動答覆"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:3
 msgid "Define a message to automatically send when you are off"
-msgstr "Zdefiniuj wiadmość wysyłaną kiedy jesteś niedostępny"
+msgstr "當您不在位置上時定義一個自動寄送的郵件"
 
 #: templates/modoboa_postfix_autoreply/autoreply.html:10
 msgid "Update"
-msgstr "Zaktualizuj"
+msgstr "更新"
 
 #: views.py:35
 msgid "Auto reply message updated successfully."
-msgstr "Auto reply message updated successfully."
+msgstr "自動答覆訊息已成功更新"
