@@ -9,15 +9,7 @@ the ``vmail`` user to the ``www-data`` group and set the read permission
 for the group.
 
 To make Postfix use this feature, you need to update your
-configuration files as follows:
-
-``/etc/postfix/main.cf``::
-
-  transport_maps = <driver>:/etc/postfix/sql-autoreplies-transport.cf
-
-.. note::
-
-   The order used to define alias maps is important, please respect it
+configuration file as follows:
 
 ``/etc/postfix/master.cf``::
 
@@ -26,12 +18,6 @@ configuration files as follows:
 
 Replace ``<driver>`` by the name of the database you
 use. ``<modoboa_site>`` is the path of your Modoboa instance.
-
-Then, create the requested map files::
-
-  $ python manage.py generate_postfix_maps --destdir <path>
-
-``path`` is the directory where the files will be stored.
 
 .. note::
 
