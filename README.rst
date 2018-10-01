@@ -41,7 +41,7 @@ apache, whatever).
 Setup
 -----
 
-`Online documentation <https://modoboa-postfix-autoreply.readthedocs.io/en/latest/>_`.
+`Online documentation <https://modoboa-postfix-autoreply.readthedocs.io/en/latest/>`_.
 
 .. |landscape| image:: https://landscape.io/github/modoboa/modoboa-postfix-autoreply/master/landscape.svg?style=flat
    :target: https://landscape.io/github/modoboa/modoboa-postfix-autoreply/master
