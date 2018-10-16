@@ -453,6 +453,16 @@ class ARMessageViewSetTestCase(ModoAPITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)
+        # Test filters
+        response = self.client.get(
+            url + "?mbox={}".format(self.account.mailbox.pk))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        response = self.client.get(
+            url + "?mbox__user={}".format(self.account.pk))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 1)
+        # Test retrieve
         url = reverse("api:armessage-detail", args=[response.data[0]["id"]])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
