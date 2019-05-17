@@ -455,9 +455,13 @@ class ARMessageViewSetTestCase(ModoAPITestCase):
         self.assertEqual(len(response.data), 2)
         # Test filters
         response = self.client.get(
-            url + "?mbox={}".format(self.account.mailbox.pk))
+            url + "?mbox={}".format(self.account.mailbox.full_address))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
+        response = self.client.get(
+            url + "?mbox={}".format(self.account.mailbox.address))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.data), 2)
         response = self.client.get(
             url + "?mbox__user={}".format(self.account.pk))
         self.assertEqual(response.status_code, 200)

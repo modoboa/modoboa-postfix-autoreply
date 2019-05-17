@@ -4,6 +4,7 @@ from django_filters import rest_framework as filters
 from rest_framework import mixins, permissions, viewsets
 
 from modoboa.admin import models as admin_models
+from modoboa.lib.email_utils import split_mailbox
 
 from . import models
 from . import serializers
@@ -12,9 +13,19 @@ from . import serializers
 class ARMessageFilterSet(filters.FilterSet):
     """Filter set for ARmessage."""
 
+    mbox = filters.CharFilter(method="filter_mbox")
+
     class Meta:
         fields = ("mbox", "mbox__user")
         model = models.ARmessage
+
+    def filter_mbox(self, queryset, name, value):
+        address, domain = split_mailbox(value)
+        if address:
+            queryset = queryset.filter(mbox__address__icontains=address)
+        if domain:
+            queryset = queryset.filter(mbox__domain__name__icontains=domain)
+        return queryset
 
 
 class ARMessageViewSet(
@@ -28,7 +39,8 @@ class ARMessageViewSet(
     filter_backends = (filters.DjangoFilterBackend, )
     filter_class = ARMessageFilterSet
     permission_classes = (permissions.IsAuthenticated, )
-    queryset = models.ARmessage.objects.all()
+    queryset = models.ARmessage.objects.select_related(
+        "mbox__domain", "mbox__user")
     serializer_class = serializers.ARMessageSerializer
 
     def get_queryset(self):

@@ -72,6 +72,7 @@ MODOBOA_APPS = (
     "modoboa.relaydomains",
     "modoboa.limits",
     "modoboa.parameters",
+    "modoboa.dnstools",
     # Modoboa extensions here.
     "modoboa_postfix_autoreply",
 )
