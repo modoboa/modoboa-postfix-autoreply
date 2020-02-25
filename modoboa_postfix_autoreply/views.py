@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _

@@ -6,5 +6,5 @@ from . import viewsets
 
 router = routers.SimpleRouter()
 router.register(
-    r"armessages", viewsets.ARMessageViewSet, base_name="armessage")
+    r"armessages", viewsets.ARMessageViewSet, basename="armessage")
 urlpatterns = router.urls

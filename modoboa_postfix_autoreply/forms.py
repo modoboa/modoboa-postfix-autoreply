@@ -2,8 +2,6 @@
 
 """Custom forms."""
 
-from __future__ import unicode_literals
-
 from collections import OrderedDict
 
 from django import forms
@@ -62,7 +60,7 @@ class ARmessageForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.mailbox = args[0]
-        super(ARmessageForm, self).__init__(*args[1:], **kwargs)
+        super().__init__(*args[1:], **kwargs)
         self.fields = OrderedDict(
             (key, self.fields[key]) for key in
             ["subject", "content", "fromdate", "untildate", "enabled"]
@@ -89,7 +87,7 @@ class ARmessageForm(forms.ModelForm):
         both in the future ONLY IF the autoreply is beeing activated.
 
         """
-        cleaned_data = super(ARmessageForm, self).clean()
+        cleaned_data = super().clean()
         if not cleaned_data.get("fromdate"):
             cleaned_data["fromdate"] = timezone.now()
         if not cleaned_data["enabled"]:
@@ -105,7 +103,7 @@ class ARmessageForm(forms.ModelForm):
 
     def save(self, commit=True):
         """Custom save method."""
-        instance = super(ARmessageForm, self).save(commit=False)
+        instance = super().save(commit=False)
         instance.mbox = self.mailbox
         if commit:
             instance.save()

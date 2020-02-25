@@ -37,7 +37,7 @@ class ARMessageViewSet(
     """A viewset for ARmessage."""
 
     filter_backends = (filters.DjangoFilterBackend, )
-    filter_class = ARMessageFilterSet
+    filterset_class = ARMessageFilterSet
     permission_classes = (permissions.IsAuthenticated, )
     queryset = models.ARmessage.objects.select_related(
         "mbox__domain", "mbox__user")
