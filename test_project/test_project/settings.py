@@ -58,6 +58,10 @@ INSTALLED_APPS = (
     "rest_framework",
     "rest_framework.authtoken",
     "test_without_migrations",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
+    "django_otp.plugins.otp_static",
+
 )
 
 # A dedicated place to register Modoboa applications
@@ -73,6 +77,7 @@ MODOBOA_APPS = (
     "modoboa.limits",
     "modoboa.parameters",
     "modoboa.dnstools",
+    "modoboa.maillog",
     # Modoboa extensions here.
     "modoboa_postfix_autoreply",
 )
