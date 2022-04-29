@@ -1,7 +1,7 @@
 modoboa-postfix-autoreply
 =========================
 
-|travis| |codecov| |landscape|
+|gha| |codecov|
 
 Away message editor for Modoboa (postfix compatible).
 
@@ -34,7 +34,7 @@ Run the following commands to setup the database tables::
   $ python manage.py migrate modoboa_postfix_autoreply
   $ python manage.py collectstatic
   $ python manage.py load_initial_data
-    
+
 Finally, restart the python process running modoboa (uwsgi, gunicorn,
 apache, whatever).
 
@@ -43,10 +43,8 @@ Setup
 
 `Online documentation <https://modoboa-postfix-autoreply.readthedocs.io/en/latest/>`_.
 
-.. |landscape| image:: https://landscape.io/github/modoboa/modoboa-postfix-autoreply/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/modoboa/modoboa-postfix-autoreply/master
-   :alt: Code Health
-.. |travis| image:: https://travis-ci.org/modoboa/modoboa-postfix-autoreply.png?branch=master
-   :target: https://travis-ci.org/modoboa/modoboa-postfix-autoreply
+.. |gha| image:: https://github.com/modoboa/modoboa-postfix-autoreply/actions/workflows/plugin.yml/badge.svg
+   :target: https://github.com/modoboa/modoboa-postfix-autoreply/actions/workflows/plugin.yml
+
 .. |codecov| image:: http://codecov.io/github/modoboa/modoboa-postfix-autoreply/coverage.svg?branch=master
    :target: http://codecov.io/github/modoboa/modoboa-postfix-autoreply?branch=master

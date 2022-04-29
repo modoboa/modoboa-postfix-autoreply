@@ -4,13 +4,12 @@
 
 from django.db import models
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible, smart_text
+from django.utils.encoding import smart_text
 from django.utils.translation import ugettext_lazy as _
 
 from modoboa.admin.models import Mailbox
 
 
-@python_2_unicode_compatible
 class ARmessage(models.Model):
 
     """Auto reply messages."""
