@@ -43,6 +43,28 @@ Content-Type: text/html; charset=UTF-8
 --001a114420be4c231a054ac85e75--
 """
 
+SIMPLE_EMAIL_CONTENT_WITH_BAD_HEADER = """
+From: Homer Simpson <homer@simpson.test>
+Date: Wed, 15 Mar 2017 18:35:19 +0100
+Message-ID:
+ <CAN0378wA1V0VJg5OxyavB2uJgAimMc2ttGSc-yvWsXTaKqnKuw@simpson.test>
+Subject: Test
+To: user@test.com
+Content-Type: multipart/alternative; boundary=001a114420be4c231a054ac85e75
+
+--001a114420be4c231a054ac85e75
+Content-Type: text/plain; charset=UTF-8
+
+pouet
+
+--001a114420be4c231a054ac85e75
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">pouet<br></div>
+
+--001a114420be4c231a054ac85e75--
+"""
+
 ENCODED_EMAIL_SUBJECT = r"""
 From: Homer Simpson <homer@simpson.test>
 Date: Wed, 15 Mar 2017 18:35:19 +0100
@@ -434,6 +456,13 @@ class ManagementCommandTestCase(ModoTestCase):
                 localize(self.arm.untildate)),
             mail.outbox[0].body.strip()
         )
+
+    def test_message_with_bad_headers(self):
+        """Message received with bad header (including newline)"""
+        sys.stdin = StringIO(SIMPLE_EMAIL_CONTENT_WITH_BAD_HEADER.strip())
+        management.call_command(
+            "autoreply", "homer@simpson.test", "user@test.com")
+        self.assertEqual(len(mail.outbox), 1)
 
 
 class ARMessageViewSetTestCase(ModoAPITestCase):

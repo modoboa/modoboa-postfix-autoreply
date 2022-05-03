@@ -10,7 +10,7 @@ from modoboa.admin import factories as admin_factories
 from . import models
 
 
-class ARmessageFactory(factory.DjangoModelFactory):
+class ARmessageFactory(factory.django.DjangoModelFactory):
 
     """Factory to create ARmessage."""
 
