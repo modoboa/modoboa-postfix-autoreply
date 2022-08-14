@@ -82,7 +82,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
         "Auto-Submitted": "auto-replied",
         "Precedence": "bulk"
     }
-    message_id = original_msg.get("Message-ID").strip("\n")
+    message_id = original_msg.get("Message-ID","").strip("\n")
     if message_id:
         headers.update({"In-Reply-To": message_id, "References": message_id})
 
