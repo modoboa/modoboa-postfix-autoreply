@@ -1,5 +1,5 @@
 factory-boy<3.3
-testfixtures==7.0.0
+testfixtures==7.0.4
 psycopg2>=2.5.4
 mysqlclient<2.1.2
 django-test-without-migrations==0.6
