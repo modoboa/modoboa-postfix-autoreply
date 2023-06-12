@@ -78,6 +78,9 @@ MODOBOA_APPS = (
     "modoboa.parameters",
     "modoboa.dnstools",
     "modoboa.maillog",
+    "modoboa.pdfcredentials",
+    "modoboa.dmarc",
+    "modoboa.imap_migration",
     # Modoboa extensions here.
     "modoboa_postfix_autoreply",
 )

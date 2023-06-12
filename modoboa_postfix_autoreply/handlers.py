@@ -4,10 +4,10 @@
 
 from __future__ import unicode_literals
 
-from django.conf.urls import url
+from django.urls import re_path
 from django.db.models import signals
 from django.dispatch import receiver
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from modoboa.admin import models as admin_models, signals as admin_signals
 from modoboa.core import signals as core_signals
@@ -93,7 +93,7 @@ def extra_routes(sender, **kwargs):
     """Add extra routes."""
     from . import views
     return [
-        url(r'^user/autoreply/$', views.autoreply, name="autoreply")
+        re_path(r'^user/autoreply/$', views.autoreply, name="autoreply")
     ]
 
 

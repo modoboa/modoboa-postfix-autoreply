@@ -8,7 +8,7 @@ functionality into Postfix.
 
 """
 
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 
 from modoboa.admin import models as admin_models
 from modoboa.core.extensions import ModoExtension, exts_pool
@@ -24,12 +24,12 @@ class PostfixAutoreply(ModoExtension):
     name = "modoboa_postfix_autoreply"
     label = "Postfix autoreply"
     version = __version__
-    description = ugettext_lazy(
+    description = gettext_lazy(
         "Auto-reply (vacation) functionality using Postfix")
 
     def load(self):
         param_tools.registry.add(
-            "global", forms.ParametersForm, ugettext_lazy("Automatic replies"))
+            "global", forms.ParametersForm, gettext_lazy("Automatic replies"))
 
     def load_initial_data(self):
         """Create records for existing domains."""

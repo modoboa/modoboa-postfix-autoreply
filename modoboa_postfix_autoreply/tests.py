@@ -13,7 +13,7 @@ from six import StringIO
 from django.core import mail, management
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.formats import localize
+from django.utils.formats import date_format
 
 from modoboa.admin import factories as admin_factories, models as admin_models
 from modoboa.core.models import User
@@ -428,8 +428,7 @@ class ManagementCommandTestCase(ModoTestCase):
     def test_variable_substitution(self):
         """Check when message contains variables."""
         tz = timezone.get_current_timezone()
-        self.arm.fromdate = tz.localize(
-            datetime.datetime(2017, 12, 8, 14, 0, 0, 0))
+        self.arm.fromdate = datetime.datetime(2017, 12, 8, 14, 0, 0, 0).replace(tzinfo=tz)
         self.arm.content = "%(name)s %(fromdate)s %(untildate)s"
         self.arm.save()
         self.account.language = "fr"
@@ -443,8 +442,7 @@ class ManagementCommandTestCase(ModoTestCase):
     def test_untildate_substitution(self):
         """Check substitution of until date."""
         tz = timezone.get_current_timezone()
-        self.arm.fromdate = tz.localize(
-            datetime.datetime(2017, 12, 8, 14, 0, 0, 0))
+        self.arm.fromdate = datetime.datetime(2017, 12, 8, 14, 0, 0, 0).replace(tzinfo=tz)
         self.arm.untildate = timezone.now() + relativedelta(hours=1)
         self.arm.content = "%(name)s %(fromdate)s %(untildate)s"
         self.arm.save()
@@ -453,7 +451,7 @@ class ManagementCommandTestCase(ModoTestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(
             "user@test.com Dec. 8, 2017, 2 p.m. {}".format(
-                localize(self.arm.untildate)),
+             date_format(self.arm.untildate, "DATETIME_FORMAT")),
             mail.outbox[0].body.strip()
         )
 

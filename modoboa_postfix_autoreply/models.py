@@ -4,8 +4,8 @@
 
 from django.db import models
 from django.utils import timezone
-from django.utils.encoding import smart_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
+from django.utils.translation import gettext_lazy as _
 
 from modoboa.admin.models import Mailbox
 
@@ -35,7 +35,7 @@ class ARmessage(models.Model):
         db_table = "postfix_autoreply_armessage"
 
     def __str__(self):
-        return smart_text("AR<{}>: {}".format(self.mbox, self.enabled))
+        return smart_str("AR<{}>: {}".format(self.mbox, self.enabled))
 
 
 class ARhistoric(models.Model):
