@@ -2,7 +2,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from modoboa.admin.lib import needs_mailbox
 from modoboa.admin.models import Mailbox

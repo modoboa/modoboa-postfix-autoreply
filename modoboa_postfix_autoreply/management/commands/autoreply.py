@@ -15,7 +15,7 @@ import six
 from django.core.mail import EmailMessage
 from django.core.management.base import BaseCommand
 from django.utils import timezone, translation
-from django.utils.encoding import smart_text
+from django.utils.encoding import smart_str
 from django.utils.formats import localize
 
 from modoboa.admin.models import Mailbox
@@ -98,7 +98,7 @@ def send_autoreply(sender, mailbox, armessage, original_msg):
     content = armessage.content % context
     msg = EmailMessage(
         "Auto: {} Re: {}".format(armessage.subject, subject),
-        smart_text(content),
+        smart_str(content),
         mailbox.user.encoded_address,
         [sender],
         headers=headers
@@ -153,7 +153,7 @@ class Command(BaseCommand):
             options["sender"], ",".join(options["recipient"])
         )
 
-        sender = smart_text(options["sender"])
+        sender = smart_str(options["sender"])
 
         sender_localpart = split_mailbox(sender.lower())[0]
         if (
@@ -194,7 +194,7 @@ class Command(BaseCommand):
             return
 
         PostfixAutoreply().load()
-        recipients = [smart_text(rcpt) for rcpt in options["recipient"]]
+        recipients = [smart_str(rcpt) for rcpt in options["recipient"]]
         for fulladdress in recipients:
             address, domain = split_mailbox(fulladdress)
             try:
