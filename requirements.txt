@@ -1,2 +1,2 @@
 pytz
-django-filter==23.2
+django-filter==23.4
